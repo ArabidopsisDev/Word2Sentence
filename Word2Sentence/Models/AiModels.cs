@@ -8,6 +8,7 @@ public sealed class SentenceChallenge
     public string UsagePattern { get; set; } = string.Empty;
     public string UsageExplanation { get; set; } = string.Empty;
     public string UsageExample { get; set; } = string.Empty;
+    public List<UsagePatternItem> UsageItems { get; set; } = [];
 }
 
 public sealed class SentenceEvaluation

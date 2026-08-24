@@ -39,6 +39,7 @@ public sealed class DataStore
             data.Cards ??= [];
             data.Settings ??= new AppSettings();
             MigrateLegacyWordEntries(data.Words);
+            MigrateLegacyUsageCards(data.Cards);
             return data;
         }
         catch (JsonException)
@@ -77,6 +78,28 @@ public sealed class DataStore
             if (!WordCandidateService.IsValidTerm(canonical)) continue;
             word.Word = canonical;
             word.Meaning = match.Groups["definition"].Value.Trim();
+        }
+    }
+
+    private static void MigrateLegacyUsageCards(IEnumerable<UsageCard> cards)
+    {
+        foreach (var card in cards)
+        {
+            card.UsageItems ??= [];
+            if (card.UsageItems.Count > 0) continue;
+
+            var patterns = card.UsagePattern
+                .Replace("\r", "\n", StringComparison.Ordinal)
+                .Split(["/", "\n"], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            foreach (var pattern in patterns.Take(3))
+            {
+                card.UsageItems.Add(new UsagePatternItem
+                {
+                    Pattern = pattern,
+                    Meaning = card.Explanation,
+                    Example = card.Example
+                });
+            }
         }
     }
 }

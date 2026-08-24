@@ -34,10 +34,12 @@ public sealed class OpenRouterService(HttpClient httpClient)
         var system = $$"""
             You design short {{targetLanguage}} sentence-writing exercises for language learners.
             Return JSON only. The exercise must require the target word naturally, avoid giving a complete sample answer,
-            and use concise natural {{explanationLanguage}} for scenario, goal, hint, and usageExplanation. scenario and goal must not reveal the target
+            and use concise natural {{explanationLanguage}} for scenario, goal, hint, and usage meanings. scenario and goal must not reveal the target
             word's collocation or a sentence template. hint may give a general grammatical direction, but not a complete answer.
-            Also create a compact usage card. usagePattern is the most useful real-world collocation or grammar pattern
-            for this word. usageExample is one natural {{targetLanguage}} example sentence that demonstrates it.
+            Also create a compact usage card with 2 or 3 independent usageItems. Each item contains exactly one collocation
+            or grammar pattern, one direct meaning, and one short natural example. Never combine patterns with '/', 'or',
+            commas, or newlines inside a single pattern. Do not write a dictionary-style paragraph. Prefer practical patterns
+            such as "distract sb from sth" and "be distracted by sth" as separate items.
             """;
         var user = $"Target language: {targetLanguage}\nTarget word: {word.Word}\nLearner note/meaning: {word.Meaning}\nCreate one realistic everyday or work scenario.";
 
@@ -49,11 +51,26 @@ public sealed class OpenRouterService(HttpClient httpClient)
                 scenario = new { type = "string" },
                 goal = new { type = "string" },
                 hint = new { type = "string" },
-                usagePattern = new { type = "string", maxLength = 160 },
-                usageExplanation = new { type = "string", maxLength = 300 },
-                usageExample = new { type = "string", maxLength = 500 }
+                usageItems = new
+                {
+                    type = "array",
+                    minItems = 2,
+                    maxItems = 3,
+                    items = new
+                    {
+                        type = "object",
+                        properties = new
+                        {
+                            pattern = new { type = "string", maxLength = 120 },
+                            meaning = new { type = "string", maxLength = 160 },
+                            example = new { type = "string", maxLength = 280 }
+                        },
+                        required = new[] { "pattern", "meaning", "example" },
+                        additionalProperties = false
+                    }
+                }
             },
-            required = new[] { "scenario", "goal", "hint", "usagePattern", "usageExplanation", "usageExample" },
+            required = new[] { "scenario", "goal", "hint", "usageItems" },
             additionalProperties = false
         };
 
@@ -67,9 +84,10 @@ public sealed class OpenRouterService(HttpClient httpClient)
         if (string.IsNullOrWhiteSpace(challenge.Hint)) challenge.Hint = LocalizationService.Instance.IsEnglish
             ? "Check the target term's form and collocation."
             : "注意目标词的词性和固定搭配。";
-        if (string.IsNullOrWhiteSpace(challenge.UsagePattern)) challenge.UsagePattern = word.Word;
-        if (string.IsNullOrWhiteSpace(challenge.UsageExplanation)) challenge.UsageExplanation = word.Meaning;
-        if (string.IsNullOrWhiteSpace(challenge.UsageExample)) challenge.UsageExample = $"Try using “{word.Word}” in a complete sentence.";
+        challenge.UsageItems = NormalizeUsageItems(challenge, word);
+        challenge.UsagePattern = challenge.UsageItems[0].Pattern;
+        challenge.UsageExplanation = challenge.UsageItems[0].Meaning;
+        challenge.UsageExample = challenge.UsageItems[0].Example;
         return challenge;
     }
 
@@ -245,6 +263,55 @@ public sealed class OpenRouterService(HttpClient httpClient)
         },
         additionalProperties = false
     };
+
+    private static List<UsagePatternItem> NormalizeUsageItems(SentenceChallenge challenge, WordEntry word)
+    {
+        var source = challenge.UsageItems ?? [];
+        if (source.Count == 0 && !string.IsNullOrWhiteSpace(challenge.UsagePattern))
+        {
+            source =
+            [
+                new UsagePatternItem
+                {
+                    Pattern = challenge.UsagePattern,
+                    Meaning = challenge.UsageExplanation,
+                    Example = challenge.UsageExample
+                }
+            ];
+        }
+
+        var normalized = new List<UsagePatternItem>();
+        foreach (var item in source)
+        {
+            var patterns = (item.Pattern ?? string.Empty)
+                .Replace("\r", "\n", StringComparison.Ordinal)
+                .Split(["/", "\n"], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            foreach (var pattern in patterns)
+            {
+                if (pattern.Length == 0 || normalized.Any(existing =>
+                        existing.Pattern.Equals(pattern, StringComparison.OrdinalIgnoreCase))) continue;
+                normalized.Add(new UsagePatternItem
+                {
+                    Pattern = pattern,
+                    Meaning = item.Meaning?.Trim() ?? string.Empty,
+                    Example = item.Example?.Trim() ?? string.Empty
+                });
+                if (normalized.Count == 3) break;
+            }
+            if (normalized.Count == 3) break;
+        }
+
+        if (normalized.Count == 0)
+        {
+            normalized.Add(new UsagePatternItem
+            {
+                Pattern = word.Word,
+                Meaning = word.Meaning,
+                Example = $"Try using “{word.Word}” in a complete sentence."
+            });
+        }
+        return normalized;
+    }
 
     private async Task<T> SendStructuredAsync<T>(
         string model,
@@ -505,7 +572,18 @@ public sealed class OpenRouterService(HttpClient httpClient)
         UsageExplanation = string.IsNullOrWhiteSpace(word.Meaning)
             ? (LocalizationService.Instance.IsEnglish ? "Collocations require an AI connection." : "离线模式下暂不生成固定搭配。")
             : word.Meaning,
-        UsageExample = $"Write a complete sentence using “{word.Word}”."
+        UsageExample = $"Write a complete sentence using “{word.Word}”.",
+        UsageItems =
+        [
+            new UsagePatternItem
+            {
+                Pattern = word.Word,
+                Meaning = string.IsNullOrWhiteSpace(word.Meaning)
+                    ? (LocalizationService.Instance.IsEnglish ? "Collocations require an AI connection." : "离线模式下暂不生成固定搭配。")
+                    : word.Meaning,
+                Example = $"Write a complete sentence using “{word.Word}”."
+            }
+        ]
     };
 
     private static SentenceEvaluation CreateOfflineEvaluation(WordEntry word, string sentence)

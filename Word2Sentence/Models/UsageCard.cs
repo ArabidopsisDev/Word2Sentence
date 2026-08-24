@@ -8,5 +8,13 @@ public sealed class UsageCard
     public string UsagePattern { get; set; } = string.Empty;
     public string Explanation { get; set; } = string.Empty;
     public string Example { get; set; } = string.Empty;
+    public List<UsagePatternItem> UsageItems { get; set; } = [];
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
+}
+
+public sealed class UsagePatternItem
+{
+    public string Pattern { get; set; } = string.Empty;
+    public string Meaning { get; set; } = string.Empty;
+    public string Example { get; set; } = string.Empty;
 }

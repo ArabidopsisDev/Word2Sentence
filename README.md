@@ -46,7 +46,7 @@ Start immediately with the scheduler's most urgent recommendation, or choose fre
 - **Cohesive desktop chrome** — custom, resizable WPF title bars replace visually disconnected system frames.
 - **Inline feedback** — excellent spans are green, acceptable spans are blue, and grammar or usage errors are red.
 - **Two useful rewrites** — one sentence fixes only errors; another demonstrates a more natural expression.
-- **Usage cards** — the AI extracts a practical pattern, explanation, and example after submission.
+- **Usage cards built for collocations** — the AI returns 2–3 separate pattern/meaning rows after submission; combined slash-delimited patterns are rejected and split.
 - **Human approval for new error words** — suggested words are normalized, deduplicated, and shown in a selection dialog before being saved.
 - **Structured word notes** — AI error candidates return a separate part of speech and a definition with repeated `word:` prefixes removed.
 - **No self-rating buttons** — memory grades are generated from evidence, not learner confidence.

@@ -150,9 +150,7 @@ public partial class MainWindow : Window
         _hintUsed = false;
         _pasteUsed = false;
         PracticeUsageCard.Visibility = Visibility.Collapsed;
-        PracticeUsagePatternText.Text = string.Empty;
-        PracticeUsageExplanationText.Text = string.Empty;
-        PracticeUsageExampleText.Text = string.Empty;
+        PracticeUsageItems.ItemsSource = null;
         _suppressInputMetrics = true;
         SentenceInput.Text = string.Empty;
         _suppressInputMetrics = false;
@@ -235,9 +233,20 @@ public partial class MainWindow : Window
 
     private void UpsertUsageCard(WordEntry word, SentenceChallenge challenge)
     {
-        var patternKey = WordCandidateService.NormalizeKey(challenge.UsagePattern);
-        var existing = _data.Cards.FirstOrDefault(card =>
-            card.WordId == word.Id && WordCandidateService.NormalizeKey(card.UsagePattern) == patternKey);
+        var usageItems = challenge.UsageItems
+            .Where(item => !string.IsNullOrWhiteSpace(item.Pattern))
+            .Take(3)
+            .Select(item => new UsagePatternItem
+            {
+                Pattern = item.Pattern.Trim(),
+                Meaning = item.Meaning.Trim(),
+                Example = item.Example.Trim()
+            })
+            .ToList();
+        if (usageItems.Count == 0) return;
+
+        var primary = usageItems[0];
+        var existing = _data.Cards.FirstOrDefault(card => card.WordId == word.Id);
 
         if (existing is null)
         {
@@ -245,18 +254,20 @@ public partial class MainWindow : Window
             {
                 WordId = word.Id,
                 Word = word.Word,
-                UsagePattern = challenge.UsagePattern.Trim(),
-                Explanation = challenge.UsageExplanation.Trim(),
-                Example = challenge.UsageExample.Trim(),
+                UsagePattern = primary.Pattern,
+                Explanation = primary.Meaning,
+                Example = primary.Example,
+                UsageItems = usageItems,
                 CreatedAt = DateTimeOffset.Now
             });
         }
         else
         {
             existing.Word = word.Word;
-            existing.UsagePattern = challenge.UsagePattern.Trim();
-            existing.Explanation = challenge.UsageExplanation.Trim();
-            existing.Example = challenge.UsageExample.Trim();
+            existing.UsagePattern = primary.Pattern;
+            existing.Explanation = primary.Meaning;
+            existing.Example = primary.Example;
+            existing.UsageItems = usageItems;
             existing.CreatedAt = DateTimeOffset.Now;
         }
 
@@ -353,9 +364,7 @@ public partial class MainWindow : Window
             }
 
             RenderEvaluation(evaluation, decision);
-            PracticeUsagePatternText.Text = _challenge.UsagePattern;
-            PracticeUsageExplanationText.Text = _challenge.UsageExplanation;
-            PracticeUsageExampleText.Text = _challenge.UsageExample;
+            PracticeUsageItems.ItemsSource = _challenge.UsageItems;
             PracticeUsageCard.Visibility = Visibility.Visible;
             UpsertUsageCard(_currentWord, _challenge);
 
@@ -387,7 +396,7 @@ public partial class MainWindow : Window
                 EditCount = _sentenceEditCount,
                 EvidenceConfidence = decision.Confidence,
                 TargetUsageCorrect = decision.TargetUsageCorrect,
-                UsagePattern = _challenge.UsagePattern,
+                UsagePattern = string.Join(" | ", _challenge.UsageItems.Select(item => item.Pattern)),
                 SchedulerVersion = schedule is null ? "automatic-evidence-retest" : ReviewScheduler.Version,
                 PreviousDueAt = previousDue,
                 ScheduledDueAt = _currentWord.NextReviewAt,
