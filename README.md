@@ -11,6 +11,7 @@
     <img alt="Windows" src="https://img.shields.io/badge/platform-Windows-0078D4?logo=windows11" />
     <img alt="FSRS 6" src="https://img.shields.io/badge/scheduler-FSRS--6-2F6048" />
     <img alt="OpenRouter" src="https://img.shields.io/badge/AI-OpenRouter-6B7280" />
+    <a href="LICENSE"><img alt="License: AGPL v3" src="https://img.shields.io/badge/license-AGPL--3.0--only-B87831" /></a>
   </p>
 </div>
 
@@ -193,6 +194,12 @@ Issues and pull requests are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING
 - [Open Spaced Repetition](https://github.com/open-spaced-repetition) for FSRS research and reference implementations.
 - [OpenRouter](https://openrouter.ai/docs/quickstart) for the model-routing API.
 - [Microsoft Fluent 2](https://fluent2.microsoft.design/) for layout, typography, and interaction guidance.
+
+## License
+
+Copyright © 2026 Word2Sentence contributors.
+
+Word2Sentence is licensed under the **GNU Affero General Public License v3.0 only** (`AGPL-3.0-only`). See [LICENSE](LICENSE) for the complete terms. The software is provided without warranty as described by the license.
 
 ## Project status
 

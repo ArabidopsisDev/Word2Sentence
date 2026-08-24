@@ -125,3 +125,9 @@ AUTOMATIC_MEMORY_GRADE_OK
 - [Microsoft Fluent 2](https://fluent2.microsoft.design/)
 
 当前项目处于积极开发阶段，首次正式打包发布前数据结构和设置项仍可能变化。
+
+## 许可证
+
+Copyright © 2026 Word2Sentence contributors.
+
+Word2Sentence 采用 **GNU Affero General Public License v3.0 only**（`AGPL-3.0-only`）授权。完整条款请参阅 [LICENSE](LICENSE)；软件按许可证所述不提供担保。

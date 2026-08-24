@@ -4,6 +4,8 @@
     <TargetFramework>net10.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
+    <Copyright>Copyright © 2026 Word2Sentence contributors</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Word2Sentence\Word2Sentence.csproj" />

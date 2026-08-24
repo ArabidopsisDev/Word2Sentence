@@ -2,6 +2,8 @@
 
 Thanks for helping improve Word2Sentence. Contributions can include bug reports, UX proposals, localization, documentation, tests, and code.
 
+By submitting a contribution, you agree that it may be distributed under the repository's [GNU AGPL v3.0-only license](LICENSE), and you confirm that you have the right to submit it under those terms.
+
 ## Before you start
 
 1. Search existing issues before opening a new one.
