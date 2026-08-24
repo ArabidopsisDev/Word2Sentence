@@ -25,6 +25,10 @@ Word2Sentence 是一款本地优先的 Windows 桌面单词学习软件。用户
 
 ![英文设置页](docs/images/settings.png)
 
+### 单词库
+
+![英文自定义单词库列表](docs/images/library.png)
+
 ## 主要功能
 
 - 主动添加目标语言单词或短语；

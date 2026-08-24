@@ -35,6 +35,10 @@ Start immediately with the scheduler's most urgent recommendation, or choose fre
 
 ![English settings screen showing language and FSRS options](docs/images/settings.png)
 
+### Word library
+
+![English word library with custom selectable rows](docs/images/library.png)
+
 ## What makes it different
 
 - **Production before recognition** — every review asks the learner to create a sentence.

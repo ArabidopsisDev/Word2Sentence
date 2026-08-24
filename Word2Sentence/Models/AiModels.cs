@@ -44,6 +44,7 @@ public sealed class FeedbackSegment
 
 public sealed class DetectedWordError
 {
+    public string ObservedForm { get; set; } = string.Empty;
     public string Word { get; set; } = string.Empty;
     public string PartOfSpeech { get; set; } = string.Empty;
     public string Meaning { get; set; } = string.Empty;
@@ -52,4 +53,9 @@ public sealed class DetectedWordError
     public string MeaningWithPartOfSpeech => string.IsNullOrWhiteSpace(PartOfSpeech)
         ? Meaning
         : $"{PartOfSpeech} {Meaning}".Trim();
+
+    public string CorrectionLabel => string.IsNullOrWhiteSpace(ObservedForm) ||
+                                     ObservedForm.Equals(Word, StringComparison.OrdinalIgnoreCase)
+        ? string.Empty
+        : $"{ObservedForm} → {Word}";
 }

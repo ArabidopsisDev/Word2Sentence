@@ -95,6 +95,8 @@ public sealed class OpenRouterService(HttpClient httpClient)
             excellent (genuinely strong/natural), acceptable (correct but ordinary or improvable), or error (grammar/usage error).
             Do not mark everything excellent. List only lexical words that were actually misspelled or misused in errorWords;
             never add punctuation, function words, or the target word when it was used correctly. For every error word,
+            observedForm is the exact erroneous token or phrase from the learner sentence. word is the corrected canonical
+            dictionary headword/lemma that should be learned; never return a misspelling as word.
             partOfSpeech is a compact conventional label suitable for {{targetLanguage}} (for English: n., vt., vi., adj., adv., etc.).
             meaning contains only the definition in {{explanationLanguage}} and must never begin with or repeat the word itself.
             Meanings, reasons, and summaries use {{explanationLanguage}}.
@@ -148,12 +150,13 @@ public sealed class OpenRouterService(HttpClient httpClient)
                         type = "object",
                         properties = new
                         {
+                            observedForm = new { type = "string" },
                             word = new { type = "string" },
                             partOfSpeech = new { type = "string", maxLength = 32 },
                             meaning = new { type = "string" },
                             reason = new { type = "string", maxLength = 120 }
                         },
-                        required = new[] { "word", "partOfSpeech", "meaning", "reason" },
+                        required = new[] { "observedForm", "word", "partOfSpeech", "meaning", "reason" },
                         additionalProperties = false
                     }
                 }

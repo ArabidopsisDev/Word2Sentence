@@ -46,6 +46,7 @@ public static class WordCandidateService
 
             uniqueCandidates[normalized] = new DetectedWordError
             {
+                ObservedForm = error.ObservedForm.Trim(),
                 Word = normalized,
                 PartOfSpeech = error.PartOfSpeech.Trim(),
                 Meaning = CleanDefinition(normalized, error.Meaning),

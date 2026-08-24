@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Word2Sentence.Models;
 
 namespace Word2Sentence.Services;
@@ -37,6 +38,7 @@ public sealed class DataStore
             data.Reviews ??= [];
             data.Cards ??= [];
             data.Settings ??= new AppSettings();
+            MigrateLegacyWordEntries(data.Words);
             return data;
         }
         catch (JsonException)
@@ -57,5 +59,24 @@ public sealed class DataStore
         }
 
         File.Move(temporaryPath, DataPath, true);
+    }
+
+    private static void MigrateLegacyWordEntries(IEnumerable<WordEntry> words)
+    {
+        const string prefixedDefinition = @"^\s*(?<lemma>\p{L}[\p{L}\p{M}\p{Nd}'-]*)\s*[:：]\s*(?<definition>.+)$";
+        foreach (var word in words)
+        {
+            var automaticSource = word.Source.Contains("错词", StringComparison.OrdinalIgnoreCase) ||
+                                  word.Source.Contains("mistake", StringComparison.OrdinalIgnoreCase);
+            if (!automaticSource || string.IsNullOrWhiteSpace(word.Meaning)) continue;
+
+            var match = Regex.Match(word.Meaning, prefixedDefinition, RegexOptions.CultureInvariant);
+            if (!match.Success) continue;
+
+            var canonical = WordCandidateService.NormalizeKey(match.Groups["lemma"].Value);
+            if (!WordCandidateService.IsValidTerm(canonical)) continue;
+            word.Word = canonical;
+            word.Meaning = match.Groups["definition"].Value.Trim();
+        }
     }
 }

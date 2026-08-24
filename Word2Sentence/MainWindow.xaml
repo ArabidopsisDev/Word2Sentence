@@ -103,7 +103,7 @@
 
                     <Border Style="{StaticResource Card}" Margin="0,24,0,0" Padding="0">
                         <Grid>
-                            <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="1" /><RowDefinition Height="158" /></Grid.RowDefinitions>
+                            <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="1" /><RowDefinition Height="218" /></Grid.RowDefinitions>
                             <Grid Margin="20,14">
                                 <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
                                 <StackPanel>
@@ -126,7 +126,7 @@
                                 <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem">
                                         <Setter Property="Padding" Value="0" />
-                                        <Setter Property="Margin" Value="10,12,0,12" />
+                                        <Setter Property="Margin" Value="10,14,0,14" />
                                         <Setter Property="Focusable" Value="False" />
                                         <Setter Property="Template">
                                             <Setter.Value>
@@ -139,23 +139,21 @@
                                 </ListBox.ItemContainerStyle>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <Border Width="286" Height="132" Padding="16,13" CornerRadius="6"
+                                        <Border Width="410" Height="188" Padding="18,15" CornerRadius="7"
                                                 Background="#F5F3ED" BorderBrush="#D8D5CD" BorderThickness="1">
                                             <Grid>
-                                                <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+                                                <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="*" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
                                                     <TextBlock Text="{Binding Word}" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource AccentBrush}" />
                                                     <TextBlock Grid.Column="1" Text="{loc:Loc UsageCard}" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
                                                 </Grid>
-                                                <TextBlock Grid.Row="1" Margin="0,6,0,5" Text="{Binding UsagePattern}" FontSize="17" FontWeight="SemiBold"
-                                                           TextTrimming="CharacterEllipsis" ToolTip="{Binding UsagePattern}" />
-                                                <StackPanel Grid.Row="2">
-                                                    <TextBlock Text="{Binding Explanation}" FontSize="11" Foreground="{StaticResource TextMutedBrush}"
-                                                               TextWrapping="Wrap" MaxHeight="32" />
-                                                    <TextBlock Margin="0,4,0,0" Text="{Binding Example}" FontSize="11" FontStyle="Italic"
-                                                               TextTrimming="CharacterEllipsis" ToolTip="{Binding Example}" />
-                                                </StackPanel>
+                                                <TextBlock Grid.Row="1" Margin="0,8,0,7" Text="{Binding UsagePattern}" FontSize="18" FontWeight="SemiBold"
+                                                           TextWrapping="Wrap" MaxHeight="46" ToolTip="{Binding UsagePattern}" />
+                                                <TextBlock Grid.Row="2" Text="{Binding Explanation}" FontSize="12" LineHeight="18"
+                                                           Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" MaxHeight="58" />
+                                                <TextBlock Grid.Row="3" Margin="0,7,0,0" Text="{Binding Example}" FontSize="12" FontStyle="Italic"
+                                                           TextWrapping="Wrap" MaxHeight="40" ToolTip="{Binding Example}" />
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
@@ -409,25 +407,57 @@
                             <TextBox Grid.Column="1" x:Name="SearchTextBox" Padding="10,7" ToolTip="{loc:Loc SearchTooltip}" TextChanged="SearchTextBox_TextChanged" />
                         </Grid>
                         <Border Grid.Row="1" Background="{StaticResource BorderBrush}" />
-                        <ListView Grid.Row="2" x:Name="WordList" BorderThickness="0" Background="Transparent" SelectionMode="Single">
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="Padding" Value="18,11" />
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                    <Setter Property="BorderBrush" Value="#E5E3DE" />
-                                    <Setter Property="BorderThickness" Value="0,0,0,1" />
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            <ListView.View>
-                                <GridView AllowsColumnReorder="False">
-                                    <GridViewColumn Header="{loc:Loc ColumnWord}" Width="180" DisplayMemberBinding="{Binding Word}" />
-                                    <GridViewColumn Header="{loc:Loc ColumnMeaning}" Width="300" DisplayMemberBinding="{Binding Meaning}" />
-                                    <GridViewColumn Header="{loc:Loc ColumnStage}" Width="90" DisplayMemberBinding="{Binding Stage}" />
-                                    <GridViewColumn Header="{loc:Loc ColumnNextReview}" Width="110" DisplayMemberBinding="{Binding DueLabel}" />
-                                    <GridViewColumn Header="{loc:Loc ColumnSource}" Width="110" DisplayMemberBinding="{Binding Source}" />
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+                            <Border Background="#F2F0EA" Padding="18,10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="1.1*" /><ColumnDefinition Width="2*" /><ColumnDefinition Width="100" /><ColumnDefinition Width="110" /><ColumnDefinition Width="120" /></Grid.ColumnDefinitions>
+                                    <TextBlock Text="{loc:Loc ColumnWord}" Style="{StaticResource Eyebrow}" />
+                                    <TextBlock Grid.Column="1" Text="{loc:Loc ColumnMeaning}" Style="{StaticResource Eyebrow}" />
+                                    <TextBlock Grid.Column="2" Text="{loc:Loc ColumnStage}" Style="{StaticResource Eyebrow}" />
+                                    <TextBlock Grid.Column="3" Text="{loc:Loc ColumnNextReview}" Style="{StaticResource Eyebrow}" />
+                                    <TextBlock Grid.Column="4" Text="{loc:Loc ColumnSource}" Style="{StaticResource Eyebrow}" />
+                                </Grid>
+                            </Border>
+                            <ListBox Grid.Row="1" x:Name="WordList" BorderThickness="0" Background="Transparent"
+                                     SelectionMode="Single" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                        <Setter Property="Focusable" Value="True" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBoxItem">
+                                                    <Border x:Name="Row" Margin="8,3" Padding="12,10" CornerRadius="6" Background="Transparent">
+                                                        <ContentPresenter />
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Row" Property="Background" Value="#F2F0EA" /></Trigger>
+                                                        <Trigger Property="IsSelected" Value="True"><Setter TargetName="Row" Property="Background" Value="{StaticResource AccentSoftBrush}" /></Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions><ColumnDefinition Width="1.1*" /><ColumnDefinition Width="2*" /><ColumnDefinition Width="100" /><ColumnDefinition Width="110" /><ColumnDefinition Width="120" /></Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding Word}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center" />
+                                            <TextBlock Grid.Column="1" Text="{Binding Meaning}" FontSize="13" TextTrimming="CharacterEllipsis"
+                                                       Foreground="{StaticResource TextMutedBrush}" VerticalAlignment="Center" Margin="0,0,12,0" />
+                                            <Border Grid.Column="2" Padding="8,3" CornerRadius="10" Background="{StaticResource BlueSoftBrush}"
+                                                    HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Stage}" FontSize="11" Foreground="{StaticResource BlueBrush}" />
+                                            </Border>
+                                            <TextBlock Grid.Column="3" Text="{Binding DueLabel}" FontSize="12" VerticalAlignment="Center" />
+                                            <TextBlock Grid.Column="4" Text="{Binding Source}" FontSize="12" Foreground="{StaticResource TextMutedBrush}" VerticalAlignment="Center" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
                         <Grid Grid.Row="3" Margin="18,12">
                             <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="10" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
                             <TextBlock x:Name="LibraryMessageText" VerticalAlignment="Center" FontSize="12" Foreground="{StaticResource TextMutedBrush}" />
