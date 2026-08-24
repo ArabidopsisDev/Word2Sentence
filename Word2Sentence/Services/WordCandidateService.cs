@@ -34,8 +34,10 @@ public static class WordCandidateService
 
             if (uniqueCandidates.TryGetValue(normalized, out var existingCandidate))
             {
+                if (string.IsNullOrWhiteSpace(existingCandidate.PartOfSpeech) && !string.IsNullOrWhiteSpace(error.PartOfSpeech))
+                    existingCandidate.PartOfSpeech = error.PartOfSpeech.Trim();
                 if (string.IsNullOrWhiteSpace(existingCandidate.Meaning) && !string.IsNullOrWhiteSpace(error.Meaning))
-                    existingCandidate.Meaning = error.Meaning.Trim();
+                    existingCandidate.Meaning = CleanDefinition(normalized, error.Meaning);
                 if (!string.IsNullOrWhiteSpace(error.Reason) &&
                     !existingCandidate.Reason.Contains(error.Reason.Trim(), StringComparison.Ordinal))
                     existingCandidate.Reason = string.Join("；", new[] { existingCandidate.Reason, error.Reason.Trim() }.Where(text => text.Length > 0));
@@ -45,7 +47,8 @@ public static class WordCandidateService
             uniqueCandidates[normalized] = new DetectedWordError
             {
                 Word = normalized,
-                Meaning = error.Meaning.Trim(),
+                PartOfSpeech = error.PartOfSpeech.Trim(),
+                Meaning = CleanDefinition(normalized, error.Meaning),
                 Reason = error.Reason.Trim()
             };
         }
@@ -68,5 +71,22 @@ public static class WordCandidateService
             .ToLowerInvariant();
         normalized = Regex.Replace(normalized, "\\s+", " ", RegexOptions.CultureInvariant);
         return normalized.Trim(' ', '.', ',', '!', '?', ';', ':', '"', '“', '”', '(', ')', '[', ']', '{', '}');
+    }
+
+    public static string ComposeMeaning(DetectedWordError word)
+    {
+        var definition = CleanDefinition(NormalizeKey(word.Word), word.Meaning);
+        var partOfSpeech = word.PartOfSpeech.Trim();
+        if (partOfSpeech.Length == 0 || definition.StartsWith(partOfSpeech, StringComparison.OrdinalIgnoreCase))
+            return definition;
+        return $"{partOfSpeech} {definition}".Trim();
+    }
+
+    private static string CleanDefinition(string normalizedWord, string meaning)
+    {
+        var definition = meaning.Trim();
+        if (normalizedWord.Length == 0 || definition.Length == 0) return definition;
+        var repeatedPrefix = @"^\s*" + Regex.Escape(normalizedWord) + @"\s*(?:\([^)]{1,16}\)|（[^）]{1,16}）)?\s*[:：\-–—]\s*";
+        return Regex.Replace(definition, repeatedPrefix, string.Empty, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant).Trim();
     }
 }

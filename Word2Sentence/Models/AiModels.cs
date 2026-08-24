@@ -45,6 +45,11 @@ public sealed class FeedbackSegment
 public sealed class DetectedWordError
 {
     public string Word { get; set; } = string.Empty;
+    public string PartOfSpeech { get; set; } = string.Empty;
     public string Meaning { get; set; } = string.Empty;
     public string Reason { get; set; } = string.Empty;
+
+    public string MeaningWithPartOfSpeech => string.IsNullOrWhiteSpace(PartOfSpeech)
+        ? Meaning
+        : $"{PartOfSpeech} {Meaning}".Trim();
 }

@@ -75,6 +75,20 @@ Require(WordCandidateService.IsValidTerm("résilient"), "Latin diacritics are ac
 Require(WordCandidateService.IsValidTerm("気が散る"), "CJK terms are accepted");
 Require(WordCandidateService.IsValidTerm("über-sichtlich"), "Unicode hyphenated terms are accepted");
 
+var detectedWords = new[]
+{
+    new DetectedWordError
+    {
+        Word = "distract",
+        PartOfSpeech = "vt.",
+        Meaning = "distract: 转移，使分心；打扰",
+        Reason = "usage test"
+    }
+};
+var cleanedCandidate = WordCandidateService.Prepare(detectedWords, [], "focus").Single();
+Require(cleanedCandidate.Meaning == "转移，使分心；打扰", "repeated word prefix is removed");
+Require(WordCandidateService.ComposeMeaning(cleanedCandidate) == "vt. 转移，使分心；打扰", "part of speech is preserved");
+
 LocalizationService.Instance.SetLanguage("en-US");
 Require(LocalizationService.T("NavPractice") == "Practice", "English localization");
 LocalizationService.Instance.SetLanguage("zh-CN");

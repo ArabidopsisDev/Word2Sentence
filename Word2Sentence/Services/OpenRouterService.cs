@@ -94,7 +94,10 @@ public sealed class OpenRouterService(HttpClient httpClient)
             reproduce the original sentence exactly, including spaces and punctuation. Rate each segment as:
             excellent (genuinely strong/natural), acceptable (correct but ordinary or improvable), or error (grammar/usage error).
             Do not mark everything excellent. List only lexical words that were actually misspelled or misused in errorWords;
-            never add punctuation, function words, or the target word when it was used correctly. Meanings, reasons, and summaries use {{explanationLanguage}}.
+            never add punctuation, function words, or the target word when it was used correctly. For every error word,
+            partOfSpeech is a compact conventional label suitable for {{targetLanguage}} (for English: n., vt., vi., adj., adv., etc.).
+            meaning contains only the definition in {{explanationLanguage}} and must never begin with or repeat the word itself.
+            Meanings, reasons, and summaries use {{explanationLanguage}}.
             correctedSentence must make only the changes needed to fix grammar and usage while preserving the learner's meaning.
             betterSentence must express the same core meaning in a more natural, vivid, or idiomatic way and must be different
             from correctedSentence. Both sentences must use the target word correctly.
@@ -146,10 +149,11 @@ public sealed class OpenRouterService(HttpClient httpClient)
                         properties = new
                         {
                             word = new { type = "string" },
+                            partOfSpeech = new { type = "string", maxLength = 32 },
                             meaning = new { type = "string" },
                             reason = new { type = "string", maxLength = 120 }
                         },
-                        required = new[] { "word", "meaning", "reason" },
+                        required = new[] { "word", "partOfSpeech", "meaning", "reason" },
                         additionalProperties = false
                     }
                 }

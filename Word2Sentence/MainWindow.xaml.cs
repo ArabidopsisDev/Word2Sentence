@@ -59,8 +59,35 @@ public partial class MainWindow : Window
         _cardCarouselTimer.Start();
     }
 
+    private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ChangedButton != MouseButton.Left) return;
+        if (e.ClickCount == 2)
+        {
+            ToggleMaximize();
+            return;
+        }
+
+        try { DragMove(); }
+        catch (InvalidOperationException) { }
+    }
+
+    private void MinimizeWindow_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
+    private void MaximizeWindow_Click(object sender, RoutedEventArgs e) => ToggleMaximize();
+    private void CloseWindow_Click(object sender, RoutedEventArgs e) => Close();
+
+    private void ToggleMaximize() => WindowState = WindowState == WindowState.Maximized
+        ? WindowState.Normal
+        : WindowState.Maximized;
+
+    private void Window_StateChanged(object sender, EventArgs e)
+    {
+        if (MaximizeWindowButton is not null)
+            MaximizeWindowButton.Content = WindowState == WindowState.Maximized ? "\uE923" : "\uE922";
+    }
+
     private void TodayNav_Click(object sender, RoutedEventArgs e) => ShowPage(TodayPage, TodayNav);
-    private void PracticeNav_Click(object sender, RoutedEventArgs e) => _ = BeginPracticeAsync(_currentWord);
+    private void PracticeNav_Click(object sender, RoutedEventArgs e) => ShowPracticeChooser();
     private void LibraryNav_Click(object sender, RoutedEventArgs e) => ShowPage(LibraryPage, LibraryNav);
     private void SettingsNav_Click(object sender, RoutedEventArgs e) => ShowPage(SettingsPage, SettingsNav);
 
@@ -84,10 +111,9 @@ public partial class MainWindow : Window
         navButton.FontWeight = FontWeights.SemiBold;
     }
 
-    private async void StartPractice_Click(object sender, RoutedEventArgs e)
+    private void StartPractice_Click(object sender, RoutedEventArgs e)
     {
-        var selected = DueList.SelectedItem as WordEntry;
-        await BeginPracticeAsync(selected);
+        ShowPracticeChooser();
     }
 
     private async void DueList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -109,6 +135,8 @@ public partial class MainWindow : Window
         if (_currentWord is null) return;
 
         ShowPage(PracticePage, PracticeNav);
+        PracticeChooserPanel.Visibility = Visibility.Collapsed;
+        PracticeSessionPanel.Visibility = Visibility.Visible;
         PracticeWordText.Text = _currentWord.Word;
         PracticeMeaningText.Text = string.IsNullOrWhiteSpace(_currentWord.Meaning)
             ? LocalizationService.T("NoMeaning")
@@ -151,6 +179,42 @@ public partial class MainWindow : Window
                 : LocalizationService.T("OfflineBasic");
             SentenceInput.Focus();
         });
+    }
+
+    private void ShowPracticeChooser()
+    {
+        if (_data.Words.Count == 0)
+        {
+            LibraryMessageText.Text = LocalizationService.T("TodayEmpty");
+            ShowPage(LibraryPage, LibraryNav);
+            NewWordTextBox.Focus();
+            return;
+        }
+
+        ShowPage(PracticePage, PracticeNav);
+        PracticeSessionPanel.Visibility = Visibility.Collapsed;
+        PracticeChooserPanel.Visibility = Visibility.Visible;
+        var candidates = GetPracticeCandidates();
+        PracticeCandidateList.ItemsSource = candidates;
+        PracticeCandidateEmptyText.Visibility = candidates.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private List<WordEntry> GetPracticeCandidates() => _data.Words
+        .OrderBy(word => word.NextReviewAt <= DateTimeOffset.Now ? 0 : 1)
+        .ThenBy(word => word.NextReviewAt)
+        .ThenBy(word => word.CreatedAt)
+        .Take(10)
+        .ToList();
+
+    private async void StartRecommended_Click(object sender, RoutedEventArgs e)
+    {
+        var recommended = GetPracticeCandidates().FirstOrDefault();
+        if (recommended is not null) await BeginPracticeAsync(recommended);
+    }
+
+    private async void PracticeCandidate_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button { Tag: WordEntry word }) await BeginPracticeAsync(word);
     }
 
     private void RevealHint_Click(object sender, RoutedEventArgs e)
@@ -212,10 +276,10 @@ public partial class MainWindow : Window
         CardCarousel.ScrollIntoView(CardCarousel.SelectedItem);
     }
 
-    private async void NextWord_Click(object sender, RoutedEventArgs e)
+    private void NextWord_Click(object sender, RoutedEventArgs e)
     {
         if (_isBusy) return;
-        await BeginPracticeAsync(SelectNextWord(_currentWord?.Id));
+        ShowPracticeChooser();
     }
 
     private async void Evaluate_Click(object sender, RoutedEventArgs e)
@@ -406,7 +470,7 @@ public partial class MainWindow : Window
             _data.Words.Add(new WordEntry
             {
                 Word = normalized,
-                Meaning = selected.Meaning.Trim(),
+                Meaning = WordCandidateService.ComposeMeaning(selected),
                 Note = selected.Reason.Trim(),
                 Source = LocalizationService.T("SourceMistake"),
                 NextReviewAt = DateTimeOffset.Now

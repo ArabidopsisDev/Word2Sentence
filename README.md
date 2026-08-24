@@ -25,11 +25,11 @@ Review scheduling is automatic. The app does **not** ask learners to rate themse
 
 ![English dashboard showing due words and recent usage cards](docs/images/dashboard.png)
 
-### Sentence practice
+### Practice modes
 
-![English sentence practice screen with an AI-generated scenario](docs/images/practice.png)
+![English practice mode selector with automatic recommendation and recent candidates](docs/images/practice.png)
 
-The usage pattern and example stay hidden until the learner submits a sentence, so the exercise still measures independent recall.
+Start immediately with the scheduler's most urgent recommendation, or choose freely from the same recent-review candidate queue. During the exercise, the usage pattern and example stay hidden until submission so the app still measures independent recall.
 
 ### Languages, model, and review settings
 
@@ -38,10 +38,13 @@ The usage pattern and example stay hidden until the learner submits a sentence, 
 ## What makes it different
 
 - **Production before recognition** — every review asks the learner to create a sentence.
+- **Two practice modes** — accept the most urgent automatic recommendation or choose from the latest due/soon-due candidates.
+- **Cohesive desktop chrome** — custom, resizable WPF title bars replace visually disconnected system frames.
 - **Inline feedback** — excellent spans are green, acceptable spans are blue, and grammar or usage errors are red.
 - **Two useful rewrites** — one sentence fixes only errors; another demonstrates a more natural expression.
 - **Usage cards** — the AI extracts a practical pattern, explanation, and example after submission.
 - **Human approval for new error words** — suggested words are normalized, deduplicated, and shown in a selection dialog before being saved.
+- **Structured word notes** — AI error candidates return a separate part of speech and a definition with repeated `word:` prefixes removed.
 - **No self-rating buttons** — memory grades are generated from evidence, not learner confidence.
 - **Local-first storage** — the word library, review history, usage cards, and scheduler state stay in one local JSON file.
 - **Multilingual by design** — the interface supports English and Simplified Chinese; target and explanation languages are configurable, and word validation accepts Unicode scripts.

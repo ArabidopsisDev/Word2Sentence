@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Input;
 using Word2Sentence.Models;
 using Word2Sentence.Services;
 
@@ -22,6 +23,15 @@ public partial class WordSelectionDialog : Window
         .Where(candidate => candidate.IsSelected)
         .Select(candidate => candidate.Error)
         .ToList();
+
+    private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ChangedButton != MouseButton.Left) return;
+        try { DragMove(); }
+        catch (InvalidOperationException) { }
+    }
+
+    private void CloseWindow_Click(object sender, RoutedEventArgs e) => DialogResult = false;
 
     private void CandidateCheckChanged(object sender, RoutedEventArgs e) => UpdateSelectionSummary();
 
