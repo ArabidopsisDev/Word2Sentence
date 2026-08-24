@@ -1,0 +1,414 @@
+<Window x:Class="Word2Sentence.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="clr-namespace:Word2Sentence.Localization"
+        Title="Word2Sentence" Height="820" Width="1280" MinHeight="680" MinWidth="1040"
+        WindowStartupLocation="CenterScreen" Background="{StaticResource CanvasBrush}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="236" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Navigation -->
+        <Border Grid.Column="0" Background="#ECEAE4" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Margin="22,24,18,24" Orientation="Horizontal">
+                    <Border Width="38" Height="38" CornerRadius="7" Background="{StaticResource AccentBrush}">
+                        <TextBlock Text="W²" Foreground="White" FontSize="17" FontWeight="SemiBold"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <StackPanel Margin="11,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="Word2Sentence" FontSize="15" FontWeight="SemiBold" />
+                        <TextBlock Text="{loc:Loc AppTagline}" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1">
+                    <Button x:Name="TodayNav" Style="{StaticResource NavButton}" Click="TodayNav_Click">
+                        <StackPanel Orientation="Horizontal"><TextBlock Text="⌂" Width="28" FontSize="17" /><TextBlock Text="{loc:Loc NavToday}" /></StackPanel>
+                    </Button>
+                    <Button x:Name="PracticeNav" Style="{StaticResource NavButton}" Click="PracticeNav_Click">
+                        <StackPanel Orientation="Horizontal"><TextBlock Text="✎" Width="28" FontSize="17" /><TextBlock Text="{loc:Loc NavPractice}" /></StackPanel>
+                    </Button>
+                    <Button x:Name="LibraryNav" Style="{StaticResource NavButton}" Click="LibraryNav_Click">
+                        <StackPanel Orientation="Horizontal"><TextBlock Text="▤" Width="28" FontSize="16" /><TextBlock Text="{loc:Loc NavLibrary}" /></StackPanel>
+                    </Button>
+                    <Button x:Name="SettingsNav" Style="{StaticResource NavButton}" Click="SettingsNav_Click">
+                        <StackPanel Orientation="Horizontal"><TextBlock Text="⚙" Width="28" FontSize="16" /><TextBlock Text="{loc:Loc NavSettings}" /></StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <Border Grid.Row="3" Margin="16,16,16,20" Padding="12" CornerRadius="6" Background="#E3E1DB">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="ApiStatusDot" Width="8" Height="8" Margin="0,1,8,0" VerticalAlignment="Center" />
+                            <TextBlock x:Name="ApiStatusText" FontSize="12" FontWeight="SemiBold" />
+                        </StackPanel>
+                        <TextBlock x:Name="SidebarModelText" Margin="16,4,0,0" FontSize="11"
+                                   Foreground="{StaticResource TextMutedBrush}" TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Pages -->
+        <Grid Grid.Column="1">
+            <!-- Today -->
+            <ScrollViewer x:Name="TodayPage" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Margin="44,36,44,44" MaxWidth="956" HorizontalAlignment="Stretch">
+                    <TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc TodayEyebrow}" />
+                    <TextBlock Style="{StaticResource PageTitle}" Margin="0,6,0,4" Text="{loc:Loc TodayTitle}" />
+                    <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="14"
+                               Text="{loc:Loc TodaySubtitle}" />
+
+                    <Border Style="{StaticResource Card}" Margin="0,24,0,0" Padding="0">
+                        <Grid>
+                            <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="1" /><RowDefinition Height="158" /></Grid.RowDefinitions>
+                            <Grid Margin="20,14">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="{loc:Loc RecentCards}" FontSize="16" FontWeight="SemiBold" />
+                                    <TextBlock Text="{loc:Loc RecentCardsHint}" Margin="0,3,0,0"
+                                               FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" x:Name="CardCarouselControls" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Button Style="{StaticResource SecondaryButton}" Padding="10,5" Content="‹" FontSize="17" Click="PreviousCard_Click" />
+                                    <Button Style="{StaticResource SecondaryButton}" Padding="10,5" Margin="6,0,0,0" Content="›" FontSize="17" Click="NextCard_Click" />
+                                </StackPanel>
+                            </Grid>
+                            <Border Grid.Row="1" Background="{StaticResource BorderBrush}" />
+                            <ListBox Grid.Row="2" x:Name="CardCarousel" BorderThickness="0" Background="Transparent"
+                                     SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate><StackPanel Orientation="Horizontal" /></ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Padding" Value="0" />
+                                        <Setter Property="Margin" Value="10,12,0,12" />
+                                        <Setter Property="Focusable" Value="False" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBoxItem">
+                                                    <ContentPresenter />
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Width="286" Height="132" Padding="16,13" CornerRadius="6"
+                                                Background="#F5F3ED" BorderBrush="#D8D5CD" BorderThickness="1">
+                                            <Grid>
+                                                <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding Word}" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource AccentBrush}" />
+                                                    <TextBlock Grid.Column="1" Text="{loc:Loc UsageCard}" FontSize="10" Foreground="{StaticResource TextMutedBrush}" />
+                                                </Grid>
+                                                <TextBlock Grid.Row="1" Margin="0,6,0,5" Text="{Binding UsagePattern}" FontSize="17" FontWeight="SemiBold"
+                                                           TextTrimming="CharacterEllipsis" ToolTip="{Binding UsagePattern}" />
+                                                <StackPanel Grid.Row="2">
+                                                    <TextBlock Text="{Binding Explanation}" FontSize="11" Foreground="{StaticResource TextMutedBrush}"
+                                                               TextWrapping="Wrap" MaxHeight="32" />
+                                                    <TextBlock Margin="0,4,0,0" Text="{Binding Example}" FontSize="11" FontStyle="Italic"
+                                                               TextTrimming="CharacterEllipsis" ToolTip="{Binding Example}" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <TextBlock Grid.Row="2" x:Name="CardCarouselEmptyText" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       Foreground="{StaticResource TextMutedBrush}" Text="{loc:Loc CardsEmpty}" />
+                        </Grid>
+                    </Border>
+
+                    <Grid Margin="0,16,0,24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Style="{StaticResource Card}">
+                            <StackPanel><TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc Due}" /><TextBlock x:Name="DueCountText" Margin="0,5,0,0" FontSize="28" FontWeight="SemiBold" /></StackPanel>
+                        </Border>
+                        <Border Grid.Column="2" Style="{StaticResource Card}">
+                            <StackPanel><TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc WrittenToday}" /><TextBlock x:Name="TodayReviewCountText" Margin="0,5,0,0" FontSize="28" FontWeight="SemiBold" /></StackPanel>
+                        </Border>
+                        <Border Grid.Column="4" Style="{StaticResource Card}">
+                            <StackPanel><TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc WordTotal}" /><TextBlock x:Name="WordCountText" Margin="0,5,0,0" FontSize="28" FontWeight="SemiBold" /></StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <Border Style="{StaticResource Card}" Padding="0">
+                        <Grid>
+                            <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="22,18,22,14">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="{loc:Loc UpNext}" FontSize="17" FontWeight="SemiBold" />
+                                    <TextBlock Text="{loc:Loc SortedByDue}" Margin="0,3,0,0" FontSize="12" Foreground="{StaticResource TextMutedBrush}" />
+                                </StackPanel>
+                                <Button Grid.Column="1" Style="{StaticResource PrimaryButton}" Content="{loc:Loc StartWriting}" Click="StartPractice_Click" />
+                            </Grid>
+                            <Border Grid.Row="1" Height="1" Background="{StaticResource BorderBrush}" />
+                            <ListView Grid.Row="2" x:Name="DueList" BorderThickness="0" Background="Transparent" MinHeight="120" MaxHeight="330"
+                                      MouseDoubleClick="DueList_MouseDoubleClick">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Padding" Value="22,13" />
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                        <Setter Property="BorderBrush" Value="#E5E3DE" />
+                                        <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="False">
+                                        <GridViewColumn Header="{loc:Loc ColumnWord}" Width="190" DisplayMemberBinding="{Binding Word}" />
+                                        <GridViewColumn Header="{loc:Loc ColumnMeaning}" Width="330" DisplayMemberBinding="{Binding Meaning}" />
+                                        <GridViewColumn Header="{loc:Loc ColumnStage}" Width="100" DisplayMemberBinding="{Binding Stage}" />
+                                        <GridViewColumn Header="{loc:Loc ColumnDue}" Width="110" DisplayMemberBinding="{Binding DueLabel}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <TextBlock Grid.Row="2" x:Name="EmptyTodayText" Margin="22" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       TextAlignment="Center" IsHitTestVisible="False" Foreground="{StaticResource TextMutedBrush}"
+                                       Text="{loc:Loc TodayEmpty}" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Practice -->
+            <ScrollViewer x:Name="PracticePage" Visibility="Collapsed" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Margin="44,34,44,50" MaxWidth="940" HorizontalAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc PracticeEyebrow}" />
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <TextBlock x:Name="PracticeWordText" Style="{StaticResource PageTitle}" />
+                                <Border Margin="12,7,0,5" Padding="8,3" CornerRadius="10" Background="{StaticResource AccentSoftBrush}">
+                                    <TextBlock x:Name="PracticeStageText" Foreground="{StaticResource AccentBrush}" FontSize="11" FontWeight="SemiBold" />
+                                </Border>
+                            </StackPanel>
+                            <TextBlock x:Name="PracticeMeaningText" Foreground="{StaticResource TextMutedBrush}" FontSize="14" />
+                        </StackPanel>
+                        <Button Grid.Column="1" Style="{StaticResource SecondaryButton}" Content="{loc:Loc NextWord}" Click="NextWord_Click" VerticalAlignment="Top" />
+                    </Grid>
+
+                    <Border Style="{StaticResource Card}" Margin="0,24,0,16" Background="#FAF8F3">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc Scenario}" />
+                            <TextBlock x:Name="ScenarioText" Margin="0,7,0,12" FontSize="16" TextWrapping="Wrap" LineHeight="25" />
+                            <TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc WritingGoal}" />
+                            <TextBlock x:Name="GoalText" Margin="0,7,0,0" FontSize="14" TextWrapping="Wrap" />
+                            <StackPanel Margin="0,12,0,0">
+                                <Button x:Name="RevealHintButton" HorizontalAlignment="Left" Style="{StaticResource SecondaryButton}"
+                                        Padding="12,6" Content="{loc:Loc RevealHint}" Click="RevealHint_Click" />
+                                <TextBlock x:Name="HintText" Visibility="Collapsed" Margin="0,9,0,0" FontSize="12"
+                                           Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <Border x:Name="PracticeUsageCard" Visibility="Collapsed" Margin="0,16,0,0" Padding="14,11"
+                                    CornerRadius="6" Background="{StaticResource AccentSoftBrush}">
+                                <StackPanel>
+                                    <TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc WordUsageCard}" Foreground="{StaticResource AccentBrush}" />
+                                    <TextBlock x:Name="PracticeUsagePatternText" Margin="0,5,0,0" FontSize="17" FontWeight="SemiBold" />
+                                    <TextBlock x:Name="PracticeUsageExplanationText" Margin="0,4,0,0" FontSize="12" TextWrapping="Wrap" />
+                                    <TextBlock x:Name="PracticeUsageExampleText" Margin="0,5,0,0" FontSize="12" FontStyle="Italic" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                <TextBlock Text="{loc:Loc YourSentence}" FontSize="15" FontWeight="SemiBold" />
+                                <TextBlock Grid.Column="1" x:Name="CharacterCountText" FontSize="12" Foreground="{StaticResource TextMutedBrush}" />
+                            </Grid>
+                            <TextBox x:Name="SentenceInput" Margin="0,12,0,14" MinHeight="108" MaxLength="500"
+                                     TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top"
+                                     FontFamily="Segoe UI Variable Text, Segoe UI" FontSize="17"
+                                     TextChanged="SentenceInput_TextChanged" DataObject.Pasting="SentenceInput_Pasting" />
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                <TextBlock x:Name="PracticeStatusText" VerticalAlignment="Center" FontSize="12" Foreground="{StaticResource TextMutedBrush}" />
+                                <Button Grid.Column="1" x:Name="EvaluateButton" Style="{StaticResource PrimaryButton}" Content="{loc:Loc Submit}" Click="Evaluate_Click" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border x:Name="FeedbackCard" Style="{StaticResource Card}" Margin="0,16,0,0" Visibility="Collapsed">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                <TextBlock Text="{loc:Loc SegmentFeedback}" FontSize="17" FontWeight="SemiBold" />
+                                <Border Grid.Column="1" Padding="10,4" CornerRadius="12" Background="{StaticResource SurfaceMutedBrush}">
+                                    <TextBlock x:Name="ScoreText" FontSize="12" FontWeight="SemiBold" />
+                                </Border>
+                            </Grid>
+                            <WrapPanel Margin="0,12,0,16">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,18,0"><Ellipse Width="8" Height="8" Fill="{StaticResource GreenBrush}" Margin="0,0,6,0" /><TextBlock Text="{loc:Loc Excellent}" FontSize="12" /></StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,18,0"><Ellipse Width="8" Height="8" Fill="{StaticResource BlueBrush}" Margin="0,0,6,0" /><TextBlock Text="{loc:Loc Acceptable}" FontSize="12" /></StackPanel>
+                                <StackPanel Orientation="Horizontal"><Ellipse Width="8" Height="8" Fill="{StaticResource RedBrush}" Margin="0,0,6,0" /><TextBlock Text="{loc:Loc Error}" FontSize="12" /></StackPanel>
+                            </WrapPanel>
+                            <Border Padding="16" CornerRadius="6" Background="#F6F5F1">
+                                <TextBlock x:Name="ColoredSentenceText" FontFamily="Segoe UI Variable Text, Segoe UI" FontSize="18"
+                                           LineHeight="29" TextWrapping="Wrap" />
+                            </Border>
+                            <TextBlock x:Name="FeedbackSummaryText" Margin="0,14,0,0" FontSize="14" TextWrapping="Wrap" LineHeight="22" />
+                            <TextBlock x:Name="MemoryDecisionText" Margin="0,9,0,0" FontSize="12"
+                                       Foreground="{StaticResource AccentBrush}" TextWrapping="Wrap" />
+                            <TextBlock Margin="0,16,0,5" Style="{StaticResource Eyebrow}" Text="{loc:Loc CorrectedSentence}" />
+                            <TextBlock x:Name="CorrectedSentenceText" FontSize="16" TextWrapping="Wrap" />
+                            <TextBlock Margin="0,14,0,5" Style="{StaticResource Eyebrow}" Text="{loc:Loc BetterSentence}" />
+                            <TextBlock x:Name="BetterSentenceText" FontSize="16" FontStyle="Italic" TextWrapping="Wrap" />
+                            <TextBlock x:Name="AutoAddedWordsText" Margin="0,12,0,0" FontSize="12" Foreground="{StaticResource RedBrush}" TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Library -->
+            <Grid x:Name="LibraryPage" Visibility="Collapsed" Margin="44,34,44,44" MaxWidth="956" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc LibraryEyebrow}" />
+                    <TextBlock Style="{StaticResource PageTitle}" Margin="0,5,0,4" Text="{loc:Loc LibraryTitle}" />
+                    <TextBlock Foreground="{StaticResource TextMutedBrush}" Text="{loc:Loc LibrarySubtitle}" />
+                </StackPanel>
+
+                <Border Grid.Row="1" Style="{StaticResource Card}" Margin="0,22,0,16">
+                    <Grid>
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="1.1*" /><ColumnDefinition Width="12" /><ColumnDefinition Width="2*" /><ColumnDefinition Width="12" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc TargetTerm}" Margin="0,0,0,6" />
+                            <TextBox x:Name="NewWordTextBox" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc MeaningOptional}" Margin="0,0,0,6" />
+                            <TextBox x:Name="NewMeaningTextBox" />
+                        </StackPanel>
+                        <Button Grid.Column="4" Style="{StaticResource PrimaryButton}" Content="{loc:Loc AddWord}" Click="AddWord_Click" VerticalAlignment="Bottom" />
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="2" Style="{StaticResource Card}" Padding="0">
+                    <Grid>
+                        <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="1" /><RowDefinition Height="*" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+                        <Grid Margin="18,14">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="250" /></Grid.ColumnDefinitions>
+                            <TextBlock x:Name="LibraryCountText" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1" x:Name="SearchTextBox" Padding="10,7" ToolTip="{loc:Loc SearchTooltip}" TextChanged="SearchTextBox_TextChanged" />
+                        </Grid>
+                        <Border Grid.Row="1" Background="{StaticResource BorderBrush}" />
+                        <ListView Grid.Row="2" x:Name="WordList" BorderThickness="0" Background="Transparent" SelectionMode="Single">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Padding" Value="18,11" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    <Setter Property="BorderBrush" Value="#E5E3DE" />
+                                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="False">
+                                    <GridViewColumn Header="{loc:Loc ColumnWord}" Width="180" DisplayMemberBinding="{Binding Word}" />
+                                    <GridViewColumn Header="{loc:Loc ColumnMeaning}" Width="300" DisplayMemberBinding="{Binding Meaning}" />
+                                    <GridViewColumn Header="{loc:Loc ColumnStage}" Width="90" DisplayMemberBinding="{Binding Stage}" />
+                                    <GridViewColumn Header="{loc:Loc ColumnNextReview}" Width="110" DisplayMemberBinding="{Binding DueLabel}" />
+                                    <GridViewColumn Header="{loc:Loc ColumnSource}" Width="110" DisplayMemberBinding="{Binding Source}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Grid Grid.Row="3" Margin="18,12">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="10" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                            <TextBlock x:Name="LibraryMessageText" VerticalAlignment="Center" FontSize="12" Foreground="{StaticResource TextMutedBrush}" />
+                            <Button Grid.Column="1" Style="{StaticResource SecondaryButton}" Content="{loc:Loc DeleteSelected}" Click="DeleteWord_Click" />
+                            <Button Grid.Column="3" Style="{StaticResource PrimaryButton}" Content="{loc:Loc PracticeSelected}" Click="PracticeSelected_Click" />
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- Settings -->
+            <ScrollViewer x:Name="SettingsPage" Visibility="Collapsed" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Margin="44,34,44,44" MaxWidth="820" HorizontalAlignment="Left">
+                    <TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc SettingsEyebrow}" />
+                    <TextBlock Style="{StaticResource PageTitle}" Margin="0,5,0,4" Text="{loc:Loc SettingsTitle}" />
+                    <TextBlock Foreground="{StaticResource TextMutedBrush}" Text="{loc:Loc SettingsSubtitle}" />
+
+                    <Border Style="{StaticResource Card}" Margin="0,24,0,14" Width="760">
+                        <StackPanel>
+                            <TextBlock Text="OpenRouter" FontSize="17" FontWeight="SemiBold" />
+                            <TextBlock Margin="0,16,0,6" Style="{StaticResource Eyebrow}" Text="{loc:Loc ModelId}" />
+                            <TextBox x:Name="ModelTextBox" />
+                            <TextBlock Margin="0,8,0,0" Foreground="{StaticResource TextMutedBrush}" FontSize="12"
+                                       Text="{loc:Loc ModelHelp}" />
+                            <Grid Margin="0,18,0,0">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc ApiKey}" />
+                                    <TextBlock x:Name="SettingsKeyStatusText" Margin="0,5,0,0" FontSize="13" />
+                                </StackPanel>
+                                <Button Grid.Column="1" Style="{StaticResource SecondaryButton}" Content="{loc:Loc Refresh}" Click="RefreshKeyStatus_Click" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}" Width="760" Margin="0,0,0,14">
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="16" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc LanguageInterface}" Margin="0,0,0,6" />
+                                <ComboBox x:Name="UiLanguageComboBox" SelectedValuePath="Tag" Padding="8,7">
+                                    <ComboBoxItem Content="简体中文" Tag="zh-CN" />
+                                    <ComboBoxItem Content="English" Tag="en-US" />
+                                </ComboBox>
+                                <TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc TargetLanguage}" Margin="0,16,0,6" />
+                                <TextBox x:Name="TargetLanguageTextBox" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc ExplanationLanguage}" Margin="0,0,0,6" />
+                                <TextBox x:Name="ExplanationLanguageTextBox" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}" Width="760">
+                        <StackPanel>
+                            <TextBlock Text="{loc:Loc ReviewData}" FontSize="17" FontWeight="SemiBold" />
+                            <Border Margin="0,14,0,2" Padding="12,9" CornerRadius="6" Background="{StaticResource AccentSoftBrush}">
+                                <StackPanel>
+                                    <TextBlock Text="{loc:Loc FsrsLabel}" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource AccentBrush}" />
+                                    <TextBlock Margin="0,3,0,0" Text="{loc:Loc AutomaticScheduling}" FontSize="11" />
+                                </StackPanel>
+                            </Border>
+                            <TextBlock Margin="0,16,0,6" Style="{StaticResource Eyebrow}" Text="{loc:Loc DailyGoal}" />
+                            <TextBox x:Name="DailyGoalTextBox" Width="140" HorizontalAlignment="Left" />
+                            <TextBlock Margin="0,16,0,5" Style="{StaticResource Eyebrow}" Text="{loc:Loc DataFile}" />
+                            <TextBlock x:Name="DataPathText" FontFamily="Cascadia Mono, Consolas" FontSize="12" TextWrapping="Wrap" />
+                            <Button Margin="0,18,0,0" HorizontalAlignment="Right" Style="{StaticResource PrimaryButton}" Content="{loc:Loc SaveSettings}" Click="SaveSettings_Click" />
+                            <TextBlock x:Name="SettingsMessageText" Margin="0,9,0,0" HorizontalAlignment="Right" FontSize="12" Foreground="{StaticResource AccentBrush}" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>

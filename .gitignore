@@ -1,0 +1,10 @@
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+*.tmp
+wordbook.json
+TestResults/
+.idea/
+*.nupkg

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Word2Sentence.AlgorithmChecks/Word2Sentence.AlgorithmChecks.csproj" />
+  <Project Path="Word2Sentence/Word2Sentence.csproj" />
+</Solution>
