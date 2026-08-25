@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,14 @@ namespace Word2Sentence;
 
 public partial class MainWindow : Window
 {
+    private enum PracticeMode
+    {
+        Recommended,
+        Manual
+    }
+
+    private const string RepositoryUrl = "https://github.com/ArabidopsisDev/Word2Sentence";
+    private const string AwesomeFsrsUrl = "https://github.com/open-spaced-repetition/awesome-fsrs#specialized-flashcard";
     private readonly DataStore _store = new();
     private readonly OpenRouterService _ai = new(new HttpClient
     {
@@ -30,6 +39,7 @@ public partial class MainWindow : Window
     private bool _suppressInputMetrics;
     private int _sentenceEditCount;
     private DateTimeOffset _practiceStartedAt;
+    private PracticeMode _practiceMode = PracticeMode.Manual;
     private List<UsageCard> _recentCards = [];
 
     public MainWindow()
@@ -53,6 +63,8 @@ public partial class MainWindow : Window
         UiLanguageComboBox.SelectedValue = _data.Settings.UiLanguage;
         TargetLanguageTextBox.Text = _data.Settings.TargetLanguage;
         ExplanationLanguageTextBox.Text = _data.Settings.ExplanationLanguage;
+        var version = typeof(MainWindow).Assembly.GetName().Version;
+        AboutVersionText.Text = version is null ? "1.0.0" : $"{version.Major}.{version.Minor}.{Math.Max(0, version.Build)}";
         DataPathText.Text = _store.DataPath;
         RefreshAll();
         ShowPage(TodayPage, TodayNav);
@@ -90,6 +102,7 @@ public partial class MainWindow : Window
     private void PracticeNav_Click(object sender, RoutedEventArgs e) => ShowPracticeChooser();
     private void LibraryNav_Click(object sender, RoutedEventArgs e) => ShowPage(LibraryPage, LibraryNav);
     private void SettingsNav_Click(object sender, RoutedEventArgs e) => ShowPage(SettingsPage, SettingsNav);
+    private void AboutNav_Click(object sender, RoutedEventArgs e) => ShowPage(AboutPage, AboutNav);
 
     private void ShowPage(FrameworkElement page, Button navButton)
     {
@@ -97,9 +110,10 @@ public partial class MainWindow : Window
         PracticePage.Visibility = Visibility.Collapsed;
         LibraryPage.Visibility = Visibility.Collapsed;
         SettingsPage.Visibility = Visibility.Collapsed;
+        AboutPage.Visibility = Visibility.Collapsed;
         page.Visibility = Visibility.Visible;
 
-        foreach (var button in new[] { TodayNav, PracticeNav, LibraryNav, SettingsNav })
+        foreach (var button in new[] { TodayNav, PracticeNav, LibraryNav, SettingsNav, AboutNav })
         {
             button.Background = Brushes.Transparent;
             button.Foreground = FindBrush("TextMutedBrush");
@@ -111,6 +125,15 @@ public partial class MainWindow : Window
         navButton.FontWeight = FontWeights.SemiBold;
     }
 
+    private void OpenRepository_Click(object sender, RoutedEventArgs e) => OpenExternalUrl(RepositoryUrl);
+    private void OpenAwesomeFsrs_Click(object sender, RoutedEventArgs e) => OpenExternalUrl(AwesomeFsrsUrl);
+
+    private static void OpenExternalUrl(string url)
+    {
+        try { Process.Start(new ProcessStartInfo(url) { UseShellExecute = true }); }
+        catch { }
+    }
+
     private void StartPractice_Click(object sender, RoutedEventArgs e)
     {
         ShowPracticeChooser();
@@ -118,7 +141,11 @@ public partial class MainWindow : Window
 
     private async void DueList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        if (DueList.SelectedItem is WordEntry word) await BeginPracticeAsync(word);
+        if (DueList.SelectedItem is WordEntry word)
+        {
+            _practiceMode = PracticeMode.Manual;
+            await BeginPracticeAsync(word);
+        }
     }
 
     private async Task BeginPracticeAsync(WordEntry? requestedWord)
@@ -137,6 +164,8 @@ public partial class MainWindow : Window
         ShowPage(PracticePage, PracticeNav);
         PracticeChooserPanel.Visibility = Visibility.Collapsed;
         PracticeSessionPanel.Visibility = Visibility.Visible;
+        SessionWordActionButton.Content = LocalizationService.T(
+            _practiceMode == PracticeMode.Recommended ? "NextRecommendedWord" : "NextWord");
         PracticeWordText.Text = _currentWord.Word;
         PracticeMeaningText.Text = string.IsNullOrWhiteSpace(_currentWord.Meaning)
             ? LocalizationService.T("NoMeaning")
@@ -209,12 +238,20 @@ public partial class MainWindow : Window
     private async void StartRecommended_Click(object sender, RoutedEventArgs e)
     {
         var recommended = GetPracticeCandidates().FirstOrDefault();
-        if (recommended is not null) await BeginPracticeAsync(recommended);
+        if (recommended is not null)
+        {
+            _practiceMode = PracticeMode.Recommended;
+            await BeginPracticeAsync(recommended);
+        }
     }
 
     private async void PracticeCandidate_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is Button { Tag: WordEntry word }) await BeginPracticeAsync(word);
+        if (sender is Button { Tag: WordEntry word })
+        {
+            _practiceMode = PracticeMode.Manual;
+            await BeginPracticeAsync(word);
+        }
     }
 
     private void RevealHint_Click(object sender, RoutedEventArgs e)
@@ -289,9 +326,18 @@ public partial class MainWindow : Window
         CardCarousel.ScrollIntoView(CardCarousel.SelectedItem);
     }
 
-    private void NextWord_Click(object sender, RoutedEventArgs e)
+    private async void NextWord_Click(object sender, RoutedEventArgs e)
     {
         if (_isBusy) return;
+        if (_practiceMode == PracticeMode.Recommended)
+        {
+            var next = GetPracticeCandidates().FirstOrDefault(word => word.Id != _currentWord?.Id);
+            if (next is not null)
+            {
+                await BeginPracticeAsync(next);
+                return;
+            }
+        }
         ShowPracticeChooser();
     }
 
@@ -562,6 +608,7 @@ public partial class MainWindow : Window
             LibraryMessageText.Text = LocalizationService.T("SelectWord");
             return;
         }
+        _practiceMode = PracticeMode.Manual;
         await BeginPracticeAsync(selected);
     }
 

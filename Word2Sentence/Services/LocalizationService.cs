@@ -11,6 +11,7 @@ public sealed class LocalizationService : INotifyPropertyChanged
             ["AppTagline"] = ("把生词写进句子里", "Learn through sentences"),
             ["NavToday"] = ("今天", "Today"), ["NavPractice"] = ("造句练习", "Practice"),
             ["NavLibrary"] = ("单词库", "Word library"), ["NavSettings"] = ("设置", "Settings"),
+            ["NavAbout"] = ("关于", "About"),
             ["TodayEyebrow"] = ("TODAY · 今日计划", "TODAY · STUDY PLAN"),
             ["TodayTitle"] = ("今天先写几句话", "Write a few sentences today"),
             ["TodaySubtitle"] = ("到期的词会排在前面。写完一句，再决定它什么时候回来。", "Due words come first. Each sentence helps decide when the word returns."),
@@ -23,6 +24,7 @@ public sealed class LocalizationService : INotifyPropertyChanged
             ["ColumnDue"] = ("到期", "Due"), ["ColumnNextReview"] = ("下次复习", "Next review"), ["ColumnSource"] = ("来源", "Source"),
             ["TodayEmpty"] = ("单词库还是空的，先去添加一个不会的词。", "Your word library is empty. Add a word you want to learn."),
             ["PracticeEyebrow"] = ("WRITE · 造句练习", "WRITE · SENTENCE PRACTICE"), ["NextWord"] = ("换一个词", "Another word"),
+            ["NextRecommendedWord"] = ("下一个推荐词", "Next recommended word"),
             ["PracticeModeTitle"] = ("选择练习方式", "Choose a practice mode"), ["PracticeModeSubtitle"] = ("让系统挑选最紧急的词，或从近期复习候选中自由选择。", "Let the scheduler choose the most urgent word, or pick from your recent review candidates."),
             ["RecommendedMode"] = ("自动推荐", "Recommended"), ["RecommendedModeDesc"] = ("根据到期时间和 FSRS 状态选择当前最值得复习的词。", "Start with the word that is most urgent according to its due time and FSRS state."),
             ["StartRecommended"] = ("开始推荐练习", "Start recommended practice"), ["ChooseMode"] = ("从近期候选中选择", "Choose from recent candidates"),
@@ -80,6 +82,14 @@ public sealed class LocalizationService : INotifyPropertyChanged
             ["RequestTimedOut"] = ("模型请求超时，请重试；长期记忆状态未改动。", "The model request timed out. Please retry; long-term memory state was not changed."),
             ["SourceManual"] = ("手动添加", "Manual"), ["SourceMistake"] = ("造句错词", "Writing mistake"),
             ["CandidateSummary"] = ("候选 {0} 个 · 已选 {1} 个", "{0} candidates · {1} selected"), ["AddSelectedCount"] = ("加入所选（{0}）", "Add selected ({0})"),
+            ["AboutEyebrow"] = ("ABOUT · 关于软件", "ABOUT · WORD2SENTENCE"), ["AboutTitle"] = ("关于 Word2Sentence", "About Word2Sentence"),
+            ["AboutDescription"] = ("一款通过主动造句、AI 多维反馈和 FSRS-6 自动调度学习词汇的本地优先桌面软件。", "A local-first desktop app for learning vocabulary through sentence production, multidimensional AI feedback, and automatic FSRS-6 scheduling."),
+            ["AboutDeveloper"] = ("开发者", "Developer"), ["AboutVersion"] = ("版本", "Version"), ["AboutLicense"] = ("软件许可证", "License"),
+            ["AboutListed"] = ("已被 awesome-fsrs 收录", "Listed in awesome-fsrs"),
+            ["AboutListedDescription"] = ("Word2Sentence 已收录于 Open Spaced Repetition 社区维护的 awesome-fsrs 项目列表。", "Word2Sentence is included in the community-maintained awesome-fsrs project list by Open Spaced Repetition."),
+            ["AboutThanks"] = ("感谢你使用 Word2Sentence。你的支持会帮助项目持续改进。", "Thank you for using Word2Sentence. Your support helps the project keep improving."),
+            ["AboutStarPrompt"] = ("如果这个项目对你有帮助，欢迎在 GitHub 上为它点亮 Star。", "If Word2Sentence helps you, please consider starring the project on GitHub."),
+            ["StarOnGitHub"] = ("在 GitHub 上星标", "Star on GitHub"), ["ViewSource"] = ("查看源代码", "View source"), ["ViewAwesomeFsrs"] = ("查看 awesome-fsrs", "View awesome-fsrs"),
         };
 
     public static LocalizationService Instance { get; } = new();

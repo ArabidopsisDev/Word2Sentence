@@ -28,7 +28,7 @@
                 <Grid.ColumnDefinitions><ColumnDefinition Width="236" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
                 <Border Grid.Column="0" Background="#E8E6E0" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0">
                     <StackPanel Orientation="Horizontal" Margin="14,0" VerticalAlignment="Center">
-                        <Image Source="Assets/Word2Sentence.ico" Width="22" Height="22" SnapsToDevicePixels="True" />
+                        <ContentControl Style="{StaticResource LogoMark}" Width="22" Height="22" />
                         <TextBlock Text="Word2Sentence" Margin="9,0,0,0" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center" />
                     </StackPanel>
                 </Border>
@@ -51,7 +51,7 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Margin="22,24,18,24" Orientation="Horizontal">
-                    <Image Source="Assets/Word2Sentence.ico" Width="38" Height="38" SnapsToDevicePixels="True" />
+                    <ContentControl Style="{StaticResource LogoMark}" Width="38" Height="38" />
                     <StackPanel Margin="11,0,0,0" VerticalAlignment="Center">
                         <TextBlock Text="Word2Sentence" FontSize="15" FontWeight="SemiBold" />
                         <TextBlock Text="{loc:Loc AppTagline}" FontSize="11" Foreground="{StaticResource TextMutedBrush}" />
@@ -70,6 +70,9 @@
                     </Button>
                     <Button x:Name="SettingsNav" Style="{StaticResource NavButton}" Click="SettingsNav_Click">
                         <StackPanel Orientation="Horizontal"><TextBlock Text="⚙" Width="28" FontSize="16" /><TextBlock Text="{loc:Loc NavSettings}" /></StackPanel>
+                    </Button>
+                    <Button x:Name="AboutNav" Style="{StaticResource NavButton}" Click="AboutNav_Click">
+                        <StackPanel Orientation="Horizontal"><TextBlock Text="ⓘ" Width="28" FontSize="16" /><TextBlock Text="{loc:Loc NavAbout}" /></StackPanel>
                     </Button>
                 </StackPanel>
 
@@ -235,7 +238,7 @@
 
                         <Grid Margin="0,24,0,0">
                             <Grid.ColumnDefinitions><ColumnDefinition Width="0.9*" /><ColumnDefinition Width="16" /><ColumnDefinition Width="1.35*" /></Grid.ColumnDefinitions>
-                            <Border Grid.Column="0" Style="{StaticResource Card}" Background="{StaticResource AccentSoftBrush}">
+                            <Border Grid.Column="0" Style="{StaticResource Card}" Background="{StaticResource AccentSoftBrush}" VerticalAlignment="Top">
                                 <StackPanel>
                                     <Border Width="38" Height="38" CornerRadius="19" Background="{StaticResource AccentBrush}" HorizontalAlignment="Left">
                                         <TextBlock Text="↗" Foreground="White" FontSize="19" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -243,7 +246,7 @@
                                     <TextBlock Margin="0,14,0,0" Text="{loc:Loc RecommendedMode}" FontSize="20" FontWeight="SemiBold" />
                                     <TextBlock Margin="0,7,0,18" Text="{loc:Loc RecommendedModeDesc}" FontSize="13" LineHeight="20" TextWrapping="Wrap"
                                                Foreground="{StaticResource TextMutedBrush}" />
-                                    <Button Style="{StaticResource PrimaryButton}" Content="{loc:Loc StartRecommended}" Click="StartRecommended_Click" />
+                                    <Button x:Name="StartRecommendedButton" Style="{StaticResource PrimaryButton}" Content="{loc:Loc StartRecommended}" Click="StartRecommended_Click" />
                                 </StackPanel>
                             </Border>
 
@@ -299,7 +302,8 @@
                             </StackPanel>
                             <TextBlock x:Name="PracticeMeaningText" Foreground="{StaticResource TextMutedBrush}" FontSize="14" />
                         </StackPanel>
-                        <Button Grid.Column="1" Style="{StaticResource SecondaryButton}" Content="{loc:Loc NextWord}" Click="NextWord_Click" VerticalAlignment="Top" />
+                        <Button x:Name="SessionWordActionButton" Grid.Column="1" Style="{StaticResource SecondaryButton}"
+                                Content="{loc:Loc NextWord}" Click="NextWord_Click" VerticalAlignment="Top" />
                     </Grid>
 
                     <Border Style="{StaticResource Card}" Margin="0,24,0,16" Background="#FAF8F3">
@@ -541,6 +545,67 @@
                             <Button Margin="0,18,0,0" HorizontalAlignment="Right" Style="{StaticResource PrimaryButton}" Content="{loc:Loc SaveSettings}" Click="SaveSettings_Click" />
                             <TextBlock x:Name="SettingsMessageText" Margin="0,9,0,0" HorizontalAlignment="Right" FontSize="12" Foreground="{StaticResource AccentBrush}" />
                         </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- About -->
+            <ScrollViewer x:Name="AboutPage" Visibility="Collapsed" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Margin="44,34,44,44" MaxWidth="880" HorizontalAlignment="Left">
+                    <TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc AboutEyebrow}" />
+                    <TextBlock Style="{StaticResource PageTitle}" Margin="0,5,0,4" Text="{loc:Loc AboutTitle}" />
+
+                    <Border Style="{StaticResource Card}" Margin="0,22,0,14" Width="820" Padding="28">
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="142" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                            <ContentControl Style="{StaticResource LogoMark}" Width="118" Height="118" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <StackPanel Grid.Column="1" Margin="18,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="Word2Sentence" FontSize="27" FontWeight="SemiBold" />
+                                <TextBlock Margin="0,8,0,0" Text="{loc:Loc AboutDescription}" FontSize="14" LineHeight="22"
+                                           Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <Grid Width="820" Margin="0,0,0,14">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="12" /><ColumnDefinition Width="*" /><ColumnDefinition Width="12" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Style="{StaticResource Card}">
+                            <StackPanel><TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc AboutDeveloper}" /><TextBlock Margin="0,7,0,0" Text="Arabidopsis" FontSize="17" FontWeight="SemiBold" /></StackPanel>
+                        </Border>
+                        <Border Grid.Column="2" Style="{StaticResource Card}">
+                            <StackPanel><TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc AboutVersion}" /><TextBlock x:Name="AboutVersionText" Margin="0,7,0,0" FontSize="17" FontWeight="SemiBold" /></StackPanel>
+                        </Border>
+                        <Border Grid.Column="4" Style="{StaticResource Card}">
+                            <StackPanel><TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc AboutLicense}" /><TextBlock Margin="0,7,0,0" Text="AGPL-3.0-only" FontSize="17" FontWeight="SemiBold" /></StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <Border Width="820" Style="{StaticResource Card}" Background="{StaticResource AccentSoftBrush}" Margin="0,0,0,14">
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                            <Border Width="42" Height="42" CornerRadius="21" Background="{StaticResource AccentBrush}">
+                                <TextBlock Text="★" Foreground="White" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <StackPanel Grid.Column="1" Margin="14,0" VerticalAlignment="Center">
+                                <TextBlock Text="{loc:Loc AboutListed}" FontSize="16" FontWeight="SemiBold" />
+                                <TextBlock Margin="0,4,0,0" Text="{loc:Loc AboutListedDescription}" FontSize="12" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <Button Grid.Column="2" Style="{StaticResource SecondaryButton}" Content="{loc:Loc ViewAwesomeFsrs}" Click="OpenAwesomeFsrs_Click" />
+                        </Grid>
+                    </Border>
+
+                    <Border Width="820" Style="{StaticResource Card}">
+                        <Grid>
+                            <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="{loc:Loc AboutThanks}" FontSize="16" FontWeight="SemiBold" TextWrapping="Wrap" />
+                                <TextBlock Margin="0,7,0,0" Text="{loc:Loc AboutStarPrompt}" FontSize="13" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Margin="0,18,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Style="{StaticResource SecondaryButton}" Content="{loc:Loc ViewSource}" Click="OpenRepository_Click" />
+                                <Button Margin="10,0,0,0" Style="{StaticResource PrimaryButton}" Content="{loc:Loc StarOnGitHub}" Click="OpenRepository_Click" />
+                            </StackPanel>
+                        </Grid>
                     </Border>
                 </StackPanel>
             </ScrollViewer>

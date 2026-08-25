@@ -153,6 +153,24 @@
             <Setter Property="Padding" Value="20" />
         </Style>
 
+        <Style x:Key="LogoMark" TargetType="ContentControl">
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ContentControl">
+                        <Viewbox Stretch="Uniform" SnapsToDevicePixels="True">
+                            <Grid Width="100" Height="100">
+                                <Border CornerRadius="22" Background="{StaticResource AccentBrush}" />
+                                <TextBlock Text="W²" Foreground="#FFFDF9" FontFamily="Segoe UI Variable Display, Segoe UI"
+                                           FontSize="43" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Margin="0,-3,0,0" />
+                            </Grid>
+                        </Viewbox>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="Eyebrow" TargetType="TextBlock">
             <Setter Property="Foreground" Value="{StaticResource TextMutedBrush}" />
             <Setter Property="FontSize" Value="12" />

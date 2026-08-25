@@ -39,6 +39,10 @@ Start immediately with the scheduler's most urgent recommendation, or choose fre
 
 ![English word library with custom selectable rows](docs/images/library.png)
 
+### About and open-source information
+
+![English About page with developer, license, awesome-fsrs listing, and GitHub actions](docs/images/about.png)
+
 ## What makes it different
 
 - **Production before recognition** — every review asks the learner to create a sentence.
@@ -52,6 +56,7 @@ Start immediately with the scheduler's most urgent recommendation, or choose fre
 - **No self-rating buttons** — memory grades are generated from evidence, not learner confidence.
 - **Local-first storage** — the word library, review history, usage cards, and scheduler state stay in one local JSON file.
 - **Multilingual by design** — the interface supports English and Simplified Chinese; target and explanation languages are configurable, and word validation accepts Unicode scripts.
+- **Open-source About page** — shows the developer, version, AGPL-3.0-only license, verified awesome-fsrs listing, source link, and GitHub star prompt.
 
 ## Learning flow
 

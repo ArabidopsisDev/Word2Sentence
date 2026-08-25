@@ -47,7 +47,7 @@
                 MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
             <Grid>
                 <StackPanel Orientation="Horizontal" Margin="14,0" VerticalAlignment="Center">
-                    <Image Source="Assets/Word2Sentence.ico" Width="22" Height="22" SnapsToDevicePixels="True" />
+                    <ContentControl Style="{StaticResource LogoMark}" Width="22" Height="22" />
                     <TextBlock Margin="9,0,0,0" Text="{loc:Loc DialogTitle}" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center" />
                 </StackPanel>
                 <Button HorizontalAlignment="Right" Style="{StaticResource CloseTitleBarButton}" Content="&#xE8BB;"

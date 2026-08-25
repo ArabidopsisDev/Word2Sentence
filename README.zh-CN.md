@@ -29,6 +29,10 @@ Word2Sentence 是一款本地优先的 Windows 桌面单词学习软件。用户
 
 ![英文自定义单词库列表](docs/images/library.png)
 
+### 关于与开源信息
+
+![英文关于页：开发者、许可证、awesome-fsrs 收录和 GitHub 操作](docs/images/about.png)
+
 ## 主要功能
 
 - 主动添加目标语言单词或短语；
@@ -46,6 +50,7 @@ Word2Sentence 是一款本地优先的 Windows 桌面单词学习软件。用户
 - 目标语言和 AI 解释语言分别配置；
 - Unicode 词项输入，不把学习范围锁死在英语；
 - 本地 JSON 持久化，API 密钥不落盘。
+- 关于页展示开发者、版本、AGPL-3.0-only、awesome-fsrs 收录状态、源码与 GitHub 星标入口。
 
 ## 自动复习原理
 
