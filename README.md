@@ -144,6 +144,12 @@ FSRS_6_3_1_CONFORMANCE_OK
 AUTOMATIC_MEMORY_GRADE_OK
 ```
 
+Regenerate the multi-size Windows icon after changing the brand mark:
+
+```powershell
+pwsh -NoProfile -File .\tools\Generate-AppIcon.ps1
+```
+
 ## Configuration and data
 
 The default data file is:
@@ -174,6 +180,7 @@ Word2Sentence/
 │  │  └─ WordCandidateService.cs
 │  └─ MainWindow.xaml                 Main desktop experience
 ├─ Word2Sentence.AlgorithmChecks/     FSRS conformance checks
+├─ tools/Generate-AppIcon.ps1         Reproducible multi-size ICO generator
 └─ Word2Sentence.slnx
 ```
 

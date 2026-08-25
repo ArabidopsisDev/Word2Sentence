@@ -6,8 +6,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Assets\Word2Sentence.ico</ApplicationIcon>
     <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
     <Copyright>Copyright © 2026 Word2Sentence contributors</Copyright>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Word2Sentence.ico" />
+  </ItemGroup>
 
 </Project>

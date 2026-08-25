@@ -4,6 +4,7 @@
         xmlns:loc="clr-namespace:Word2Sentence.Localization"
         xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         Title="{loc:Loc DialogTitle}" Width="680" Height="560" MinWidth="580" MinHeight="440"
+        Icon="Assets/Word2Sentence.ico"
         WindowStartupLocation="CenterOwner" ResizeMode="CanResize" ShowInTaskbar="False"
         WindowStyle="None" Background="{StaticResource CanvasBrush}">
     <shell:WindowChrome.WindowChrome>
@@ -46,10 +47,7 @@
                 MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
             <Grid>
                 <StackPanel Orientation="Horizontal" Margin="14,0" VerticalAlignment="Center">
-                    <Border Width="22" Height="22" CornerRadius="5" Background="{StaticResource AccentBrush}">
-                        <TextBlock Text="W²" Foreground="White" FontSize="10" FontWeight="SemiBold"
-                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
+                    <Image Source="Assets/Word2Sentence.ico" Width="22" Height="22" SnapsToDevicePixels="True" />
                     <TextBlock Margin="9,0,0,0" Text="{loc:Loc DialogTitle}" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center" />
                 </StackPanel>
                 <Button HorizontalAlignment="Right" Style="{StaticResource CloseTitleBarButton}" Content="&#xE8BB;"

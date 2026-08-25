@@ -96,6 +96,12 @@ FSRS_6_3_1_CONFORMANCE_OK
 AUTOMATIC_MEMORY_GRADE_OK
 ```
 
+修改品牌图形后，可重新生成多尺寸 Windows 图标：
+
+```powershell
+pwsh -NoProfile -File .\tools\Generate-AppIcon.ps1
+```
+
 ## 本地数据与隐私
 
 默认数据文件：
