@@ -24,6 +24,9 @@ public sealed class OpenRouterService(HttpClient httpClient)
 
     public bool HasApiKey => !string.IsNullOrWhiteSpace(ResolveApiKey());
 
+    public static bool SupportsCombinedTargetEvidence(string model) =>
+        model.Contains("deepseek-v4-flash", StringComparison.OrdinalIgnoreCase);
+
     public async Task<SentenceChallenge> CreateChallengeAsync(
         WordEntry word,
         string model,
@@ -104,6 +107,7 @@ public sealed class OpenRouterService(HttpClient httpClient)
     {
         if (!HasApiKey) return CreateOfflineEvaluation(word, sentence);
 
+        var includeTargetUsage = SupportsCombinedTargetEvidence(model);
         var system = $$"""
             You are a rigorous but encouraging {{targetLanguage}} writing coach for language learners.
             Evaluate grammar, collocation, word choice, naturalness, and whether the target word is used correctly.
@@ -126,6 +130,16 @@ public sealed class OpenRouterService(HttpClient httpClient)
             Use no more than 12 segments. Keep the summary under 120 Chinese characters and each reason under 40 Chinese characters.
             Return JSON only.
             """;
+        if (includeTargetUsage)
+        {
+            system += $$"""
+
+                targetUsage evaluates ONLY the target word in the learner's ORIGINAL sentence. Each boolean is factual
+                evidence, not a holistic grade. CoreCorrectionRequired is true if the target word, its form, meaning,
+                collocation, or local grammar must change. Confidence is 0 to 1. Do not punish unrelated grammar errors
+                in these fields. evidenceSummary uses concise {{explanationLanguage}}.
+                """;
+        }
         var user = $"""
             Target language: {targetLanguage}
             Target word: {word.Word}
@@ -135,59 +149,68 @@ public sealed class OpenRouterService(HttpClient httpClient)
             Learner sentence: {sentence}
             """;
 
+        var properties = new Dictionary<string, object>
+        {
+            ["score"] = new { type = "integer", minimum = 0, maximum = 100 },
+            ["summary"] = new { type = "string", maxLength = 300 },
+            ["correctedSentence"] = new { type = "string", maxLength = 800 },
+            ["betterSentence"] = new { type = "string", maxLength = 800 },
+            ["segments"] = new
+            {
+                type = "array",
+                maxItems = 12,
+                items = new
+                {
+                    type = "object",
+                    properties = new
+                    {
+                        text = new { type = "string" },
+                        rating = new { type = "string", @enum = new[] { "excellent", "acceptable", "error" } },
+                        reason = new { type = "string", maxLength = 120 }
+                    },
+                    required = new[] { "text", "rating", "reason" },
+                    additionalProperties = false
+                }
+            },
+            ["errorWords"] = new
+            {
+                type = "array",
+                maxItems = 8,
+                items = new
+                {
+                    type = "object",
+                    properties = new
+                    {
+                        observedForm = new { type = "string" },
+                        word = new { type = "string" },
+                        partOfSpeech = new { type = "string", maxLength = 32 },
+                        meaning = new { type = "string" },
+                        reason = new { type = "string", maxLength = 120 }
+                    },
+                    required = new[] { "observedForm", "word", "partOfSpeech", "meaning", "reason" },
+                    additionalProperties = false
+                }
+            }
+        };
+        var required = new List<string> { "score", "summary", "correctedSentence", "betterSentence", "segments", "errorWords" };
+        if (includeTargetUsage)
+        {
+            properties["targetUsage"] = BuildTargetUsageSchema();
+            required.Add("targetUsage");
+        }
         var schema = new
         {
             type = "object",
-            properties = new
-            {
-                score = new { type = "integer", minimum = 0, maximum = 100 },
-                summary = new { type = "string", maxLength = 300 },
-                correctedSentence = new { type = "string", maxLength = 800 },
-                betterSentence = new { type = "string", maxLength = 800 },
-                segments = new
-                {
-                    type = "array",
-                    maxItems = 12,
-                    items = new
-                    {
-                        type = "object",
-                        properties = new
-                        {
-                            text = new { type = "string" },
-                            rating = new { type = "string", @enum = new[] { "excellent", "acceptable", "error" } },
-                            reason = new { type = "string", maxLength = 120 }
-                        },
-                        required = new[] { "text", "rating", "reason" },
-                        additionalProperties = false
-                    }
-                },
-                errorWords = new
-                {
-                    type = "array",
-                    maxItems = 8,
-                    items = new
-                    {
-                        type = "object",
-                        properties = new
-                        {
-                            observedForm = new { type = "string" },
-                            word = new { type = "string" },
-                            partOfSpeech = new { type = "string", maxLength = 32 },
-                            meaning = new { type = "string" },
-                            reason = new { type = "string", maxLength = 120 }
-                        },
-                        required = new[] { "observedForm", "word", "partOfSpeech", "meaning", "reason" },
-                        additionalProperties = false
-                    }
-                }
-            },
-            required = new[] { "score", "summary", "correctedSentence", "betterSentence", "segments", "errorWords" },
+            properties,
+            required = required.ToArray(),
             additionalProperties = false
         };
 
         var evaluation = await SendStructuredAsync<SentenceEvaluation>(model, system, user, "sentence_evaluation", schema, cancellationToken);
         evaluation.Score = Math.Clamp(evaluation.Score, 0, 100);
-        evaluation.TargetUsage = new TargetUsageEvidence();
+        evaluation.TargetUsage ??= new TargetUsageEvidence();
+        if (!includeTargetUsage) evaluation.TargetUsage = new TargetUsageEvidence();
+        evaluation.TargetUsage.Confidence = Math.Clamp(evaluation.TargetUsage.Confidence, 0, 1);
         evaluation.Segments ??= [];
         evaluation.ErrorWords ??= [];
         if (string.IsNullOrWhiteSpace(evaluation.CorrectedSentence)) evaluation.CorrectedSentence = sentence;
@@ -424,6 +447,12 @@ public sealed class OpenRouterService(HttpClient httpClient)
     {
         if (!model.Contains("deepseek-v4-flash", StringComparison.OrdinalIgnoreCase)) return;
         payload["reasoning"] = new { effort = "low", exclude = true };
+        payload["provider"] = new
+        {
+            require_parameters = true,
+            preferred_min_throughput = 20,
+            preferred_max_latency = 12
+        };
     }
 
     private async Task<string> PostAndExtractContentAsync(object payload, CancellationToken cancellationToken)

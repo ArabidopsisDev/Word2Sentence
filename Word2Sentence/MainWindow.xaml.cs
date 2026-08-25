@@ -307,7 +307,9 @@ public partial class MainWindow : Window
         }
 
         PracticeStatusText.Text = _ai.HasApiKey
-            ? LocalizationService.T("CheckingSentence")
+            ? LocalizationService.T(OpenRouterService.SupportsCombinedTargetEvidence(_data.Settings.Model)
+                ? "CheckingCombined"
+                : "CheckingSentence")
             : LocalizationService.T("OfflineChecking");
         await RunBusyAsync(async cancellationToken =>
         {
@@ -325,16 +327,20 @@ public partial class MainWindow : Window
                 _data.Settings.TargetLanguage,
                 _data.Settings.ExplanationLanguage,
                 primaryTimeout.Token);
-            var evidenceTask = _ai.RecheckTargetUsageAsync(
-                _currentWord,
-                sentence,
-                _data.Settings.Model,
-                _data.Settings.TargetLanguage,
-                _data.Settings.ExplanationLanguage,
-                primaryTimeout.Token);
-            await Task.WhenAll(evaluationTask, evidenceTask);
+            Task<TargetUsageEvidence>? evidenceTask = null;
+            if (!OpenRouterService.SupportsCombinedTargetEvidence(_data.Settings.Model))
+            {
+                evidenceTask = _ai.RecheckTargetUsageAsync(
+                    _currentWord,
+                    sentence,
+                    _data.Settings.Model,
+                    _data.Settings.TargetLanguage,
+                    _data.Settings.ExplanationLanguage,
+                    primaryTimeout.Token);
+                await Task.WhenAll(evaluationTask, evidenceTask);
+            }
             var evaluation = await evaluationTask;
-            evaluation.TargetUsage = await evidenceTask;
+            if (evidenceTask is not null) evaluation.TargetUsage = await evidenceTask;
 
             var decision = AutomaticMemoryGradeService.Decide(
                 evaluation.TargetUsage,

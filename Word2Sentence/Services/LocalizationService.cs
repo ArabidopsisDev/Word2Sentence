@@ -63,6 +63,7 @@ public sealed class LocalizationService : INotifyPropertyChanged
             ["CreatingExercise"] = ("正在通过 OpenRouter 出题…", "Creating an exercise with OpenRouter…"), ["OfflineMode"] = ("离线模式：未检测到 OR_KEY", "Offline mode: OR_KEY not found"),
             ["HintPrefix"] = ("提示：{0}", "Hint: {0}"), ["CreatedBy"] = ("由 {0} 出题", "Exercise by {0}"), ["OfflineBasic"] = ("离线基础模式", "Basic offline mode"),
             ["SentenceRequired"] = ("请先写一个完整句子。", "Write a complete sentence first."), ["CheckingSentence"] = ("正在并行检查写作质量与目标词用法…", "Checking writing quality and target usage in parallel…"),
+            ["CheckingCombined"] = ("正在一次完成写作批改与目标词核验…", "Checking writing and target usage in one structured pass…"),
             ["OfflineChecking"] = ("正在进行离线基础检查…", "Running basic offline checks…"), ["CheckingEvidence"] = ("写作批改完成，正在独立核验目标词用法…", "Writing feedback complete. Verifying target usage independently…"),
             ["RecheckingEvidence"] = ("目标词证据不够稳定，正在进行第二次独立核验…", "Target evidence is uncertain. Running a second independent check…"),
             ["NoNewCandidates"] = ("本次没有新的错词候选；已有词和重复项已排除。", "No new word candidates; existing and duplicate entries were removed."),
