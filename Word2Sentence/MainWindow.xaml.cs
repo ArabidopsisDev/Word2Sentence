@@ -198,6 +198,7 @@ public partial class MainWindow : Window
                 _data.Settings.Model,
                 _data.Settings.TargetLanguage,
                 _data.Settings.ExplanationLanguage,
+                _data.Reviews,
                 requestTimeout.Token);
             ScenarioText.Text = _challenge.Scenario;
             GoalText.Text = _challenge.Goal;
@@ -445,6 +446,8 @@ public partial class MainWindow : Window
                 Sentence = sentence,
                 CorrectedSentence = evaluation.CorrectedSentence,
                 BetterSentence = evaluation.BetterSentence,
+                Scenario = _challenge.Scenario,
+                ScenarioCategory = _challenge.ScenarioCategory,
                 Score = evaluation.Score,
                 Quality = (int)decision.Grade,
                 MemoryGrade = (int)decision.Grade,

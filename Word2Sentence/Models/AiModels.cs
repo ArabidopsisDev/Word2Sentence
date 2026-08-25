@@ -3,6 +3,7 @@ namespace Word2Sentence.Models;
 public sealed class SentenceChallenge
 {
     public string Scenario { get; set; } = string.Empty;
+    public string ScenarioCategory { get; set; } = string.Empty;
     public string Goal { get; set; } = string.Empty;
     public string Hint { get; set; } = string.Empty;
     public string UsagePattern { get; set; } = string.Empty;

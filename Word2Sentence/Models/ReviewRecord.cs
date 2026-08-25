@@ -8,6 +8,8 @@ public sealed class ReviewRecord
     public string Sentence { get; set; } = string.Empty;
     public string CorrectedSentence { get; set; } = string.Empty;
     public string BetterSentence { get; set; } = string.Empty;
+    public string Scenario { get; set; } = string.Empty;
+    public string ScenarioCategory { get; set; } = string.Empty;
     public int Score { get; set; }
     public int Quality { get; set; }
     public int MemoryGrade { get; set; }

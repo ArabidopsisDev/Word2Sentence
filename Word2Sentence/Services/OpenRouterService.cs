@@ -32,21 +32,40 @@ public sealed class OpenRouterService(HttpClient httpClient)
         string model,
         string targetLanguage,
         string explanationLanguage,
+        IEnumerable<ReviewRecord> reviewHistory,
         CancellationToken cancellationToken = default)
     {
-        if (!HasApiKey) return CreateOfflineChallenge(word, targetLanguage);
+        var diversity = ScenarioDiversityService.Create(word.Id, reviewHistory);
+        if (!HasApiKey) return CreateOfflineChallenge(word, targetLanguage, diversity);
 
         var system = $$"""
             You design short {{targetLanguage}} sentence-writing exercises for language learners.
             Return JSON only. The exercise must require the target word naturally, avoid giving a complete sample answer,
             and use concise natural {{explanationLanguage}} for scenario, goal, hint, and usage meanings. scenario and goal must not reveal the target
             word's collocation or a sentence template. hint may give a general grammatical direction, but not a complete answer.
+            Make the scenario substantially different from the recent scenarios supplied by the user. Change the setting,
+            people, immediate goal, and trigger rather than merely paraphrasing an earlier scenario. Follow the requested
+            scenario category when the target word can be used naturally; if it genuinely cannot, use the closest natural
+            concrete situation while preserving novelty.
             Also create a compact usage card with 2 or 3 independent usageItems. Each item contains exactly one collocation
             or grammar pattern, one direct meaning, and one short natural example. Never combine patterns with '/', 'or',
             commas, or newlines inside a single pattern. Do not write a dictionary-style paragraph. Prefer practical patterns
             such as "distract sb from sth" and "be distracted by sth" as separate items.
             """;
-        var user = $"Target language: {targetLanguage}\nTarget word: {word.Word}\nLearner note/meaning: {word.Meaning}\nCreate one realistic everyday or work scenario.";
+        var recentScenarios = diversity.RecentScenarios.Count == 0
+            ? "None."
+            : string.Join("\n", diversity.RecentScenarios.Select((scenario, index) =>
+                $"{index + 1}. {LimitLength(scenario, 320)}"));
+        var user = $"""
+            Target language: {targetLanguage}
+            Target word: {word.Word}
+            Learner note/meaning: {word.Meaning}
+            Scenario category for this review: {diversity.CategoryLabelEnglish}
+            Category guidance: {diversity.CategoryInstruction}
+            Recent scenarios for this target word that must not be repeated or closely paraphrased:
+            {recentScenarios}
+            Create one specific, realistic scenario in the requested category. Favor a fresh situation over the most typical textbook example.
+            """;
 
         var schema = new
         {
@@ -79,7 +98,9 @@ public sealed class OpenRouterService(HttpClient httpClient)
             additionalProperties = false
         };
 
-        var challenge = await SendStructuredAsync<SentenceChallenge>(model, system, user, "sentence_challenge", schema, cancellationToken);
+        var challenge = await SendStructuredAsync<SentenceChallenge>(
+            model, system, user, "sentence_challenge", schema, cancellationToken, temperature: 0.7);
+        challenge.ScenarioCategory = diversity.CategoryKey;
         if (string.IsNullOrWhiteSpace(challenge.Scenario)) challenge.Scenario = LocalizationService.Instance.IsEnglish
             ? $"Use {word.Word} to describe a specific situation."
             : $"请使用 {word.Word} 描述一个具体情境。";
@@ -344,7 +365,8 @@ public sealed class OpenRouterService(HttpClient httpClient)
         string user,
         string schemaName,
         object schema,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        double temperature = 0.25)
     {
         var schemaText = JsonSerializer.Serialize(schema);
         var strictPayload = new Dictionary<string, object?>
@@ -355,7 +377,7 @@ public sealed class OpenRouterService(HttpClient httpClient)
                 new { role = "system", content = system },
                 new { role = "user", content = user }
             },
-            ["temperature"] = 0.25,
+            ["temperature"] = temperature,
             ["max_tokens"] = 6000,
             ["response_format"] = new
             {
@@ -378,12 +400,12 @@ public sealed class OpenRouterService(HttpClient httpClient)
                 exception.StatusCode is HttpStatusCode.BadRequest or HttpStatusCode.NotFound)
             {
                 _plainJsonOnlyModels.TryAdd(model, 0);
-                content = await SendPlainJsonAsync(model, system, user, schemaText, cancellationToken);
+                content = await SendPlainJsonAsync(model, system, user, schemaText, cancellationToken, temperature);
             }
         }
         else
         {
-            content = await SendPlainJsonAsync(model, system, user, schemaText, cancellationToken);
+            content = await SendPlainJsonAsync(model, system, user, schemaText, cancellationToken, temperature);
         }
 
         if (TryDeserializeStructured(content, out T? result)) return result!;
@@ -422,7 +444,8 @@ public sealed class OpenRouterService(HttpClient httpClient)
         string system,
         string user,
         string schemaText,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        double temperature)
     {
         var payload = new Dictionary<string, object?>
         {
@@ -436,7 +459,7 @@ public sealed class OpenRouterService(HttpClient httpClient)
                     content = user + "\nRequired JSON Schema (return exactly one complete JSON object, no markdown):\n" + schemaText
                 }
             },
-            ["temperature"] = 0.2,
+            ["temperature"] = temperature,
             ["max_tokens"] = 6000
         };
         AddReasoningControl(payload, model);
@@ -652,11 +675,15 @@ public sealed class OpenRouterService(HttpClient httpClient)
             : trimmed;
     }
 
-    private static SentenceChallenge CreateOfflineChallenge(WordEntry word, string targetLanguage) => new()
+    private static SentenceChallenge CreateOfflineChallenge(
+        WordEntry word,
+        string targetLanguage,
+        ScenarioDiversityContext diversity) => new()
     {
         Scenario = LocalizationService.Instance.IsEnglish
-            ? $"Describe something that happened today and use “{word.Word}” naturally."
-            : $"描述今天发生的一件事，并自然地用上“{word.Word}”。",
+            ? $"Describe a specific situation involving {diversity.CategoryLabelEnglish}, and use “{word.Word}” naturally."
+            : $"描述一个关于“{diversity.CategoryLabelChinese}”的具体情境，并自然地用上“{word.Word}”。",
+        ScenarioCategory = diversity.CategoryKey,
         Goal = LocalizationService.Instance.IsEnglish
             ? $"Write one complete, specific sentence in {targetLanguage}."
             : $"用{targetLanguage}写一个完整、具体、能独立理解的句子。",

@@ -89,6 +89,28 @@ var cleanedCandidate = WordCandidateService.Prepare(detectedWords, [], "focus").
 Require(cleanedCandidate.Meaning == "转移，使分心；打扰", "repeated word prefix is removed");
 Require(WordCandidateService.ComposeMeaning(cleanedCandidate) == "vt. 转移，使分心；打扰", "part of speech is preserved");
 
+var scenarioWordId = Guid.Parse("07db3388-c15b-4d89-97f8-4dd8b1dc2dcc");
+var scenarioHistory = new List<ReviewRecord>();
+var scenarioCategories = new List<string>();
+for (var index = 0; index < 10; index++)
+{
+    var context = ScenarioDiversityService.Create(scenarioWordId, scenarioHistory);
+    scenarioCategories.Add(context.CategoryKey);
+    scenarioHistory.Add(new ReviewRecord
+    {
+        WordId = scenarioWordId,
+        Scenario = $"Scenario {index}",
+        ScenarioCategory = context.CategoryKey,
+        ReviewedAt = origin.AddMinutes(index)
+    });
+}
+Require(scenarioCategories.Distinct(StringComparer.Ordinal).Count() == 10,
+    "scenario categories rotate without repetition across a complete cycle");
+var diversityContext = ScenarioDiversityService.Create(scenarioWordId, scenarioHistory);
+Require(diversityContext.CategoryKey == scenarioCategories[0], "scenario category cycle is deterministic");
+Require(diversityContext.RecentScenarios.SequenceEqual(new[] { "Scenario 9", "Scenario 8", "Scenario 7", "Scenario 6", "Scenario 5" }),
+    "the five most recent scenarios are supplied for novelty filtering");
+
 LocalizationService.Instance.SetLanguage("en-US");
 Require(LocalizationService.T("NavPractice") == "Practice", "English localization");
 LocalizationService.Instance.SetLanguage("zh-CN");
@@ -96,6 +118,7 @@ Require(LocalizationService.T("NavPractice") == "造句练习", "Chinese localiz
 
 Console.WriteLine("FSRS_6_3_1_CONFORMANCE_OK");
 Console.WriteLine("AUTOMATIC_MEMORY_GRADE_OK");
+Console.WriteLine("SCENARIO_DIVERSITY_OK");
 
 static TargetUsageEvidence Evidence(bool success, bool natural, double confidence) => new()
 {
