@@ -119,7 +119,7 @@ cd Word2Sentence
 dotnet run --project .\Word2Sentence\Word2Sentence.csproj
 ```
 
-The default OpenRouter model is `stealth/ox-alpha`. The model ID can be changed from Settings; `deepseek/deepseek-v4-flash` is already documented in the UI as the planned replacement.
+The default OpenRouter model is `stealth/ox-alpha`. The model ID can be changed from Settings; `deepseek/deepseek-v4-flash-0731` is supported with low reasoning effort, parallel evaluation/evidence calls, empty-content retry, and a larger final-output budget.
 
 The key is read in this order:
 

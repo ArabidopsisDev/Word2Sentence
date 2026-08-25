@@ -79,7 +79,7 @@ cd Word2Sentence
 dotnet run --project .\Word2Sentence\Word2Sentence.csproj
 ```
 
-默认模型是 `stealth/ox-alpha`，可在设置中改为其他 OpenRouter 模型。密钥依次从进程、当前用户和系统环境变量读取，不会写入项目或数据文件。
+默认模型是 `stealth/ox-alpha`，可在设置中改为 `deepseek/deepseek-v4-flash-0731` 等 OpenRouter 模型。DeepSeek V4 Flash 会自动使用低推理强度、并行批改/证据核验、空内容重试和更大的最终输出预算。密钥依次从进程、当前用户和系统环境变量读取，不会写入项目或数据文件。
 
 ## 构建与算法检查
 

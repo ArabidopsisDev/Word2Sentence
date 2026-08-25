@@ -16,7 +16,7 @@ public partial class MainWindow : Window
     private readonly DataStore _store = new();
     private readonly OpenRouterService _ai = new(new HttpClient
     {
-        Timeout = TimeSpan.FromSeconds(120)
+        Timeout = TimeSpan.FromMinutes(4)
     });
     private readonly DispatcherTimer _cardCarouselTimer = new() { Interval = TimeSpan.FromSeconds(6) };
 
@@ -162,12 +162,14 @@ public partial class MainWindow : Window
 
         await RunBusyAsync(async cancellationToken =>
         {
+            using var requestTimeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            requestTimeout.CancelAfter(TimeSpan.FromSeconds(90));
             _challenge = await _ai.CreateChallengeAsync(
                 _currentWord,
                 _data.Settings.Model,
                 _data.Settings.TargetLanguage,
                 _data.Settings.ExplanationLanguage,
-                cancellationToken);
+                requestTimeout.Token);
             ScenarioText.Text = _challenge.Scenario;
             GoalText.Text = _challenge.Goal;
             HintText.Text = LocalizationService.T("HintPrefix", _challenge.Hint);
@@ -313,23 +315,26 @@ public partial class MainWindow : Window
             var responseTimeMs = _practiceStartedAt == default
                 ? 0
                 : Math.Max(0, (long)(reviewedAt - _practiceStartedAt).TotalMilliseconds);
-            var evaluation = await _ai.EvaluateAsync(
+            using var primaryTimeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            primaryTimeout.CancelAfter(TimeSpan.FromSeconds(120));
+            var evaluationTask = _ai.EvaluateAsync(
                 _currentWord,
                 _challenge,
                 sentence,
                 _data.Settings.Model,
                 _data.Settings.TargetLanguage,
                 _data.Settings.ExplanationLanguage,
-                cancellationToken);
-
-            PracticeStatusText.Text = LocalizationService.T("CheckingEvidence");
-            evaluation.TargetUsage = await _ai.RecheckTargetUsageAsync(
+                primaryTimeout.Token);
+            var evidenceTask = _ai.RecheckTargetUsageAsync(
                 _currentWord,
                 sentence,
                 _data.Settings.Model,
                 _data.Settings.TargetLanguage,
                 _data.Settings.ExplanationLanguage,
-                cancellationToken);
+                primaryTimeout.Token);
+            await Task.WhenAll(evaluationTask, evidenceTask);
+            var evaluation = await evaluationTask;
+            evaluation.TargetUsage = await evidenceTask;
 
             var decision = AutomaticMemoryGradeService.Decide(
                 evaluation.TargetUsage,
@@ -342,13 +347,15 @@ public partial class MainWindow : Window
             if (decision.Grade == AutomaticMemoryGrade.Uncertain && _ai.HasApiKey)
             {
                 PracticeStatusText.Text = LocalizationService.T("RecheckingEvidence");
+                using var recheckTimeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+                recheckTimeout.CancelAfter(TimeSpan.FromSeconds(60));
                 var recheck = await _ai.RecheckTargetUsageAsync(
                     _currentWord,
                     sentence,
                     _data.Settings.Model,
                     _data.Settings.TargetLanguage,
                     _data.Settings.ExplanationLanguage,
-                    cancellationToken);
+                    recheckTimeout.Token);
                 var reconciled = AutomaticMemoryGradeService.Reconcile(evaluation.TargetUsage, recheck);
                 if (reconciled is not null)
                 {
@@ -603,26 +610,38 @@ public partial class MainWindow : Window
     {
         _requestCancellation?.Cancel();
         _requestCancellation?.Dispose();
-        _requestCancellation = new CancellationTokenSource();
+        var operationCancellation = new CancellationTokenSource();
+        _requestCancellation = operationCancellation;
         _isBusy = true;
         EvaluateButton.IsEnabled = false;
 
         try
         {
-            await work(_requestCancellation.Token);
+            await work(operationCancellation.Token);
         }
         catch (OperationCanceledException)
         {
-            PracticeStatusText.Text = LocalizationService.T("Cancelled");
+            if (ReferenceEquals(_requestCancellation, operationCancellation))
+            {
+                PracticeStatusText.Text = operationCancellation.IsCancellationRequested
+                    ? LocalizationService.T("Cancelled")
+                    : LocalizationService.T("RequestTimedOut");
+            }
         }
         catch (Exception exception)
         {
-            PracticeStatusText.Text = exception.Message;
+            if (ReferenceEquals(_requestCancellation, operationCancellation))
+                PracticeStatusText.Text = exception.Message;
         }
         finally
         {
-            _isBusy = false;
-            EvaluateButton.IsEnabled = true;
+            if (ReferenceEquals(_requestCancellation, operationCancellation))
+            {
+                _requestCancellation = null;
+                _isBusy = false;
+                EvaluateButton.IsEnabled = true;
+            }
+            operationCancellation.Dispose();
         }
     }
 

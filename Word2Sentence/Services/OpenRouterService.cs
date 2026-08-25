@@ -1,8 +1,10 @@
+using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using Word2Sentence.Models;
 
@@ -18,7 +20,7 @@ public sealed class OpenRouterService(HttpClient httpClient)
         ReadCommentHandling = JsonCommentHandling.Skip,
         NumberHandling = JsonNumberHandling.AllowReadingFromString
     };
-    private readonly HashSet<string> _plainJsonOnlyModels = new(StringComparer.OrdinalIgnoreCase);
+    private readonly ConcurrentDictionary<string, byte> _plainJsonOnlyModels = new(StringComparer.OrdinalIgnoreCase);
 
     public bool HasApiKey => !string.IsNullOrWhiteSpace(ResolveApiKey());
 
@@ -322,27 +324,28 @@ public sealed class OpenRouterService(HttpClient httpClient)
         CancellationToken cancellationToken)
     {
         var schemaText = JsonSerializer.Serialize(schema);
-        var strictPayload = new
+        var strictPayload = new Dictionary<string, object?>
         {
-            model,
-            messages = new object[]
+            ["model"] = model,
+            ["messages"] = new object[]
             {
                 new { role = "system", content = system },
                 new { role = "user", content = user }
             },
-            temperature = 0.25,
-            max_tokens = 3000,
-            response_format = new
+            ["temperature"] = 0.25,
+            ["max_tokens"] = 6000,
+            ["response_format"] = new
             {
                 type = "json_schema",
                 json_schema = new { name = schemaName, strict = true, schema }
             },
-            plugins = new[] { new { id = "response-healing" } },
-            provider = new { require_parameters = true }
+            ["plugins"] = new[] { new { id = "response-healing" } },
+            ["provider"] = new { require_parameters = true }
         };
+        AddReasoningControl(strictPayload, model);
 
         string content;
-        if (!_plainJsonOnlyModels.Contains(model))
+        if (!_plainJsonOnlyModels.ContainsKey(model))
         {
             try
             {
@@ -351,7 +354,7 @@ public sealed class OpenRouterService(HttpClient httpClient)
             catch (OpenRouterApiException exception) when (
                 exception.StatusCode is HttpStatusCode.BadRequest or HttpStatusCode.NotFound)
             {
-                _plainJsonOnlyModels.Add(model);
+                _plainJsonOnlyModels.TryAdd(model, 0);
                 content = await SendPlainJsonAsync(model, system, user, schemaText, cancellationToken);
             }
         }
@@ -362,10 +365,10 @@ public sealed class OpenRouterService(HttpClient httpClient)
 
         if (TryDeserializeStructured(content, out T? result)) return result!;
 
-        var repairPayload = new
+        var repairPayload = new Dictionary<string, object?>
         {
-            model,
-            messages = new object[]
+            ["model"] = model,
+            ["messages"] = new object[]
             {
                 new
                 {
@@ -378,9 +381,10 @@ public sealed class OpenRouterService(HttpClient httpClient)
                     content = $"JSON Schema:\n{schemaText}\n\nMalformed model output:\n{LimitLength(content, 14000)}"
                 }
             },
-            temperature = 0.0,
-            max_tokens = 4000
+            ["temperature"] = 0.0,
+            ["max_tokens"] = 8000
         };
+        AddReasoningControl(repairPayload, model);
 
         var repairedContent = await PostAndExtractContentAsync(repairPayload, cancellationToken);
         if (TryDeserializeStructured(repairedContent, out result)) return result!;
@@ -397,10 +401,10 @@ public sealed class OpenRouterService(HttpClient httpClient)
         string schemaText,
         CancellationToken cancellationToken)
     {
-        var payload = new
+        var payload = new Dictionary<string, object?>
         {
-            model,
-            messages = new object[]
+            ["model"] = model,
+            ["messages"] = new object[]
             {
                 new { role = "system", content = system },
                 new
@@ -409,10 +413,17 @@ public sealed class OpenRouterService(HttpClient httpClient)
                     content = user + "\nRequired JSON Schema (return exactly one complete JSON object, no markdown):\n" + schemaText
                 }
             },
-            temperature = 0.2,
-            max_tokens = 4000
+            ["temperature"] = 0.2,
+            ["max_tokens"] = 6000
         };
+        AddReasoningControl(payload, model);
         return await PostAndExtractContentAsync(payload, cancellationToken);
+    }
+
+    private static void AddReasoningControl(IDictionary<string, object?> payload, string model)
+    {
+        if (!model.Contains("deepseek-v4-flash", StringComparison.OrdinalIgnoreCase)) return;
+        payload["reasoning"] = new { effort = "low", exclude = true };
     }
 
     private async Task<string> PostAndExtractContentAsync(object payload, CancellationToken cancellationToken)
@@ -422,33 +433,88 @@ public sealed class OpenRouterService(HttpClient httpClient)
                          ? "OR_KEY environment variable was not found."
                          : "未检测到环境变量 OR_KEY。");
 
-        using var request = new HttpRequestMessage(HttpMethod.Post, Endpoint);
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
-        request.Headers.TryAddWithoutValidation("HTTP-Referer", "https://github.com/Project-MethodBox/Word2Sentence");
-        request.Headers.TryAddWithoutValidation("X-OpenRouter-Title", "Word2Sentence");
-        request.Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+        var payloadNode = JsonSerializer.SerializeToNode(payload) as JsonObject
+                          ?? throw new InvalidOperationException("Could not serialize the OpenRouter request.");
+        string? lastFinishReason = null;
+        long? lastReasoningTokens = null;
 
-        using var response = await httpClient.SendAsync(request, cancellationToken);
-        var body = await response.Content.ReadAsStringAsync(cancellationToken);
-        if (!response.IsSuccessStatusCode)
+        for (var attempt = 0; attempt < 2; attempt++)
         {
-            throw new OpenRouterApiException(
-                response.StatusCode,
-                LocalizationService.Instance.IsEnglish
-                    ? $"OpenRouter request failed ({(int)response.StatusCode}): {ReadError(body)}"
-                    : $"OpenRouter 请求失败 ({(int)response.StatusCode})：{ReadError(body)}");
+            using var request = new HttpRequestMessage(HttpMethod.Post, Endpoint);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+            request.Headers.TryAddWithoutValidation("HTTP-Referer", "https://github.com/ArabidopsisDev/Word2Sentence");
+            request.Headers.TryAddWithoutValidation("X-OpenRouter-Title", "Word2Sentence");
+            request.Content = new StringContent(payloadNode.ToJsonString(), Encoding.UTF8, "application/json");
+
+            using var response = await httpClient.SendAsync(request, cancellationToken);
+            var body = await response.Content.ReadAsStringAsync(cancellationToken);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new OpenRouterApiException(
+                    response.StatusCode,
+                    LocalizationService.Instance.IsEnglish
+                        ? $"OpenRouter request failed ({(int)response.StatusCode}): {ReadError(body)}"
+                        : $"OpenRouter 请求失败 ({(int)response.StatusCode})：{ReadError(body)}");
+            }
+
+            using var document = JsonDocument.Parse(body);
+            var root = document.RootElement;
+            var choice = root.GetProperty("choices")[0];
+            lastFinishReason = choice.TryGetProperty("finish_reason", out var finishReasonElement)
+                ? finishReasonElement.GetString()
+                : null;
+            lastReasoningTokens = TryReadReasoningTokens(root);
+            var message = choice.GetProperty("message");
+            var content = ExtractMessageContent(message);
+            if (!string.IsNullOrWhiteSpace(content)) return content;
+
+            if (attempt == 0)
+            {
+                payloadNode["max_tokens"] = 12000;
+                var model = payloadNode["model"]?.GetValue<string>() ?? string.Empty;
+                if (model.Contains("deepseek-v4-flash", StringComparison.OrdinalIgnoreCase))
+                    payloadNode["reasoning"] = JsonSerializer.SerializeToNode(new { effort = "low", exclude = true });
+            }
         }
 
-        using var document = JsonDocument.Parse(body);
-        var content = document.RootElement
-            .GetProperty("choices")[0]
-            .GetProperty("message")
-            .GetProperty("content")
-            .GetString();
+        var details = $"finish_reason={lastFinishReason ?? "unknown"}, reasoning_tokens={lastReasoningTokens?.ToString() ?? "unknown"}";
+        throw new InvalidOperationException(LocalizationService.Instance.IsEnglish
+            ? $"OpenRouter returned empty final content after one automatic retry ({details})."
+            : $"OpenRouter 自动重试后仍返回空的最终内容（{details}）。");
+    }
 
-        if (string.IsNullOrWhiteSpace(content)) throw new InvalidOperationException(
-            LocalizationService.Instance.IsEnglish ? "OpenRouter returned empty content." : "OpenRouter 返回了空内容。");
-        return content;
+    private static string? ExtractMessageContent(JsonElement message)
+    {
+        if (!message.TryGetProperty("content", out var content)) return null;
+        if (content.ValueKind == JsonValueKind.String) return content.GetString();
+        if (content.ValueKind != JsonValueKind.Array) return null;
+
+        var parts = new List<string>();
+        foreach (var item in content.EnumerateArray())
+        {
+            if (item.ValueKind == JsonValueKind.String)
+            {
+                var value = item.GetString();
+                if (!string.IsNullOrWhiteSpace(value)) parts.Add(value);
+                continue;
+            }
+            if (item.ValueKind == JsonValueKind.Object &&
+                item.TryGetProperty("text", out var text) && text.ValueKind == JsonValueKind.String)
+            {
+                var value = text.GetString();
+                if (!string.IsNullOrWhiteSpace(value)) parts.Add(value);
+            }
+        }
+        return parts.Count == 0 ? null : string.Concat(parts);
+    }
+
+    private static long? TryReadReasoningTokens(JsonElement root)
+    {
+        if (!root.TryGetProperty("usage", out var usage) ||
+            !usage.TryGetProperty("completion_tokens_details", out var details) ||
+            !details.TryGetProperty("reasoning_tokens", out var reasoningTokens) ||
+            !reasoningTokens.TryGetInt64(out var value)) return null;
+        return value;
     }
 
     private static string ReadError(string body)
