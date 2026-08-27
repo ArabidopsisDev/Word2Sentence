@@ -125,9 +125,16 @@ Require(!invalidKeyResult.IsValid && invalidKeyResult.Reason == "unauthorized",
 LocalizationService.Instance.SetLanguage("en-US");
 Require(LocalizationService.T("NavPractice") == "Practice", "English localization");
 Require(LocalizationService.T("SetupBeginner") == "Guide me step by step", "English onboarding localization");
+Require(LocalizationService.T("SetupCreditsInstruction").Contains("One-time payment", StringComparison.Ordinal),
+    "English beginner payment guide identifies one-time payment");
 LocalizationService.Instance.SetLanguage("zh-CN");
 Require(LocalizationService.T("NavPractice") == "造句练习", "Chinese localization");
 Require(LocalizationService.T("SetupTechnical") == "我是技术用户", "Chinese onboarding localization");
+Require(LocalizationService.T("SetupCreditsInstruction").Contains("一次性付款", StringComparison.Ordinal),
+    "Chinese beginner payment guide identifies one-time payment");
+Require(LocalizationService.T("AboutReciteListedDescription") ==
+        "如果您有自己开发或推荐的复习软件，欢迎提交到OpenRecite社区维护的awesome-recite-tools目录",
+    "OpenRecite contribution copy remains exact");
 
 Console.WriteLine("FSRS_6_3_1_CONFORMANCE_OK");
 Console.WriteLine("AUTOMATIC_MEMORY_GRADE_OK");

@@ -637,6 +637,20 @@
                         </Grid>
                     </Border>
 
+                    <Border Width="820" Style="{StaticResource Card}" Background="{StaticResource AccentSoftBrush}" Margin="0,0,0,14">
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                            <Border Width="42" Height="42" CornerRadius="21" Background="{StaticResource AccentBrush}">
+                                <TextBlock Text="✓" Foreground="White" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <StackPanel Grid.Column="1" Margin="14,0" VerticalAlignment="Center">
+                                <TextBlock Text="{loc:Loc AboutReciteListed}" FontSize="16" FontWeight="SemiBold" />
+                                <TextBlock Margin="0,4,0,0" Text="{loc:Loc AboutReciteListedDescription}" FontSize="12" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <Button Grid.Column="2" Style="{StaticResource SecondaryButton}" Content="{loc:Loc ViewAwesomeReciteTools}" Click="OpenAwesomeReciteTools_Click" />
+                        </Grid>
+                    </Border>
+
                     <Border Width="820" Style="{StaticResource Card}">
                         <Grid>
                             <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>

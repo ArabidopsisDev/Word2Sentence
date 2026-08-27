@@ -117,11 +117,11 @@
                             </StackPanel>
                             <StackPanel x:Name="BeginnerStepTwo" Visibility="Collapsed">
                                 <TextBlock Text="{loc:Loc SetupCreditsTitle}" FontSize="20" FontWeight="SemiBold" />
-                                <TextBlock Margin="0,9,0,0" Text="{loc:Loc SetupCreditsDesc}" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" LineHeight="21" />
-                                <Border Margin="0,18,0,0" Padding="16" CornerRadius="7" Background="{StaticResource AccentSoftBrush}">
-                                    <TextBlock Text="{loc:Loc SetupCreditsInstruction}" TextWrapping="Wrap" LineHeight="21" />
+                                <TextBlock Margin="0,6,0,0" Text="{loc:Loc SetupCreditsDesc}" Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" LineHeight="19" />
+                                <Border Margin="0,12,0,0" Padding="14" CornerRadius="7" Background="{StaticResource AccentSoftBrush}">
+                                    <TextBlock Text="{loc:Loc SetupCreditsInstruction}" TextWrapping="Wrap" LineHeight="19" />
                                 </Border>
-                                <Button Margin="0,18,0,0" HorizontalAlignment="Left" Style="{StaticResource PrimaryButton}" Content="{loc:Loc OpenCredits}" Click="OpenCredits_Click" />
+                                <Button Margin="0,12,0,0" HorizontalAlignment="Left" Style="{StaticResource PrimaryButton}" Content="{loc:Loc OpenCredits}" Click="OpenCredits_Click" />
                             </StackPanel>
                             <StackPanel x:Name="BeginnerStepThree" Visibility="Collapsed">
                                 <TextBlock Text="{loc:Loc SetupCreateKeyTitle}" FontSize="20" FontWeight="SemiBold" />

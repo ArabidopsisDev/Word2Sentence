@@ -22,6 +22,7 @@ public partial class MainWindow : Window
 
     private const string RepositoryUrl = "https://github.com/ArabidopsisDev/Word2Sentence";
     private const string AwesomeFsrsUrl = "https://github.com/open-spaced-repetition/awesome-fsrs#specialized-flashcard";
+    private const string AwesomeReciteToolsUrl = "https://github.com/OpenRecite/awesome-recite-tools";
     private readonly DataStore _store = new();
     private readonly OpenRouterService _ai = new(new HttpClient
     {
@@ -133,6 +134,7 @@ public partial class MainWindow : Window
 
     private void OpenRepository_Click(object sender, RoutedEventArgs e) => OpenExternalUrl(RepositoryUrl);
     private void OpenAwesomeFsrs_Click(object sender, RoutedEventArgs e) => OpenExternalUrl(AwesomeFsrsUrl);
+    private void OpenAwesomeReciteTools_Click(object sender, RoutedEventArgs e) => OpenExternalUrl(AwesomeReciteToolsUrl);
 
     private static void OpenExternalUrl(string url)
     {
