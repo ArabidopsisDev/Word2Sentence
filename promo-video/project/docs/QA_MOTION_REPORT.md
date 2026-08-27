@@ -1,0 +1,54 @@
+# 动画状态 QA
+
+- 内容 SHA-256：`B373C2F5BBF655ADFCA3C833F0D70D6EEE6509121A89A0D93652D8BBC229E350`
+- 教学事件：46
+- 错误：0
+
+## 事件
+
+- scene 2 / event 0 / 0.50s：pass，changed=939052，mean=25.552225
+- scene 2 / event 1 / 1.45s：pass，changed=10587，mean=56.378654
+- scene 2 / event 2 / 2.70s：pass，changed=1827，mean=7.745711
+- scene 2 / event 3 / 4.00s：pass，changed=4940，mean=42.682345
+- scene 2 / event 4 / 7.00s：pass，changed=2247，mean=17.946054
+- scene 2 / event 5 / 9.50s：pass，changed=12107，mean=51.247908
+- scene 3 / event 0 / 0.50s：pass，changed=365939，mean=23.175868
+- scene 3 / event 1 / 2.10s：pass，changed=1212，mean=76.480257
+- scene 3 / event 2 / 2.80s：pass，changed=216204，mean=11.738487
+- scene 3 / event 3 / 5.70s：pass，changed=865339，mean=43.843634
+- scene 3 / event 4 / 8.20s：pass，changed=278427，mean=58.396002
+- scene 3 / event 5 / 9.00s：pass，changed=33862，mean=9.289253
+- scene 3 / event 6 / 10.30s：pass，changed=7019，mean=71.030392
+- scene 3 / event 7 / 13.50s：pass，changed=764，mean=1.019903
+- scene 4 / event 0 / 0.50s：pass，changed=1038210，mean=26.040121
+- scene 4 / event 1 / 1.50s：pass，changed=12122，mean=78.499674
+- scene 4 / event 2 / 3.70s：pass，changed=9330，mean=36.363137
+- scene 4 / event 3 / 5.20s：pass，changed=95979，mean=16.832918
+- scene 4 / event 4 / 6.00s：pass，changed=19872，mean=205.584977
+- scene 4 / event 5 / 9.00s：pass，changed=106776，mean=21.094952
+- scene 4 / event 6 / 10.50s：pass，changed=1658，mean=26.409569
+- scene 4 / event 7 / 12.80s：pass，changed=2504，mean=0.777764
+- scene 4 / event 8 / 15.50s：pass，changed=349780，mean=37.187657
+- scene 4 / event 9 / 18.00s：pass，changed=3848，mean=0.553483
+- scene 5 / event 0 / 2.00s：pass，changed=12266，mean=38.877392
+- scene 5 / event 1 / 3.00s：pass，changed=10941，mean=31.39889
+- scene 5 / event 2 / 3.40s：pass，changed=8237，mean=20.402383
+- scene 5 / event 3 / 6.00s：pass，changed=36258，mean=10.686294
+- scene 5 / event 4 / 8.00s：pass，changed=460，mean=0.080077
+- scene 5 / event 5 / 10.60s：pass，changed=4761，mean=4.6011
+- scene 5 / event 6 / 11.70s：pass，changed=43968，mean=193.395977
+- scene 5 / event 7 / 12.50s：pass，changed=1138，mean=5.089077
+- scene 5 / event 8 / 15.00s：pass，changed=363187，mean=48.470371
+- scene 5 / event 9 / 16.50s：pass，changed=4475，mean=34.678153
+- scene 5 / event 10 / 19.00s：pass，changed=90384，mean=123.945063
+- scene 5 / event 11 / 20.40s：pass，changed=2367，mean=48.092417
+- scene 5 / event 12 / 22.00s：pass，changed=1109，mean=7.292239
+- scene 5 / event 13 / 24.00s：pass，changed=14810，mean=41.174622
+- scene 5 / event 14 / 26.00s：pass，changed=1724，mean=9.072384
+- scene 6 / event 0 / 0.40s：pass，changed=148761，mean=59.134706
+- scene 6 / event 1 / 3.50s：pass，changed=149549，mean=118.273001
+- scene 6 / event 2 / 5.80s：pass，changed=10937，mean=102.775142
+- scene 6 / event 3 / 8.50s：pass，changed=12456，mean=79.111178
+- scene 6 / event 4 / 11.20s：pass，changed=39216，mean=41.624856
+- scene 6 / event 5 / 13.90s：pass，changed=18225，mean=38.214479
+- scene 6 / event 6 / 16.00s：pass，changed=3444，mean=2.53037

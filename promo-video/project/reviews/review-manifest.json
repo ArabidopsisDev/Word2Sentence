@@ -1,0 +1,10 @@
+{
+  "content_sha256": "[REPLACE after preview build]",
+  "preview_sha256": "[REPLACE after preview build]",
+  "reviews": [
+    {"role": "copy", "reviewer": "[REPLACE: independent reviewer id]", "status": "pending", "evidence": "project/reviews/copy.md", "evidence_sha256": "[REPLACE]"},
+    {"role": "first_viewer", "reviewer": "[REPLACE: independent reviewer id]", "status": "pending", "evidence": "project/reviews/first-viewer.md", "evidence_sha256": "[REPLACE]"},
+    {"role": "technical", "reviewer": "[REPLACE: independent reviewer id]", "status": "pending", "evidence": "project/reviews/technical.md", "evidence_sha256": "[REPLACE]"},
+    {"role": "visual_geometry", "reviewer": "[REPLACE: independent reviewer id]", "status": "pending", "evidence": "project/reviews/visual-geometry.md", "evidence_sha256": "[REPLACE]"}
+  ]
+}

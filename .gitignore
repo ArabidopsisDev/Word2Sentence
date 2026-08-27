@@ -5,6 +5,15 @@
 *.suo
 *.tmp
 wordbook.json
+!promo-video/assets/screenshot-data/wordbook.json
 TestResults/
 .idea/
 *.nupkg
+promo-video/tools/
+promo-video/renders/
+promo-video/work/
+promo-video/assets/audio/
+promo-video/*-final.mp4
+promo-video/*.previous.mp4
+**/__pycache__/
+*.pyc

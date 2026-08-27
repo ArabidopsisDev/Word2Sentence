@@ -1,0 +1,59 @@
+{
+  "spec": "D:\\Projects\\Word2Sentence\\promo-video\\project\\examples\\verification.json",
+  "spec_sha256": "2323E726ACDB03DBB21477158BD38A0DDCA13875996BC8161E301F0F71542208",
+  "runs": [
+    {
+      "id": "app-build-and-license",
+      "command": [
+        "C:/Users/Arabid/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "verify_repository.py",
+        "--build"
+      ],
+      "cwd": "D:\\Projects\\Word2Sentence\\promo-video\\project\\examples",
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "missing_stdout": [],
+      "missing_stderr": [],
+      "stdout": "WORD2SENTENCE_SOURCE_PROOFS_OK\n  Determining projects to restore...\n  All projects are up-to-date for restore.\n  Word2Sentence -> D:\\Projects\\Word2Sentence\\Word2Sentence\\bin\\Release\\net10.0-windows\\Word2Sentence.dll\n  Word2Sentence.AlgorithmChecks -> D:\\Projects\\Word2Sentence\\Word2Sentence.AlgorithmChecks\\bin\\Release\\net10.0-windows\\Word2Sentence.AlgorithmChecks.dll\n\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:00.91\n\n已成功生成\n",
+      "stderr": "",
+      "status": "pass",
+      "proof_ids": [
+        "proof-open-and-problem",
+        "proof-sentence-flow",
+        "proof-feedback-artifacts",
+        "proof-data-boundary"
+      ],
+      "source_sha256": {
+        "project/examples/feature-proofs.json": "E74C7AE1F5F0481A76884B6FE0105A6102769F0BFDA7EAF5734A47495EF5C6DA",
+        "project/examples/feature-proofs.txt": "6ABD3A5E3C69B4DF8F0A01788329E2500FBB33922780B139B346362105B5DAB3",
+        "project/examples/verify_repository.py": "0977B8EEB95FB95640B4CB357FEC6FDDE06F75AA39FC971442D25F7179C7BD8E"
+      }
+    },
+    {
+      "id": "algorithm-conformance",
+      "command": [
+        "C:/Users/Arabid/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "verify_repository.py",
+        "--algorithm"
+      ],
+      "cwd": "D:\\Projects\\Word2Sentence\\promo-video\\project\\examples",
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "missing_stdout": [],
+      "missing_stderr": [],
+      "stdout": "WORD2SENTENCE_SOURCE_PROOFS_OK\nFSRS_6_3_1_CONFORMANCE_OK\nAUTOMATIC_MEMORY_GRADE_OK\nSCENARIO_DIVERSITY_OK\nOPENROUTER_ONBOARDING_OK\n\n",
+      "stderr": "",
+      "status": "pass",
+      "proof_ids": [
+        "proof-automatic-fsrs"
+      ],
+      "source_sha256": {
+        "project/examples/feature-proofs.json": "E74C7AE1F5F0481A76884B6FE0105A6102769F0BFDA7EAF5734A47495EF5C6DA",
+        "project/examples/feature-proofs.txt": "6ABD3A5E3C69B4DF8F0A01788329E2500FBB33922780B139B346362105B5DAB3",
+        "project/examples/verify_repository.py": "0977B8EEB95FB95640B4CB357FEC6FDDE06F75AA39FC971442D25F7179C7BD8E"
+      }
+    }
+  ],
+  "documented_exceptions": [],
+  "errors": []
+}

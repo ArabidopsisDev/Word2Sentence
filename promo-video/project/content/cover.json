@@ -1,0 +1,17 @@
+{
+  "status": "draft",
+  "title": "认识，却不会用",
+  "title_lines": ["认识，", "却不会用"],
+  "subtitle": "用造句真正学会一个单词",
+  "keyword": "开源项目 · Word2Sentence",
+  "logo_text": "W²",
+  "example_word": "distract",
+  "example_pattern": "be distracted by sth",
+  "background_image": "assets/images/app/practice-feedback-zh.png",
+  "width": 1920,
+  "height": 1080,
+  "thumbnail_width": 320,
+  "thumbnail_height": 180,
+  "reference_sources": ["https://github.com/ArabidopsisDev/Word2Sentence"],
+  "reuse_video_directory": false
+}

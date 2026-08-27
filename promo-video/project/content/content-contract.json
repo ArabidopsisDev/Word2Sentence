@@ -1,0 +1,194 @@
+{
+  "status": "content_locked",
+  "format": "diagnosis",
+  "format_reason": "这是一支软件宣传短片，但叙事核心是诊断‘认识单词却不会使用’的学习缺口，再用一次完整造句与复习流程验证解决方式；它不适合功能罗列式的商业广告结构。",
+  "topic": "Word2Sentence：把生词写进句子里",
+  "audience_level": "想学习外语词汇的普通用户；不要求了解开源、AI API 或间隔重复算法",
+  "code_language": "csharp",
+  "opening": {
+    "greeting_or_invitation": "大家好，Word2Sentence 是一款开源的单词学习软件。",
+    "topic_promise": "程序本身免费使用，源码公开在 GitHub，也欢迎大家改进。",
+    "reason_to_continue": "它想解决的，是背过单词却在真正造句时仍然卡住的问题。",
+    "directory_visual_only": true
+  },
+  "parts": [
+    {
+      "index": 1,
+      "title": "认识，还不等于会用",
+      "viewer_question": "为什么看得懂单词释义，真正造句时仍然不知道怎样搭配？",
+      "known_before": [
+        "观众知道单词表可以保存词义",
+        "开场已经说明软件是可自由下载、公开源码的开源项目"
+      ],
+      "bridge_from_previous": "源码已经公开，接下来回到这个项目真正想解决的学习问题。",
+      "new_information": [
+        "只记住释义没有练习主动提取和搭配",
+        "以 distract 为例，认识‘使分心’仍可能写不出 be distracted by"
+      ],
+      "proof_ids": ["proof-open-and-problem"],
+      "exit_answer": "造句会把词义、词形和搭配同时暴露出来，因此比单独看词卡更容易发现真实缺口。"
+    },
+    {
+      "index": 2,
+      "title": "把生词写进句子",
+      "viewer_question": "软件怎样把一个生词变成一次可以完成的造句练习？",
+      "known_before": [
+        "造句能够暴露不会使用的部分",
+        "用户需要一个具体情境，而不是直接看到标准答案"
+      ],
+      "bridge_from_previous": "问题出现在真实使用中，所以练习从用户主动加入的生词开始。",
+      "new_information": [
+        "用户手动加入不会的词",
+        "AI 生成不泄露完整答案的具体情境",
+        "用户在情境中独立写出一句话"
+      ],
+      "proof_ids": ["proof-sentence-flow"],
+      "exit_answer": "一个生词会依次经过加入词库、生成情境和独立造句，而不是直接进入答案记忆。"
+    },
+    {
+      "index": 3,
+      "title": "让错误留下线索",
+      "viewer_question": "一句话提交以后，哪些反馈能够真正帮助下一次使用？",
+      "known_before": [
+        "用户已经在具体情境中独立造句",
+        "评价需要同时关注表达和目标词用法"
+      ],
+      "bridge_from_previous": "句子已经写出来，接下来要把其中真正影响使用的部分留下来。",
+      "new_information": [
+        "绿色、蓝色和红色逐段标记表达质量",
+        "同时给出只修错版本和更自然版本",
+        "常用搭配整理成用法卡",
+        "其他错词先由用户确认，再加入词库"
+      ],
+      "proof_ids": ["proof-feedback-artifacts"],
+      "exit_answer": "反馈不止给分数，还会留下可比较的改写、搭配卡和经过确认的错词。"
+    },
+    {
+      "index": 4,
+      "title": "复习由表现决定",
+      "viewer_question": "用户不选择好、中、差时，系统怎样决定下次复习时间？",
+      "known_before": [
+        "系统已经获得目标词的拼写、词义、词形、搭配和局部语法证据",
+        "提示、粘贴、作答时间和修改次数也可以被记录"
+      ],
+      "bridge_from_previous": "这些反馈已经描述了本次回忆质量，复习时间可以继续由证据计算。",
+      "new_information": [
+        "本地确定性规则把多维证据映射为内部记忆等级",
+        "经过参考向量验证的 FSRS-6 计算下次复习时间",
+        "低置信或冲突证据只安排 10 分钟后复测，不修改长期 FSRS 状态",
+        "没有让用户主观选择好、中、差的按钮"
+      ],
+      "proof_ids": ["proof-automatic-fsrs"],
+      "exit_answer": "系统依据本次真实表现自动调度，不把复习质量交给用户主观选择。"
+    },
+    {
+      "index": 5,
+      "title": "边界写在明处",
+      "viewer_question": "学习数据保存在哪里，哪些内容会发送给 AI，软件是否只支持英语？",
+      "known_before": [
+        "复习调度在本地根据本次证据计算",
+        "生成情境和批改句子需要外部 AI 模型"
+      ],
+      "bridge_from_previous": "复习时间已经确定，最后把本地数据和外部 AI 的边界说明清楚。",
+      "new_information": [
+        "完整单词库与历史默认保存在本机 wordbook.json",
+        "启用 AI 时，目标词、个人备注、当前练习和最近几条同词情境经 OpenRouter 发送给实际模型提供方",
+        "界面语言、学习目标语言和解释语言可分别设置",
+        "英语只是演示，不代表学习范围被写死"
+      ],
+      "proof_ids": ["proof-data-boundary"],
+      "exit_answer": "长期学习数据保存在本机，AI 只处理当前练习所需文本；语言设置彼此独立。"
+    }
+  ],
+  "proofs": [
+    {
+      "id": "proof-open-and-problem",
+      "claim": "Word2Sentence 以 AGPL-3.0-only 发布，并把造句作为发现词汇使用缺口的入口。",
+      "example_id": "app-build-and-license",
+      "source_contains": [
+        "<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>",
+        "public string Word { get; set; } = string.Empty;"
+      ],
+      "output_contains": ["已成功生成"],
+      "scene_id": 2,
+      "time": 14.0,
+      "expected_visible": ["distract"],
+      "expected_code": ["<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>"],
+      "color_checks": [{"token": "AGPL-3.0-only", "kind": "string"}],
+      "min_stable_seconds": 1.2
+    },
+    {
+      "id": "proof-sentence-flow",
+      "claim": "应用先生成情境，再接收用户独立写出的句子。",
+      "example_id": "app-build-and-license",
+      "source_contains": [
+        "public async Task<SentenceChallenge> CreateChallengeAsync(",
+        "public async Task<SentenceEvaluation> EvaluateAsync("
+      ],
+      "output_contains": ["已成功生成"],
+      "scene_id": 3,
+      "time": 34.0,
+      "expected_visible": ["独立造句"],
+      "expected_code": ["CreateChallengeAsync", "EvaluateAsync"],
+      "color_checks": [{"token": "EvaluateAsync", "kind": "method"}],
+      "min_stable_seconds": 1.2
+    },
+    {
+      "id": "proof-feedback-artifacts",
+      "claim": "批改结果同时包含逐段反馈、修正版、更自然版本和用法卡。",
+      "example_id": "app-build-and-license",
+      "source_contains": [
+        "public string CorrectedSentence { get; set; } = string.Empty;",
+        "public string BetterSentence { get; set; } = string.Empty;",
+        "public List<UsagePatternItem> UsageItems { get; set; } = [];"
+      ],
+      "output_contains": ["已成功生成"],
+      "scene_id": 4,
+      "time": 48.0,
+      "expected_visible": ["修改后的句子", "表达更好的句子", "be distracted by sth"],
+      "expected_code": [
+        "public string CorrectedSentence { get; set; } = string.Empty;",
+        "public string BetterSentence { get; set; } = string.Empty;",
+        "public List<UsagePatternItem> UsageItems { get; set; } = [];"
+      ],
+      "color_checks": [{"token": "string", "kind": "keyword"}],
+      "min_stable_seconds": 1.2
+    },
+    {
+      "id": "proof-automatic-fsrs",
+      "claim": "复习由 AI 多维证据与本地 FSRS-6 调度器自动决定，不提供用户自评按钮。",
+      "example_id": "algorithm-conformance",
+      "source_contains": [
+        "public const string Version = \"py-fsrs-6.3.1-default-dr0.90\";",
+        "public static MemoryGradeDecision Decide("
+      ],
+      "output_contains": ["FSRS_6_3_1_CONFORMANCE_OK", "AUTOMATIC_MEMORY_GRADE_OK"],
+      "scene_id": 5,
+      "time": 69.0,
+      "expected_visible": ["FSRS-6", "今天", "明天"],
+      "expected_code": ["ReviewScheduler.Apply(_currentWord, decision.Grade, reviewedAt);"],
+      "color_checks": [{"token": "ReviewScheduler", "kind": "type"}],
+      "min_stable_seconds": 1.2
+    },
+    {
+      "id": "proof-data-boundary",
+      "claim": "长期词库和历史写入本机 JSON，当前练习文本通过 OpenRouter 调用模型；三种语言设置相互独立。",
+      "example_id": "app-build-and-license",
+      "source_contains": [
+        "public string DataPath => Path.Combine(DataDirectory, \"wordbook.json\");",
+        "private const string Endpoint = \"https://openrouter.ai/api/v1/chat/completions\";",
+        "public string TargetLanguage { get; set; } = \"English\";"
+      ],
+      "output_contains": ["已成功生成"],
+      "scene_id": 6,
+      "time": 98.0,
+      "expected_visible": ["wordbook.json", "OpenRouter"],
+      "expected_code": [
+        "DataPath => Path.Combine(DataDirectory, \"wordbook.json\");",
+        "public string TargetLanguage { get; set; } = \"English\";"
+      ],
+      "color_checks": [{"token": "\"English\"", "kind": "string"}],
+      "min_stable_seconds": 1.2
+    }
+  ]
+}

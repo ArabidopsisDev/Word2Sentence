@@ -1,0 +1,66 @@
+{
+  "project_name": "word2sentence-promo",
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "background": "#F5F4F0",
+    "crf": 16,
+    "preset": "faster"
+  },
+  "fonts": {
+    "sans": "C:/Windows/Fonts/msyh.ttc",
+    "sans_bold": "C:/Windows/Fonts/msyhbd.ttc",
+    "code": "C:/Windows/Fonts/CascadiaMono.ttf",
+    "code_bold": "C:/Windows/Fonts/CascadiaMono.ttf"
+  },
+  "code": {
+    "language": "csharp",
+    "lexer": "builtin"
+  },
+  "subtitles": {
+    "center_y": 946,
+    "safe_width": 1660,
+    "max_size": 46,
+    "min_size": 36,
+    "stroke_width": 0
+  },
+  "audio": {
+    "source": "",
+    "bpm": null,
+    "loop_mode": "none",
+    "loop_at": null,
+    "crossfade_beats": 4,
+    "target_lufs": -16.0,
+    "target_true_peak": -1.5,
+    "target_lra": 11.0,
+    "post_gain_db": -2.0,
+    "fade_seconds": 4.0
+  },
+  "tools": {
+    "ffmpeg": "D:/Projects/Word2Sentence/promo-video/tools/ffmpeg-9.0.1-essentials_build/bin/ffmpeg.exe",
+    "ffprobe": "D:/Projects/Word2Sentence/promo-video/tools/ffmpeg-9.0.1-essentials_build/bin/ffprobe.exe"
+  },
+  "material_inputs": [
+    "../Word2Sentence/Assets/Word2Sentence.ico",
+    "../docs/images/logo.svg",
+    "assets/screenshot-data/wordbook.json",
+    "assets/screenshot-data/practice-demo.json",
+    "assets/images/app/today-zh.png",
+    "assets/images/app/library-zh.png",
+    "assets/images/app/practice-session-zh.png",
+    "assets/images/app/practice-feedback-zh.png",
+    "assets/images/app/detected-words-dialog-zh.png",
+    "assets/images/app/settings-zh.png",
+    "assets/images/app/about-zh.png",
+    "../Word2Sentence/MainWindow.xaml",
+    "../Word2Sentence/Services/ReviewScheduler.cs",
+    "../Word2Sentence/Services/AutomaticMemoryGradeService.cs"
+  ],
+  "output": {
+    "silent": "renders/silent.mp4",
+    "audio": "assets/audio/final_mix.wav",
+    "final": "word2sentence-promo-final.mp4",
+    "cover": "word2sentence-promo-cover.png"
+  }
+}

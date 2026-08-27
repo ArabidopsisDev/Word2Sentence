@@ -1,0 +1,14 @@
+{
+  "video_sha256": "[REPLACE]",
+  "reviewer": "[REPLACE: blind reviewer id]",
+  "proofs": [
+    {
+      "id": "[REPLACE]",
+      "time": 0.0,
+      "image_sha256": "[REPLACE]",
+      "expected_visible": ["[REPLACE]"],
+      "transcribed": ["[REPLACE: exact text read from final frame]"],
+      "status": "pending"
+    }
+  ]
+}

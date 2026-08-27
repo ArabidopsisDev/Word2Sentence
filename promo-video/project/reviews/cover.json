@@ -1,0 +1,9 @@
+{
+  "cover_sha256": "[REPLACE]",
+  "thumbnail_sha256": "[REPLACE]",
+  "reviewer": "[REPLACE: blind reviewer id]",
+  "first_impression": "[REPLACE: what was understood before seeing filename]",
+  "topic_understood": "[REPLACE]",
+  "looks_like_course_page": null,
+  "status": "pending"
+}
