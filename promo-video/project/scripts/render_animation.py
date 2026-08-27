@@ -59,7 +59,7 @@ def render_frame(config: dict, timeline: dict, t: float) -> Image.Image:
     ctx = make_context(config, t, scene)
     scenes.render_scene(ctx)
     cue = active_cue(timeline, t)
-    if cue is not None:
+    if cue is not None and bool(config.get("subtitles", {}).get("burn_in", True)):
         start, end = float(cue["start"]), float(cue["end"])
         alpha = smooth(min(progress(t, start, 0.18), 1.0 - progress(t, end - 0.18, 0.18)))
         draw_subtitle(ctx, str(cue["text"]), alpha)

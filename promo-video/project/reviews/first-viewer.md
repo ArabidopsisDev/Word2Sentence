@@ -1,15 +1,13 @@
-# 首次观看者审阅（Singer）
+# 首次观看者审阅（Singer / V7）
 
-输入仅为 `review-preview-v5.mp4` 与观众前提：普通外语学习者，不要求了解开源、API 或间隔重复。结论：**PASS**。第一次需要倒回：**无需倒回**；价值主线清楚，技术标识没有抢过用户收益。
+结论：**PASS**。输入仅为 `review-preview-v7.mp4` 与普通外语学习者前提。第一次需要倒回：**无需倒回**。
 
-- **认识，还不等于会用**（00:09–00:22）：解决认识 `distract` 却不知道词形、搭配和实际用法的问题。
-- **把生词写进句子**（00:22–00:35）：展示主动加入词库、生成情境、独立造句和提交批改，属于经过编排的软件演示，不像长录屏。
-- **让错误留下线索**（00:35–01:02）：依次展示颜色反馈、两种改写、用法卡和疑似错词确认；00:45–00:54 信息最密，但仍不需要暂停或倒回。
-- **复习由表现决定**（01:02–01:15）：主视觉是“自动安排复习”和今天—明天的时间关系；FSRS-6 只在角落短暂出现，不像算法课。
-- **边界写在明处**（01:15–01:24）：能直接抓住“本机保存、AI 可选、语言分设”；OpenRouter 与文件名只是次级说明，不像配置教程。
+首看能依次理解：**认识，还不等于会用**、**把生词写进句子**、**让错误留下线索**、**复习由表现决定**、**边界写在明处**。
+
+00:00–00:08 已理解 Word2Sentence 免费使用、源码公开，并解决“认识词却不会造句”的问题。00:07–00:20 从 `distract` 词库详情进入搭配；00:20–00:33 展示情境、独立输入和提交；00:33–00:59 展示颜色反馈、纠错版、自然表达版、用法卡与确认词；00:59–01:12 根据作答表现自动安排今天到明天的复习；01:12–01:22 依次说明本机保存、AI 可选、OpenRouter 与三种语言设置；01:22–01:25 显示 GitHub 地址。
+
+全片底部字幕条为 0，左上章节编号为 0，没有持续章节标题或水印。不像长录屏，没有等待和冗余操作；不整体像 PPT，真实软件截图、局部放大、逐字输入、批改和时间线始终构成连续操作链；也不是纯文字动画或典型商业广告。最后三秒在真实首页上显示“把生词写进句子里”和完整仓库地址，清楚且不拖沓。
 
 ### 盲转录
 
-只看最终视频可辨认：`<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>`、`CreateChallengeAsync`、`EvaluateAsync`、`CorrectedSentence`、`BetterSentence`、`UsagePatternItem`、`ReviewScheduler.Apply`、`FSRS-6`、`OpenRouter`、`deepseek/deepseek-v4-flash-0731`、`wordbook.json`、`github.com/ArabidopsisDev/Word2Sentence`。
-
-结尾记住的三点是“开源、主动造句、自动复习”；行动指引是前往 GitHub 获取 Word2Sentence，从一个生词、一句话开始。
+可辨认 `<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>`、`CreateChallengeAsync`、`EvaluateAsync`、`CorrectedSentence`、`BetterSentence`、`UsagePatternItem`、`ReviewScheduler.Apply`、`FSRS-6`、`OpenRouter`、`wordbook.json`、`TargetLanguage` 与 `github.com/ArabidopsisDev/Word2Sentence`。

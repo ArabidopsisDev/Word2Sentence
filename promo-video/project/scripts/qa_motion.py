@@ -38,20 +38,21 @@ def state(items: list[dict]) -> list[tuple]:
     )
 
 
-def union_bbox(items: list[dict], width: int, height: int) -> tuple[int, int, int, int] | None:
+def union_bbox(items: list[dict], width: int, height: int, bottom_limit: int) -> tuple[int, int, int, int] | None:
     boxes = [item.get("bbox") for item in items if isinstance(item.get("bbox"), list) and len(item["bbox"]) == 4]
     if not boxes:
         return None
     left = max(0, int(min(float(box[0]) for box in boxes)) - 8)
     top = max(105, int(min(float(box[1]) for box in boxes)) - 8)
     right = min(width, int(max(float(box[2]) for box in boxes)) + 8)
-    bottom = min(825, int(max(float(box[3]) for box in boxes)) + 8)
+    bottom = min(bottom_limit, int(max(float(box[3]) for box in boxes)) + 8)
     return (left, top, right, bottom) if right > left and bottom > top else None
 
 
 def main() -> int:
     config, timeline = load()
     fps = float(config["video"]["fps"])
+    bottom_limit = 825 if bool(config.get("subtitles", {}).get("burn_in", True)) else int(config["video"]["height"]) - 24
     frame = 1.0 / fps
     errors: list[dict] = []
     events: list[dict] = []
@@ -72,7 +73,7 @@ def main() -> int:
                 after_time = min(end - frame, timestamp + offset)
                 after_image, after_trace = render_base_trace(config, timeline, after_time)
                 after_items = tracked(after_trace, trace_id)
-                box = union_bbox(before_items + after_items, before_image.width, before_image.height)
+                box = union_bbox(before_items + after_items, before_image.width, before_image.height, bottom_limit)
                 if box is None:
                     mean, changed, threshold = 0.0, 0, 40
                 else:

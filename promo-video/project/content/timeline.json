@@ -1,12 +1,12 @@
 {
-  "duration": 94.88,
+  "duration": 85.04,
   "timing_status": "locked_to_bgm",
   "scenes": [
     {
       "id": 1,
       "title": "开源项目开场",
       "start": 0.0,
-      "end": 9.814613,
+      "end": 6.543075,
       "chapter": false,
       "role": "opening",
       "master_id": "opening-open-source",
@@ -35,8 +35,8 @@
       "id": 2,
       "title": "从释义到搭配缺口",
       "chapter_title": "认识，还不等于会用",
-      "start": 9.814613,
-      "end": 22.900763,
+      "start": 6.543075,
+      "end": 19.629226,
       "chapter": true,
       "chapter_index": 1,
       "chapter_total": 5,
@@ -109,8 +109,8 @@
       "id": 3,
       "title": "词库到造句的连续流程",
       "chapter_title": "把生词写进句子",
-      "start": 22.900763,
-      "end": 35.986914,
+      "start": 19.629226,
+      "end": 32.715376,
       "chapter": true,
       "chapter_index": 2,
       "chapter_total": 5,
@@ -220,8 +220,8 @@
       "id": 4,
       "title": "反馈结果拆分与留存",
       "chapter_title": "让错误留下线索",
-      "start": 35.986914,
-      "end": 62.159215,
+      "start": 32.715376,
+      "end": 58.887677,
       "chapter": true,
       "chapter_index": 3,
       "chapter_total": 5,
@@ -370,8 +370,8 @@
       "id": 5,
       "title": "证据进入自动调度",
       "chapter_title": "复习由表现决定",
-      "start": 62.159215,
-      "end": 75.245365,
+      "start": 58.887677,
+      "end": 71.973828,
       "chapter": true,
       "chapter_index": 4,
       "chapter_total": 5,
@@ -469,8 +469,8 @@
       "id": 6,
       "title": "本地数据与外部服务边界",
       "chapter_title": "边界写在明处",
-      "start": 75.245365,
-      "end": 85.059978,
+      "start": 71.973828,
+      "end": 81.788441,
       "chapter": true,
       "chapter_index": 5,
       "chapter_total": 5,
@@ -517,7 +517,7 @@
         {
           "at": 7.664745,
           "job": "settle independent language settings",
-          "trace_id": "language-settings",
+          "trace_id": "language-settle",
           "mode": "persistent",
           "design_at": 8.2
         }
@@ -557,8 +557,8 @@
     {
       "id": 7,
       "title": "从一句话开始",
-      "start": 85.059978,
-      "end": 94.88,
+      "start": 81.788441,
+      "end": 85.04,
       "chapter": false,
       "role": "summary",
       "master_id": "summary",
@@ -582,162 +582,162 @@
     {
       "id": 1,
       "scene_id": 1,
-      "start": 0.245365,
-      "end": 3.925845,
+      "start": 0.163577,
+      "end": 2.780807,
       "role": "opening",
-      "text": "大家好，Word2Sentence 是一款开源的单词学习软件。"
+      "text": "大家好，这是开源软件 Word2Sentence。"
     },
     {
       "id": 2,
       "scene_id": 1,
-      "start": 4.17121,
-      "end": 9.569248,
+      "start": 3.026172,
+      "end": 6.379498,
       "role": "opening",
       "text": "程序本身免费使用，源码公开在 GitHub，也欢迎大家改进。"
     },
     {
       "id": 3,
       "scene_id": 2,
-      "start": 10.141767,
-      "end": 13.495093,
+      "start": 6.870229,
+      "end": 10.223555,
       "role": "transition",
       "text": "它要解决的是，明明背过单词，真正造句时却仍会卡住。"
     },
     {
       "id": 4,
       "scene_id": 2,
-      "start": 13.740458,
-      "end": 17.993457,
+      "start": 10.46892,
+      "end": 14.721919,
       "role": "problem",
       "text": "知道 distract 的意思，轮到自己写句子时，却还是想不起常见搭配。"
     },
     {
       "id": 5,
       "scene_id": 2,
-      "start": 18.238822,
-      "end": 22.655398,
+      "start": 14.967284,
+      "end": 19.38386,
       "role": "inference",
       "text": "只看释义，往往还发现不了词形和搭配的问题。"
     },
     {
       "id": 6,
       "scene_id": 3,
-      "start": 23.227917,
-      "end": 26.663031,
+      "start": 19.95638,
+      "end": 23.391494,
       "role": "transition",
       "text": "因此，练习从你加入词库的生词开始。"
     },
     {
       "id": 7,
       "scene_id": 3,
-      "start": 26.908397,
-      "end": 31.161395,
+      "start": 23.63686,
+      "end": 27.889858,
       "role": "setup",
       "text": "启用 AI 后，它会给出具体情境，但不会提前写出完整答案。"
     },
     {
       "id": 8,
       "scene_id": 3,
-      "start": 31.406761,
-      "end": 35.741548,
+      "start": 28.135224,
+      "end": 32.470011,
       "role": "proof",
       "text": "你会在这个情境里，自己写下一句想表达的话。"
     },
     {
       "id": 9,
       "scene_id": 4,
-      "start": 36.395856,
-      "end": 40.239913,
+      "start": 33.124318,
+      "end": 36.968375,
       "role": "transition",
       "text": "句子提交以后，系统会先标出各部分的表达质量。"
     },
     {
       "id": 10,
       "scene_id": 4,
-      "start": 40.485278,
-      "end": 44.492912,
+      "start": 37.21374,
+      "end": 41.221374,
       "role": "explanation",
       "text": "绿色表示表达自然，蓝色表示可以优化，红色表示有错误。"
     },
     {
       "id": 11,
       "scene_id": 4,
-      "start": 44.738277,
-      "end": 49.073064,
+      "start": 41.466739,
+      "end": 45.801526,
       "role": "proof",
       "text": "系统保留两个版本，一个纠正错误，另一个表达更自然。"
     },
     {
       "id": 12,
       "scene_id": 4,
-      "start": 49.31843,
-      "end": 53.980371,
+      "start": 46.046892,
+      "end": 50.708833,
       "role": "proof",
       "text": "常用搭配会整理成一条条用法卡，同步到首页。"
     },
     {
       "id": 13,
       "scene_id": 4,
-      "start": 54.225736,
-      "end": 60.932388,
+      "start": 50.954198,
+      "end": 57.66085,
       "role": "boundary",
       "text": "句子里其他可能没掌握的词，会先列出，确认后才加入词库。"
     },
     {
       "id": 14,
       "scene_id": 5,
-      "start": 62.486369,
-      "end": 66.08506,
+      "start": 59.214831,
+      "end": 62.813522,
       "role": "transition",
       "text": "系统会根据这次造句的表现，自动安排下一次复习。"
     },
     {
       "id": 17,
       "scene_id": 5,
-      "start": 66.330425,
-      "end": 70.583424,
+      "start": 63.058887,
+      "end": 67.311886,
       "role": "explanation",
       "text": "答得越稳，这个词通常会晚一些再出现。"
     },
     {
       "id": 20,
       "scene_id": 5,
-      "start": 70.82879,
-      "end": 75.0,
+      "start": 67.557252,
+      "end": 71.728462,
       "role": "boundary",
       "text": "系统自动判断，不需要你自己选择好、中、差。"
     },
     {
       "id": 21,
       "scene_id": 6,
-      "start": 75.572519,
-      "end": 78.516903,
+      "start": 72.300982,
+      "end": 75.245366,
       "role": "transition",
       "text": "完整词库和历史默认保存在本机。"
     },
     {
       "id": 22,
       "scene_id": 6,
-      "start": 78.762268,
-      "end": 81.78844,
+      "start": 75.490731,
+      "end": 78.516903,
       "role": "boundary",
       "text": "AI 可以不启用；启用时只发送当前练习所需文本。"
     },
     {
       "id": 24,
       "scene_id": 6,
-      "start": 82.033806,
-      "end": 84.814613,
+      "start": 78.762269,
+      "end": 81.543076,
       "role": "boundary",
       "text": "界面和学习语言可以分别设置，英语只是演示。"
     },
     {
       "id": 25,
       "scene_id": 7,
-      "start": 85.387132,
-      "end": 90.785169,
+      "start": 81.952018,
+      "end": 84.896402,
       "role": "summary",
-      "text": "前往 GitHub 下载 Word2Sentence，从一个生词、一句话开始。"
+      "text": "项目地址就在画面中，欢迎从一个生词开始。"
     }
   ]
 }

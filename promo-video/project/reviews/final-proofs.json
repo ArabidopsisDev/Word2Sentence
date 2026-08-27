@@ -1,45 +1,45 @@
 {
-  "video_sha256": "583C488EE6C2412B1A95C2F486F341EBAD3F062BF1F8B8834A3F0C90CD342B3D",
-  "reviewer": "promo_visual_v5-final",
+  "video_sha256": "787771FB88CF80FD370310752304F221C19ABA2B2332D7573DCEBF9E516CF08B",
+  "reviewer": "promo_visual_v5-final-v7",
   "proofs": [
     {
       "id": "proof-open-and-problem",
-      "time": 21.810251,
-      "image_sha256": "1615266648A5662378C2868D0E63648AAF418D619FD02586D74C07FE68272747",
+      "time": 18.538713,
+      "image_sha256": "6D5F386D1AE08A0DD7AF90DE46ED295B66017B5ED57B157205D7E7E6B2D2D355",
       "expected_visible": ["distract", "<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>"],
       "transcribed": ["distract", "<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>"],
       "status": "pass"
     },
     {
       "id": "proof-sentence-flow",
-      "time": 34.298378,
-      "image_sha256": "E2949EE2AE2005E9609AE6462C4DC1A3D5588C55BB82AB8768B4E2CF1BAA2421",
+      "time": 31.026841,
+      "image_sha256": "F11C539C6775A728DA380C7C9774256586988D213D6CFB2F41DD085BAF452271",
       "expected_visible": ["独立造句", "CreateChallengeAsync", "EvaluateAsync"],
       "transcribed": ["独立造句", "CreateChallengeAsync", "EvaluateAsync"],
       "status": "pass"
     },
     {
       "id": "proof-feedback-artifacts",
-      "time": 45.147219,
-      "image_sha256": "4EC97DC0D80ACA3D6A1A33F7F569F6695F4A5FEE0FF008F9942F31C29C8D5113",
+      "time": 41.875681,
+      "image_sha256": "56B4ECD807589C8F392AF69DD5082EFBDD99B3B2508F45903BBF831E074EDC40",
       "expected_visible": ["修改后的句子", "表达更好的句子", "CorrectedSentence", "BetterSentence", "UsagePatternItem"],
       "transcribed": ["修改后的句子", "表达更好的句子", "CorrectedSentence", "BetterSentence", "UsagePatternItem"],
       "status": "pass"
     },
     {
       "id": "proof-automatic-fsrs",
-      "time": 69.913971,
-      "image_sha256": "FDBB22813E384217C6190638C189A09749F028F6E292BAF23C6DF6C983172C78",
+      "time": 66.642433,
+      "image_sha256": "34FE18DD40F19C124DF3BA65FF6B6BC7457C9173AD6940384D7220D5BCD265F0",
       "expected_visible": ["自动安排复习", "今天", "明天", "ReviewScheduler.Apply"],
       "transcribed": ["自动安排复习", "今天", "明天", "ReviewScheduler.Apply"],
       "status": "pass"
     },
     {
       "id": "proof-data-boundary",
-      "time": 82.068858,
-      "image_sha256": "1B36FB7091CAD32F5B7551175B444F713EA38B7EFCA8FA84D3E1F902A7267D77",
-      "expected_visible": ["本机保存", "AI 功能可选", "wordbook.json", "TargetLanguage"],
-      "transcribed": ["本机保存", "AI 功能可选", "wordbook.json", "TargetLanguage"],
+      "time": 76.460508,
+      "image_sha256": "C0B8FE62246067E57203D3966F82B4381CC9CFDE28455E69E6DC3413E606CB01",
+      "expected_visible": ["AI 功能可选", "wordbook.json", "TargetLanguage"],
+      "transcribed": ["AI 功能可选", "wordbook.json", "TargetLanguage"],
       "status": "pass"
     }
   ]

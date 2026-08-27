@@ -123,7 +123,7 @@
         "已成功生成"
       ],
       "scene_id": 2,
-      "time": 21.810251,
+      "time": 18.538713,
       "expected_visible": [
         "distract"
       ],
@@ -151,7 +151,7 @@
         "已成功生成"
       ],
       "scene_id": 3,
-      "time": 34.298378,
+      "time": 31.026841,
       "expected_visible": [
         "独立造句"
       ],
@@ -181,7 +181,7 @@
         "已成功生成"
       ],
       "scene_id": 4,
-      "time": 45.147219,
+      "time": 41.875681,
       "expected_visible": [
         "修改后的句子",
         "表达更好的句子"
@@ -213,7 +213,7 @@
         "AUTOMATIC_MEMORY_GRADE_OK"
       ],
       "scene_id": 5,
-      "time": 69.913971,
+      "time": 66.642433,
       "expected_visible": [
         "自动安排复习",
         "今天",
@@ -244,9 +244,8 @@
         "已成功生成"
       ],
       "scene_id": 6,
-      "time": 82.068858,
+      "time": 76.460508,
       "expected_visible": [
-        "本机保存",
         "AI 功能可选"
       ],
       "expected_code": [
@@ -260,7 +259,7 @@
         }
       ],
       "min_stable_seconds": 1.2,
-      "design_scene_t": 7.3
+      "design_scene_t": 4.8
     }
   ]
 }

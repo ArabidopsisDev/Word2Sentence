@@ -1,8 +1,8 @@
 {
   "media": "D:\\Projects\\Word2Sentence\\promo-video\\word2sentence-promo-final.mp4",
-  "sha256": "583C488EE6C2412B1A95C2F486F341EBAD3F062BF1F8B8834A3F0C90CD342B3D",
-  "size_bytes": 8087170,
-  "duration": 94.88,
+  "sha256": "787771FB88CF80FD370310752304F221C19ABA2B2332D7573DCEBF9E516CF08B",
+  "size_bytes": 6854473,
+  "duration": 85.04,
   "streams": [
     {
       "index": 0,
@@ -30,11 +30,11 @@
       "time_base": "1/12800",
       "start_pts": 0,
       "start_time": "0.000000",
-      "duration_ts": 1214464,
-      "duration": "94.880000",
-      "bit_rate": "354581",
+      "duration_ts": 1088512,
+      "duration": "85.040000",
+      "bit_rate": "318869",
       "bits_per_raw_sample": "8",
-      "nb_frames": "2372",
+      "nb_frames": "2126",
       "extradata_size": 46,
       "disposition": {
         "default": 1,
@@ -84,10 +84,10 @@
       "time_base": "1/48000",
       "start_pts": 0,
       "start_time": "0.000000",
-      "duration_ts": 4554240,
-      "duration": "94.880000",
-      "bit_rate": "321443",
-      "nb_frames": "4449",
+      "duration_ts": 4081920,
+      "duration": "85.040000",
+      "bit_rate": "320083",
+      "nb_frames": "3988",
       "extradata_size": 5,
       "disposition": {
         "default": 1,
@@ -128,9 +128,9 @@
       "time_base": "1/192000",
       "start_pts": 0,
       "start_time": "0.000000",
-      "duration_ts": 18216960,
-      "duration": "94.880000",
-      "bit_rate": "15",
+      "duration_ts": 16327680,
+      "duration": "85.040000",
+      "bit_rate": "16",
       "nb_frames": "5",
       "extradata_size": 63,
       "disposition": {
@@ -166,8 +166,8 @@
       "time_base": "1/192000",
       "start": 0,
       "start_time": "0.000000",
-      "end": 4396992,
-      "end_time": "22.901000",
+      "end": 3768768,
+      "end_time": "19.629000",
       "tags": {
         "title": "认识，还不等于会用"
       }
@@ -175,10 +175,10 @@
     {
       "id": 1,
       "time_base": "1/192000",
-      "start": 4396992,
-      "start_time": "22.901000",
-      "end": 6909504,
-      "end_time": "35.987000",
+      "start": 3768768,
+      "start_time": "19.629000",
+      "end": 6281280,
+      "end_time": "32.715000",
       "tags": {
         "title": "把生词写进句子"
       }
@@ -186,10 +186,10 @@
     {
       "id": 2,
       "time_base": "1/192000",
-      "start": 6909504,
-      "start_time": "35.987000",
-      "end": 11934528,
-      "end_time": "62.159000",
+      "start": 6281280,
+      "start_time": "32.715000",
+      "end": 11306496,
+      "end_time": "58.888000",
       "tags": {
         "title": "让错误留下线索"
       }
@@ -197,10 +197,10 @@
     {
       "id": 3,
       "time_base": "1/192000",
-      "start": 11934528,
-      "start_time": "62.159000",
-      "end": 14447040,
-      "end_time": "75.245000",
+      "start": 11306496,
+      "start_time": "58.888000",
+      "end": 13819008,
+      "end_time": "71.974000",
       "tags": {
         "title": "复习由表现决定"
       }
@@ -208,10 +208,10 @@
     {
       "id": 4,
       "time_base": "1/192000",
-      "start": 14447040,
-      "start_time": "75.245000",
-      "end": 18216960,
-      "end_time": "94.880000",
+      "start": 13819008,
+      "start_time": "71.974000",
+      "end": 16327680,
+      "end_time": "85.040000",
       "tags": {
         "title": "边界写在明处"
       }
@@ -222,44 +222,44 @@
     "message": ""
   },
   "loudness": {
-    "input_i": "-17.97",
-    "input_tp": "-3.14",
-    "input_lra": "6.30",
-    "input_thresh": "-28.21",
-    "output_i": "-15.17",
+    "input_i": "-18.00",
+    "input_tp": "-3.44",
+    "input_lra": "6.60",
+    "input_thresh": "-28.23",
+    "output_i": "-15.05",
     "output_tp": "-1.50",
-    "output_lra": "3.90",
-    "output_thresh": "-25.35",
+    "output_lra": "4.70",
+    "output_thresh": "-25.23",
     "normalization_type": "dynamic",
-    "target_offset": "-0.83"
+    "target_offset": "-0.95"
   },
   "fade_windows": [
     {
-      "start": 89.88,
-      "mean_db": -20.9,
+      "start": 80.04,
+      "mean_db": -21.3,
       "label": "pre-fade"
     },
     {
-      "start": 90.88,
-      "mean_db": -21.3
+      "start": 81.04,
+      "mean_db": -20.1
     },
     {
-      "start": 91.88,
-      "mean_db": -21.5
+      "start": 82.04,
+      "mean_db": -24.6
     },
     {
-      "start": 92.88,
-      "mean_db": -30.2
+      "start": 83.04,
+      "mean_db": -25.1
     },
     {
-      "start": 93.88,
-      "mean_db": -35.4
+      "start": 84.04,
+      "mean_db": -37.9
     }
   ],
   "fade_entrance": {
     "window_seconds": 0.25,
-    "before_db": -22.4,
-    "after_db": -23.8
+    "before_db": -19.1,
+    "after_db": -16.9
   },
   "errors": [],
   "warnings": []

@@ -109,11 +109,8 @@ def _paste_image(
 
 
 def _chapter(ctx: SceneContext, alpha: float = 1.0) -> None:
-    scene = ctx.scene
-    index, total = int(scene["chapter_index"]), int(scene["chapter_total"])
-    draw_text(ctx, (78, 72), f"{index:02d} / {total:02d}", size=25, kind="code", fill=GREEN, alpha=alpha, anchor="lm")
-    draw_line(ctx, (184, 72), (244, 72), color=GREEN, width=2, alpha=0.7 * alpha)
-    draw_text(ctx, (264, 72), str(scene["chapter_title"]), size=28, kind="sans_bold", fill=MUTED, alpha=alpha, anchor="lm")
+    # The promotional cut deliberately has no persistent chapter chrome.
+    return
 
 
 def _code_panel(
@@ -185,28 +182,27 @@ def _draw_segments(ctx: SceneContext, segments: list[dict], xy: tuple[int, int],
 
 def open_source_intro(ctx: SceneContext, visual: dict) -> None:
     _use_design_time(ctx, 8.5)
-    alpha = _ease(ctx)
+    alpha = 1.0
     app_alpha = alpha * _ease(ctx, 0.25, 0.65)
-    app_x = round(_lerp(760, 690, _ease(ctx, 0.25, 0.8)))
-    _paste_image(ctx, str(visual["app_image"]), (app_x, 112, 1800, 805), alpha=app_alpha, radius=22, trace_id="about-window")
-    draw_text(ctx, (120, 138), str(visual["headline"]), size=58, kind="sans_bold", fill=INK, alpha=alpha)
-    draw_text(ctx, (122, 212), str(visual["detail"]), size=28, kind="sans", fill=GREEN, alpha=alpha)
-    draw_text(ctx, (122, 285), str(visual["problem_hint"]), size=30, kind="sans_bold", fill=INK, alpha=alpha * _ease(ctx, 2.4, 0.5))
-    directory = list(visual["directory"])
-    for index, item in enumerate(directory):
-        item_alpha = alpha * _ease(ctx, 4.1 + index * 0.38, 0.4)
-        y = 430 + index * 64
-        draw_text(ctx, (125, y), f"{index + 1:02d}", size=20, kind="code", fill=GREEN, alpha=item_alpha, anchor="lm")
-        draw_line(ctx, (172, y), (210, y), color=GREEN, width=2, alpha=0.55 * item_alpha)
-        draw_text(ctx, (228, y), str(item), size=25, kind="sans_bold", fill=INK, alpha=item_alpha, anchor="lm")
+    app_x = round(_lerp(720, 630, _ease(ctx, 0.25, 0.8)))
+    _paste_image(ctx, str(visual["app_image"]), (app_x, 72, 1830, 940), alpha=app_alpha, radius=22, trace_id="about-window")
+    title_in = _ease(ctx, 0.7, 0.45)
+    draw_text(ctx, (105, 178), str(visual["headline"]), size=66, kind="sans_bold", fill=INK, alpha=title_in)
+    draw_text(ctx, (108, 270), str(visual["detail"]), size=29, kind="sans", fill=GREEN, alpha=_ease(ctx, 1.3, 0.4))
+    problem_alpha = _ease(ctx, 3.0, 0.5)
+    draw_line(ctx, (108, 386), (490, 386), color=GREEN, width=5, alpha=problem_alpha)
+    draw_text(ctx, (108, 420), str(visual["problem_hint"]), size=34, kind="sans_bold", fill=INK, alpha=problem_alpha)
+    focus = smooth(progress(ctx.scene_t, 5.4, 1.1))
+    draw_line(ctx, (108, 510), (108 + 420 * focus, 510), color=BORDER, width=3, alpha=focus)
 
 
 def word_gap(ctx: SceneContext, visual: dict) -> None:
     _use_design_time(ctx, 12.0)
-    alpha = _ease(ctx)
+    alpha = 1.0
     _chapter(ctx, alpha)
+    entry = _ease(ctx, 0.2, 0.5)
     full = 1.0 - _ease(ctx, 1.35, 0.55)
-    _paste_image(ctx, str(visual["app_image"]), (260, 118, 1660, 800), alpha=alpha * full, radius=18, trace_id="library-window")
+    _paste_image(ctx, str(visual["app_image"]), (260, 118, 1660, 800), alpha=alpha * entry * full, radius=18, trace_id="library-window")
     detail = _ease(ctx, 1.45, 0.55)
     _paste_image(ctx, str(visual["app_image"]), (105, 200, 970, 765), crop=(320, 250, 1520, 860), alpha=alpha * detail, radius=16, trace_id="library-window")
     _panel(ctx, (1040, 196, 1785, 718), fill=CREAM, outline=BORDER, radius=18, alpha=alpha * detail)
@@ -226,12 +222,17 @@ def word_gap(ctx: SceneContext, visual: dict) -> None:
 
 def sentence_flow(ctx: SceneContext, visual: dict) -> None:
     _use_design_time(ctx, 15.5)
-    alpha = _ease(ctx)
+    alpha = 1.0
     _chapter(ctx, alpha)
     labels = list(visual["flow"])
     for index, label in enumerate(labels):
-        _tag(ctx, (710 + index * 250, 106), str(label), alpha=alpha * _ease(ctx, 0.25 + index * 0.38, 0.4), active=index == min(2, int(ctx.scene_t // 4)), trace_id=["add-word-fragment", "scenario-fragment", "sentence-input"][index])
-    source_alpha = alpha * (1.0 - _ease(ctx, 3.6, 0.6))
+        item_alpha = alpha * _ease(ctx, 0.25 + index * 0.32, 0.35)
+        x = 650 + index * 285
+        active = index == min(2, int(ctx.scene_t // 4))
+        draw_text(ctx, (x, 92), str(label), size=25, kind="sans_bold" if active else "sans", fill=GREEN if active else MUTED, alpha=item_alpha, anchor="mm", trace_id=["add-word-fragment", "scenario-fragment", "sentence-input"][index])
+        line_alpha = item_alpha * (1.0 if active else 0.22)
+        draw_line(ctx, (x - 82, 125), (x + 82, 125), color=GREEN, width=4 if active else 2, alpha=line_alpha)
+    source_alpha = alpha * _ease(ctx, 0.12, 0.45) * (1.0 - _ease(ctx, 3.6, 0.6))
     _paste_image(ctx, str(visual["source_image"]), (105, 208, 930, 660), crop=(280, 135, 1510, 600), alpha=source_alpha, radius=16, trace_id="add-word-fragment")
     overlay_progress = _ease(ctx, 3.6, 0.7)
     practice_alpha = alpha * _ease(ctx, 2.7, 0.6) * (1.0 - 0.43 * overlay_progress)
@@ -267,7 +268,7 @@ def sentence_flow(ctx: SceneContext, visual: dict) -> None:
 
 def feedback_artifacts(ctx: SceneContext, visual: dict) -> None:
     _use_design_time(ctx, 20.0)
-    alpha = _ease(ctx)
+    alpha = 1.0
     _chapter(ctx, alpha)
     dialog_in = _ease(ctx, 15.5, 0.55)
     version_in = _ease(ctx, 5.2, 0.55)
@@ -305,82 +306,77 @@ def feedback_artifacts(ctx: SceneContext, visual: dict) -> None:
 
 def automatic_scheduler(ctx: SceneContext, visual: dict) -> None:
     _use_design_time(ctx, 13.5)
-    alpha = _ease(ctx)
-    _chapter(ctx, alpha)
-    draw_text(ctx, (960, 148), str(visual["headline"]), size=40, kind="sans_bold", fill=INK, alpha=alpha, anchor="mm")
-    settings_alpha = alpha * (0.56 + 0.18 * _ease(ctx, 7.4, 0.45))
-    _paste_image(ctx, str(visual["app_image"]), (95, 205, 815, 795), crop=(270, 525, 1060, 980), alpha=settings_alpha, radius=18, trace_id="settings-evidence")
-    _panel(ctx, (140, 245, 770, 355), fill=CREAM, outline=BORDER, radius=16, alpha=alpha, trace_id="settings-evidence")
-    draw_text(ctx, (455, 285), str(visual["exercise_label"]), size=22, kind="sans", fill=MUTED, alpha=alpha, anchor="mm")
-    draw_text(ctx, (455, 326), str(visual["word"]), size=46, kind="sans_bold", fill=GREEN, alpha=alpha, anchor="mm")
+    _paste_image(ctx, str(visual["app_image"]), (45, 45, 1305, 1015), crop=(240, 245, 1120, 990), alpha=0.88, radius=22, trace_id="settings-evidence")
+    draw_text(ctx, (105, 125), str(visual["exercise_label"]), size=22, kind="sans", fill=MUTED, alpha=1.0)
+    draw_text(ctx, (105, 170), str(visual["word"]), size=58, kind="sans_bold", fill=GREEN, alpha=1.0)
+    draw_text(ctx, (1375, 118), str(visual["headline"]), size=35, kind="sans_bold", fill=INK, alpha=_ease(ctx, 0.3, 0.4))
+    draw_line(ctx, (1375, 170), (1815, 170), color=BORDER, width=3, alpha=_ease(ctx, 0.6, 0.4))
     evidence = list(visual["evidence"])
-    positions = [(900, 245), (1245, 245), (900, 355), (1245, 355)]
-    for index, (item, position) in enumerate(zip(evidence, positions)):
-        event_alpha = alpha * _ease(ctx, 1.0 + index * 0.32, 0.32)
-        _tag(ctx, position, str(item), alpha=event_alpha, active=index < 2, trace_id="evidence-points" if index < 2 else "behavior-points")
-    merge_alpha = alpha * _ease(ctx, 3.5, 0.4)
-    for index, position in enumerate(positions):
-        arrow_alpha = alpha * _ease(ctx, 3.5 + index * 0.18, 0.3)
-        draw_arrow(ctx, (position[0] + 120, position[1] + 52), (1160, 520), color=GREEN, width=3, alpha=0.32 * arrow_alpha, trace_id="evidence-merge")
-    _panel(ctx, (960, 490, 1360, 575), fill=GREEN_SOFT, outline=GREEN, radius=16, alpha=merge_alpha, trace_id="evidence-merge")
-    draw_text(ctx, (1160, 530), str(visual["screen_text"][0]), size=32, kind="sans_bold", fill=GREEN, alpha=merge_alpha, anchor="mm")
-    timeline_alpha = alpha * _ease(ctx, 5.7, 0.4)
-    draw_line(ctx, (875, 690), (1640, 690), color=BORDER, width=5, alpha=timeline_alpha, trace_id="fsrs-timeline")
-    draw_text(ctx, (895, 735), str(visual["timeline"][0]), size=23, kind="sans", fill=MUTED, alpha=timeline_alpha, anchor="mm")
-    draw_text(ctx, (1620, 735), str(visual["timeline"][1]), size=23, kind="sans_bold", fill=GREEN, alpha=timeline_alpha, anchor="mm")
+    evidence_starts = [1.0, 2.0, 3.0, 4.0]
+    for index, item in enumerate(evidence):
+        start = evidence_starts[index]
+        event_alpha = min(_ease(ctx, start, 0.25), 1.0 - _ease(ctx, start + 0.75, 0.2))
+        anchor_y = 310 + index * 95
+        ctx.draw.ellipse((1135, anchor_y - 7, 1149, anchor_y + 7), fill=with_alpha(GREEN, event_alpha))
+        draw_line(ctx, (1149, anchor_y), (1360, 300), color=GREEN, width=3, alpha=0.35 * event_alpha)
+        draw_text(ctx, (1380, 300), str(item), size=31, kind="sans_bold", fill=INK, alpha=event_alpha, anchor="lm", trace_id="evidence-points" if index == 0 else "behavior-points")
+    merge_alpha = _ease(ctx, 3.5, 0.4)
+    merge_progress = smooth(progress(ctx.scene_t, 3.5, 1.0))
+    draw_arrow(ctx, (1380, 440), (1380 + 330 * merge_progress, 440), color=GREEN, width=4, alpha=merge_alpha, trace_id="evidence-merge")
+    draw_text(ctx, (1590, 505), str(visual["screen_text"][0]), size=39, kind="sans_bold", fill=GREEN, alpha=merge_alpha, anchor="mm", trace_id="evidence-merge")
+    timeline_alpha = _ease(ctx, 5.7, 0.4)
+    draw_line(ctx, (1385, 685), (1795, 685), color=BORDER, width=5, alpha=timeline_alpha, trace_id="fsrs-timeline")
+    draw_text(ctx, (1405, 730), str(visual["timeline"][0]), size=24, kind="sans", fill=MUTED, alpha=timeline_alpha, anchor="mm")
+    draw_text(ctx, (1775, 730), str(visual["timeline"][1]), size=24, kind="sans_bold", fill=GREEN, alpha=timeline_alpha, anchor="mm")
     marker_progress = smooth(progress(ctx.scene_t, 6.0, 1.6))
-    marker_x = _lerp(895, 1620, marker_progress)
-    ctx.trace.append({"type": "marker", "value": "", "bbox": [marker_x - 13, 702, marker_x + 13, 728], "alpha": timeline_alpha, "trace_id": "fsrs-timeline", "style": list(GREEN[:3])})
-    ctx.draw.ellipse((marker_x - 13, 677, marker_x + 13, 703), fill=with_alpha(GREEN, timeline_alpha))
-    success_alpha = alpha * _ease(ctx, 7.4, 0.35) * (1.0 - _ease(ctx, 10.4, 0.35))
-    _tag(ctx, (1010, 595), str(visual["success_label"]), alpha=success_alpha, active=True, trace_id="success-benefit")
-    retest_alpha = alpha * _ease(ctx, 9.2, 0.4)
-    _panel(ctx, (125, 620, 755, 735), fill=RED_SOFT, outline=RED_DARK, radius=16, alpha=retest_alpha, trace_id="retest-note")
-    draw_text(ctx, (440, 662), str(visual["retest_title"]), size=22, kind="sans_bold", fill=RED_DARK, alpha=retest_alpha, anchor="mm")
-    draw_text(ctx, (440, 704), str(visual["retest_action"]), size=27, kind="sans_bold", fill=INK, alpha=retest_alpha, anchor="mm")
-    note_alpha = alpha * _ease(ctx, 10.9, 0.4)
-    _tag(ctx, (1010, 595), str(visual["screen_text"][1]), alpha=note_alpha, active=True, trace_id="no-rating-note")
-    draw_text(ctx, (1645, 790), str(visual["algorithm_label"]), size=16, kind="sans", fill=MUTED, alpha=note_alpha, anchor="rm")
-    _code_panel(ctx, (145, 755, 570, 815), list(visual["code"]), alpha=0.72 * alpha * _ease(ctx, 6.8, 0.35), trace_ids=["scheduler-code"])
+    marker_x = _lerp(1405, 1775, marker_progress)
+    ctx.trace.append({"type": "marker", "value": "", "bbox": [marker_x - 13, 672, marker_x + 13, 698], "alpha": timeline_alpha, "trace_id": "fsrs-timeline", "style": list(GREEN[:3])})
+    ctx.draw.ellipse((marker_x - 13, 672, marker_x + 13, 698), fill=with_alpha(GREEN, timeline_alpha))
+    success_alpha = _ease(ctx, 7.4, 0.35) * (1.0 - _ease(ctx, 10.4, 0.35))
+    draw_text(ctx, (1590, 815), str(visual["success_label"]), size=29, kind="sans_bold", fill=GREEN, alpha=success_alpha, anchor="mm", trace_id="success-benefit")
+    retest_alpha = _ease(ctx, 9.2, 0.4) * (1.0 - _ease(ctx, 10.5, 0.3))
+    draw_text(ctx, (1375, 875), str(visual["retest_title"]), size=23, kind="sans_bold", fill=RED_DARK, alpha=retest_alpha, trace_id="retest-note")
+    draw_text(ctx, (1375, 920), str(visual["retest_action"]), size=29, kind="sans_bold", fill=INK, alpha=retest_alpha, trace_id="retest-note")
+    note_alpha = _ease(ctx, 10.9, 0.4)
+    draw_text(ctx, (1590, 815), str(visual["screen_text"][1]), size=28, kind="sans_bold", fill=GREEN, alpha=note_alpha, anchor="mm", trace_id="no-rating-note")
+    draw_text(ctx, (1805, 925), str(visual["algorithm_label"]), size=17, kind="sans", fill=MUTED, alpha=note_alpha, anchor="rm")
+    _code_panel(ctx, (105, 835, 555, 900), list(visual["code"]), alpha=0.72 * _ease(ctx, 6.8, 0.35), trace_ids=["scheduler-code"])
 
 
 def data_boundary(ctx: SceneContext, visual: dict) -> None:
     _use_design_time(ctx, 10.5)
-    alpha = _ease(ctx)
-    _chapter(ctx, alpha)
-    _paste_image(ctx, str(visual["app_image"]), (90, 175, 900, 805), crop=(240, 110, 1120, 990), alpha=0.72 * alpha, radius=18, trace_id="settings-window")
-    draw_text(ctx, (960, 145), str(visual["headline"]), size=40, kind="sans_bold", fill=INK, alpha=alpha, anchor="mm")
-    local_alpha = alpha * _ease(ctx, 0.8, 0.4)
-    _panel(ctx, (980, 220, 1765, 385), fill=GREEN_SOFT, outline=GREEN, radius=18, alpha=local_alpha, trace_id="local-route")
-    draw_text(ctx, (1370, 270), str(visual["routes"][0]), size=31, kind="sans_bold", fill=GREEN, alpha=local_alpha, anchor="mm")
-    draw_text(ctx, (1370, 325), str(visual["local_detail"]), size=22, kind="sans", fill=MUTED, alpha=local_alpha, anchor="mm")
-    api_alpha = alpha * _ease(ctx, 3.0, 0.4)
-    _panel(ctx, (980, 420, 1765, 600), fill=CREAM, outline=BORDER, radius=18, alpha=api_alpha, trace_id="ai-optional")
-    draw_text(ctx, (1370, 470), str(visual["ai_optional"]), size=27, kind="sans_bold", fill=BLUE_DARK, alpha=api_alpha, anchor="mm", trace_id="ai-optional")
-    route_alpha = alpha * _ease(ctx, 3.8, 0.4)
-    draw_text(ctx, (1370, 523), str(visual["routes"][1]), size=21, kind="sans", fill=INK, alpha=route_alpha, anchor="mm", trace_id="api-route")
-    draw_text(ctx, (1370, 565), str(visual["provider_note"]), size=17, kind="sans", fill=MUTED, alpha=route_alpha * _ease(ctx, 4.5, 0.35), anchor="mm", trace_id="provider-route")
-    language_alpha = alpha * _ease(ctx, 6.2, 0.45)
-    _panel(ctx, (980, 635, 1765, 785), fill=CREAM, outline=BORDER, radius=18, alpha=language_alpha, trace_id="language-settings")
-    draw_text(ctx, (1370, 670), str(visual["language_heading"]), size=23, kind="sans_bold", fill=INK, alpha=language_alpha, anchor="mm")
+    local_alpha = min(_ease(ctx, 0.45, 0.45), 1.0 - _ease(ctx, 3.5, 0.45))
+    api_alpha = min(_ease(ctx, 3.0, 0.45), 1.0 - _ease(ctx, 6.7, 0.45))
+    language_alpha = _ease(ctx, 6.2, 0.45)
+    _paste_image(ctx, str(visual["app_image"]), (85, 55, 1835, 1015), crop=(270, 560, 1060, 980), alpha=local_alpha, radius=22, trace_id="local-route")
+    _paste_image(ctx, str(visual["app_image"]), (85, 55, 1835, 1015), crop=(270, 250, 1060, 610), alpha=api_alpha, radius=22, trace_id="ai-optional")
+    _paste_image(ctx, str(visual["app_image"]), (85, 55, 1835, 1015), crop=(270, 350, 1060, 650), alpha=language_alpha, radius=22, trace_id="language-settings")
+    draw_text(ctx, (125, 875), str(visual["routes"][0]), size=35, kind="sans_bold", fill=GREEN, alpha=local_alpha, trace_id="local-route")
+    draw_text(ctx, (125, 925), str(visual["local_detail"]), size=24, kind="sans", fill=MUTED, alpha=local_alpha)
+    draw_text(ctx, (125, 740), str(visual["ai_optional"]), size=31, kind="sans_bold", fill=BLUE_DARK, alpha=api_alpha, trace_id="ai-optional")
+    route_alpha = _ease(ctx, 3.8, 0.4)
+    route_alpha *= (1.0 - _ease(ctx, 6.7, 0.45))
+    draw_text(ctx, (125, 795), str(visual["routes"][1]), size=23, kind="sans", fill=INK, alpha=route_alpha, trace_id="api-route")
+    draw_text(ctx, (125, 835), str(visual["provider_note"]), size=19, kind="sans", fill=MUTED, alpha=route_alpha * _ease(ctx, 4.5, 0.35), trace_id="provider-route")
+    draw_text(ctx, (960, 120), str(visual["language_heading"]), size=35, kind="sans_bold", fill=INK, alpha=language_alpha, anchor="mm")
     for index, item in enumerate(list(visual["languages"])):
-        _tag(ctx, (1030 + index * 230, 710), str(item), alpha=language_alpha * _ease(ctx, 6.2 + index * 0.25, 0.3), active=index == 1, trace_id="language-settings")
+        item_alpha = language_alpha * _ease(ctx, 6.2 + index * 0.25, 0.3)
+        x = 560 + index * 400
+        draw_text(ctx, (x, 925), str(item), size=27, kind="sans_bold" if index == 1 else "sans", fill=GREEN if index == 1 else MUTED, alpha=item_alpha, anchor="mm", trace_id="language-settings")
     language_line = smooth(progress(ctx.scene_t, 8.2, 0.4))
-    draw_line(ctx, (1030, 770), (1710, 770), color=GREEN, width=4, alpha=alpha * language_line, trace_id="language-settings")
-    _code_panel(ctx, (140, 735, 570, 800), list(visual["code"]), alpha=0.72 * alpha * _ease(ctx, 6.0, 0.35), trace_ids=["data-path-code", "language-code"])
+    draw_line(ctx, (500, 965), (1420, 965), color=GREEN, width=4, alpha=language_line, trace_id="language-settle")
+    _code_panel(ctx, (1350, 790, 1800, 915), list(visual["code"]), alpha=0.96 * _ease(ctx, 3.7, 0.35), trace_ids=["data-path-code", "language-code"])
 
 
 def summary(ctx: SceneContext, visual: dict) -> None:
     _use_design_time(ctx, 7.0)
-    alpha = _ease(ctx)
-    _paste_image(ctx, str(visual["app_image"]), (280, 115, 1640, 800), alpha=0.34 * alpha, radius=22, trace_id="summary-window")
-    _panel(ctx, (470, 215, 1450, 710), fill=CREAM, outline=BORDER, radius=24, alpha=0.96 * alpha)
-    draw_text(ctx, (960, 320), str(visual["headline"]), size=62, kind="sans_bold", fill=INK, alpha=alpha, anchor="mm")
-    draw_text(ctx, (960, 390), str(visual["detail"]), size=26, kind="code", fill=GREEN, alpha=alpha, anchor="mm")
-    items = list(visual["items"])
-    for index, item in enumerate(items):
-        item_alpha = alpha * _ease(ctx, 0.9 + index * 1.0, 0.5)
-        _tag(ctx, (585 + index * 270, 500), str(item), alpha=item_alpha, active=index == 1, trace_id=f"summary-{index}")
+    alpha = 1.0
+    zoom = _ease(ctx, 0.0, 2.0)
+    margin = round(_lerp(230, 150, zoom))
+    _paste_image(ctx, str(visual["app_image"]), (margin, 45, 1920 - margin, 1010), alpha=0.62, radius=24, trace_id="summary-window")
+    draw_text(ctx, (150, 200), str(visual["headline"]), size=64, kind="sans_bold", fill=INK, alpha=_ease(ctx, 0.2, 0.4))
+    draw_line(ctx, (150, 285), (820, 285), color=GREEN, width=5, alpha=_ease(ctx, 0.55, 0.4))
+    draw_text(ctx, (150, 335), str(visual["detail"]), size=26, kind="code", fill=GREEN, alpha=_ease(ctx, 0.55, 0.4))
 
 
 RENDERERS = {

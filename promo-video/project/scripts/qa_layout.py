@@ -218,12 +218,13 @@ def main() -> int:
     previews: list[Image.Image] = []
     labels: list[str] = []
     overlap_findings: list[str] = []
+    burn_subtitles = bool(config.get("subtitles", {}).get("burn_in", True))
     for timestamp, reason in sorted(timestamps.items()):
         try:
             base, trace = render_base_trace(config, timeline, timestamp)
             background = rgba(config["video"].get("background", "#000000"))[:3]
             count = content_pixels(base, 825, 885, background)
-            if count > 240:
+            if burn_subtitles and count > 240:
                 safe.append(f"{reason} @ {timestamp:.2f}s: {count} content pixels in y825..884")
             for left, right, ratio in text_trace_overlaps(trace):
                 finding = f"{reason} @ {timestamp:.2f}s: text/code overlap {left.get('value')!r} vs {right.get('value')!r} (ratio={ratio:.3f})"
@@ -263,7 +264,7 @@ def main() -> int:
         "# 版式 QA",
         "",
         f"- 连续场景：{report['scenes']}",
-        f"- 字幕：{report['cues']} 条，全部执行单行像素宽度检查",
+        f"- 外部字幕：{report['cues']} 条，全部执行单行像素宽度检查；成片内嵌：{'是' if burn_subtitles else '否'}",
         f"- 字幕字号范围：{report['subtitle_size_range']}",
         f"- 抽样帧：{report['sample_frames']}（含 cue 边界、proof 与风险时刻）",
         f"- 字幕安全区告警：{len(safe)}",
