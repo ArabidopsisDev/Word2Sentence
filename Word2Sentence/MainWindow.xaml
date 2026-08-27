@@ -60,19 +60,59 @@
 
                 <StackPanel Grid.Row="1">
                     <Button x:Name="TodayNav" Style="{StaticResource NavButton}" Click="TodayNav_Click">
-                        <StackPanel Orientation="Horizontal"><TextBlock Text="⌂" Width="28" FontSize="17" /><TextBlock Text="{loc:Loc NavToday}" /></StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="28" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                            <Viewbox Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Canvas Width="24" Height="24">
+                                    <Path Style="{StaticResource NavIcon}" Data="M3,10.5 L12,3 L21,10.5 M5.5,9 L5.5,21 L18.5,21 L18.5,9 M9,21 L9,14 L15,14 L15,21" />
+                                </Canvas>
+                            </Viewbox>
+                            <TextBlock Grid.Column="1" Text="{loc:Loc NavToday}" VerticalAlignment="Center" />
+                        </Grid>
                     </Button>
                     <Button x:Name="PracticeNav" Style="{StaticResource NavButton}" Click="PracticeNav_Click">
-                        <StackPanel Orientation="Horizontal"><TextBlock Text="✎" Width="28" FontSize="17" /><TextBlock Text="{loc:Loc NavPractice}" /></StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="28" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                            <Viewbox Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Canvas Width="24" Height="24">
+                                    <Path Style="{StaticResource NavIcon}" Data="M4,20 L8.5,19 L19,8.5 L15.5,5 L5,15.5 Z M14,6.5 L17.5,10" />
+                                </Canvas>
+                            </Viewbox>
+                            <TextBlock Grid.Column="1" Text="{loc:Loc NavPractice}" VerticalAlignment="Center" />
+                        </Grid>
                     </Button>
                     <Button x:Name="LibraryNav" Style="{StaticResource NavButton}" Click="LibraryNav_Click">
-                        <StackPanel Orientation="Horizontal"><TextBlock Text="▤" Width="28" FontSize="16" /><TextBlock Text="{loc:Loc NavLibrary}" /></StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="28" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                            <Viewbox Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Canvas Width="24" Height="24">
+                                    <Path Style="{StaticResource NavIcon}" Data="M3,5.5 C6.5,4.8 9.4,5.4 12,7 L12,20 C9.4,18.4 6.5,17.8 3,18.5 Z M21,5.5 C17.5,4.8 14.6,5.4 12,7 L12,20 C14.6,18.4 17.5,17.8 21,18.5 Z" />
+                                </Canvas>
+                            </Viewbox>
+                            <TextBlock Grid.Column="1" Text="{loc:Loc NavLibrary}" VerticalAlignment="Center" />
+                        </Grid>
                     </Button>
                     <Button x:Name="SettingsNav" Style="{StaticResource NavButton}" Click="SettingsNav_Click">
-                        <StackPanel Orientation="Horizontal"><TextBlock Text="⚙" Width="28" FontSize="16" /><TextBlock Text="{loc:Loc NavSettings}" /></StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="28" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                            <Viewbox Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Canvas Width="24" Height="24">
+                                    <Path Style="{StaticResource NavIcon}" Data="M4,7 L8,7 M12,7 L20,7 M10,5 L10,9 M4,12 L14,12 M18,12 L20,12 M16,10 L16,14 M4,17 L7,17 M11,17 L20,17 M9,15 L9,19" />
+                                </Canvas>
+                            </Viewbox>
+                            <TextBlock Grid.Column="1" Text="{loc:Loc NavSettings}" VerticalAlignment="Center" />
+                        </Grid>
                     </Button>
                     <Button x:Name="AboutNav" Style="{StaticResource NavButton}" Click="AboutNav_Click">
-                        <StackPanel Orientation="Horizontal"><TextBlock Text="ⓘ" Width="28" FontSize="16" /><TextBlock Text="{loc:Loc NavAbout}" /></StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="28" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                            <Viewbox Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Canvas Width="24" Height="24">
+                                    <Path Style="{StaticResource NavIcon}" Data="M12,21 A9,9 0 1 0 12,3 A9,9 0 1 0 12,21 M12,10 L12,17 M12,7 L12.01,7" />
+                                </Canvas>
+                            </Viewbox>
+                            <TextBlock Grid.Column="1" Text="{loc:Loc NavAbout}" VerticalAlignment="Center" />
+                        </Grid>
                     </Button>
                 </StackPanel>
 
