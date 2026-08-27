@@ -1,3 +1,4 @@
+using System.Net;
 using Word2Sentence.Models;
 using Word2Sentence.Services;
 
@@ -111,14 +112,27 @@ Require(diversityContext.CategoryKey == scenarioCategories[0], "scenario categor
 Require(diversityContext.RecentScenarios.SequenceEqual(new[] { "Scenario 9", "Scenario 8", "Scenario 7", "Scenario 6", "Scenario 5" }),
     "the five most recent scenarios are supplied for novelty filtering");
 
+var validKeyHandler = new ApiKeyValidationHandler(HttpStatusCode.OK);
+var validKeyResult = await new OpenRouterService(new HttpClient(validKeyHandler))
+    .ValidateApiKeyAsync("sk-or-v1-test-key-long-enough");
+Require(validKeyResult.IsValid, "OpenRouter key validation accepts a successful official response");
+Require(validKeyHandler.SawBearerAuthorization, "OpenRouter key validation uses bearer authorization");
+var invalidKeyResult = await new OpenRouterService(new HttpClient(new ApiKeyValidationHandler(HttpStatusCode.Unauthorized)))
+    .ValidateApiKeyAsync("sk-or-v1-test-key-long-enough");
+Require(!invalidKeyResult.IsValid && invalidKeyResult.Reason == "unauthorized",
+    "OpenRouter key validation rejects an unauthorized response");
+
 LocalizationService.Instance.SetLanguage("en-US");
 Require(LocalizationService.T("NavPractice") == "Practice", "English localization");
+Require(LocalizationService.T("SetupBeginner") == "Guide me step by step", "English onboarding localization");
 LocalizationService.Instance.SetLanguage("zh-CN");
 Require(LocalizationService.T("NavPractice") == "造句练习", "Chinese localization");
+Require(LocalizationService.T("SetupTechnical") == "我是技术用户", "Chinese onboarding localization");
 
 Console.WriteLine("FSRS_6_3_1_CONFORMANCE_OK");
 Console.WriteLine("AUTOMATIC_MEMORY_GRADE_OK");
 Console.WriteLine("SCENARIO_DIVERSITY_OK");
+Console.WriteLine("OPENROUTER_ONBOARDING_OK");
 
 static TargetUsageEvidence Evidence(bool success, bool natural, double confidence) => new()
 {
@@ -143,4 +157,15 @@ static void RequireClose(double actual, double expected, double tolerance, strin
 {
     if (Math.Abs(actual - expected) > tolerance)
         throw new InvalidOperationException($"Check failed: {label}; expected {expected:R}, got {actual:R}");
+}
+
+sealed class ApiKeyValidationHandler(HttpStatusCode statusCode) : HttpMessageHandler
+{
+    public bool SawBearerAuthorization { get; private set; }
+
+    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+    {
+        SawBearerAuthorization = request.Headers.Authorization?.Scheme == "Bearer";
+        return Task.FromResult(new HttpResponseMessage(statusCode));
+    }
 }

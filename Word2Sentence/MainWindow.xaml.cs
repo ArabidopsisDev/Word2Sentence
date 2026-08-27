@@ -69,6 +69,12 @@ public partial class MainWindow : Window
         RefreshAll();
         ShowPage(TodayPage, TodayNav);
         _cardCarouselTimer.Start();
+        if (!_ai.HasApiKey)
+        {
+            var setupWindow = new OpenRouterSetupWindow(_ai) { Owner = this };
+            setupWindow.ShowDialog();
+            RefreshApiStatus();
+        }
     }
 
     private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -654,6 +660,13 @@ public partial class MainWindow : Window
 
     private void RefreshKeyStatus_Click(object sender, RoutedEventArgs e) => RefreshApiStatus();
 
+    private void ConfigureKey_Click(object sender, RoutedEventArgs e)
+    {
+        var setupWindow = new OpenRouterSetupWindow(_ai) { Owner = this };
+        setupWindow.ShowDialog();
+        RefreshApiStatus();
+    }
+
     private void SentenceInput_TextChanged(object sender, TextChangedEventArgs e)
     {
         if (CharacterCountText is not null) CharacterCountText.Text = LocalizationService.T("Chars", SentenceInput.Text.Length);
@@ -764,9 +777,12 @@ public partial class MainWindow : Window
         ApiStatusDot.Fill = online ? FindBrush("GreenBrush") : FindBrush("RedBrush");
         ApiStatusText.Text = online ? LocalizationService.T("ApiReady") : LocalizationService.T("ApiMissing");
         SidebarModelText.Text = _data.Settings.Model;
-        SettingsKeyStatusText.Text = online
-            ? LocalizationService.T("KeyDetected")
-            : LocalizationService.T("KeyFallback");
+        SettingsKeyStatusText.Text = _ai.ApiKeySource switch
+        {
+            "environment" => LocalizationService.T("KeyDetectedEnvironment"),
+            "credential" => LocalizationService.T("KeyDetectedCredential"),
+            _ => LocalizationService.T("KeyFallback")
+        };
         SettingsKeyStatusText.Foreground = online ? FindBrush("GreenBrush") : FindBrush("RedBrush");
     }
 

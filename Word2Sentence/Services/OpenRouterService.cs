@@ -24,6 +24,46 @@ public sealed class OpenRouterService(HttpClient httpClient)
 
     public bool HasApiKey => !string.IsNullOrWhiteSpace(ResolveApiKey());
 
+    public string ApiKeySource
+    {
+        get
+        {
+            if (!string.IsNullOrWhiteSpace(ResolveEnvironmentApiKey())) return "environment";
+            return string.IsNullOrWhiteSpace(OpenRouterCredentialStore.ReadApiKey()) ? "none" : "credential";
+        }
+    }
+
+    public async Task<ApiKeyValidationResult> ValidateApiKeyAsync(
+        string apiKey,
+        CancellationToken cancellationToken = default)
+    {
+        var normalized = apiKey.Trim();
+        if (normalized.Length < 20)
+            return new ApiKeyValidationResult(false, "invalid");
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, "https://openrouter.ai/api/v1/key");
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", normalized);
+        request.Headers.Add("HTTP-Referer", "https://github.com/ArabidopsisDev/Word2Sentence");
+        request.Headers.Add("X-OpenRouter-Title", "Word2Sentence");
+        try
+        {
+            using var response = await httpClient.SendAsync(request, cancellationToken);
+            return response.IsSuccessStatusCode
+                ? new ApiKeyValidationResult(true, "valid")
+                : response.StatusCode is HttpStatusCode.Unauthorized or HttpStatusCode.Forbidden
+                    ? new ApiKeyValidationResult(false, "unauthorized")
+                    : new ApiKeyValidationResult(false, "server");
+        }
+        catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
+        {
+            return new ApiKeyValidationResult(false, "timeout");
+        }
+        catch (HttpRequestException)
+        {
+            return new ApiKeyValidationResult(false, "network");
+        }
+    }
+
     public static bool SupportsCombinedTargetEvidence(string model) =>
         model.Contains("deepseek-v4-flash", StringComparison.OrdinalIgnoreCase);
 
@@ -585,10 +625,13 @@ public sealed class OpenRouterService(HttpClient httpClient)
 
     private static string? ResolveApiKey()
     {
-        return Environment.GetEnvironmentVariable("OR_KEY")
-               ?? Environment.GetEnvironmentVariable("OR_KEY", EnvironmentVariableTarget.User)
-               ?? Environment.GetEnvironmentVariable("OR_KEY", EnvironmentVariableTarget.Machine);
+        return ResolveEnvironmentApiKey() ?? OpenRouterCredentialStore.ReadApiKey();
     }
+
+    private static string? ResolveEnvironmentApiKey() =>
+        Environment.GetEnvironmentVariable("OR_KEY")
+        ?? Environment.GetEnvironmentVariable("OR_KEY", EnvironmentVariableTarget.User)
+        ?? Environment.GetEnvironmentVariable("OR_KEY", EnvironmentVariableTarget.Machine);
 
     private static bool TryDeserializeStructured<T>(string content, out T? result)
     {
@@ -752,3 +795,5 @@ public sealed class OpenRouterService(HttpClient httpClient)
         public HttpStatusCode StatusCode { get; } = statusCode;
     }
 }
+
+public sealed record ApiKeyValidationResult(bool IsValid, string Reason);

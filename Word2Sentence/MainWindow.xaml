@@ -545,7 +545,10 @@
                                     <TextBlock Style="{StaticResource Eyebrow}" Text="{loc:Loc ApiKey}" />
                                     <TextBlock x:Name="SettingsKeyStatusText" Margin="0,5,0,0" FontSize="13" />
                                 </StackPanel>
-                                <Button Grid.Column="1" Style="{StaticResource SecondaryButton}" Content="{loc:Loc Refresh}" Click="RefreshKeyStatus_Click" />
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Button Style="{StaticResource SecondaryButton}" Content="{loc:Loc Refresh}" Click="RefreshKeyStatus_Click" />
+                                    <Button Margin="8,0,0,0" Style="{StaticResource PrimaryButton}" Content="{loc:Loc ConfigureKey}" Click="ConfigureKey_Click" />
+                                </StackPanel>
                             </Grid>
                         </StackPanel>
                     </Border>
