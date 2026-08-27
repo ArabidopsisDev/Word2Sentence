@@ -59,7 +59,8 @@ def main() -> None:
     bpm = config["audio"].get("bpm")
     with (CONTENT / "music-cues.csv").open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.writer(handle)
-        writer.writerow(["scene_id", "section", "start", "end", "start_seconds", "end_seconds", "beats", "edit_note"])
+        writer.writerow(["scene_id", "section", "start", "end", "start_seconds", "end_seconds", "bgm_source_start", "bgm_source_end", "beats", "energy", "edit_note"])
+        source_start = float(config["audio"].get("source_start", 0.0))
         for scene in scenes:
             length = float(scene["end"]) - float(scene["start"])
             beats = round(length * float(bpm) / 60) if bpm else ""
@@ -71,7 +72,10 @@ def main() -> None:
                     clock(float(scene["end"])),
                     f"{float(scene['start']):.3f}",
                     f"{float(scene['end']):.3f}",
+                    f"{source_start + float(scene['start']):.3f}",
+                    f"{source_start + float(scene['end']):.3f}",
                     beats,
+                    scene.get("music_energy", ""),
                     scene.get("edit_note", "replace with a topic-specific music cue"),
                 ]
             )
@@ -83,4 +87,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -26,8 +26,8 @@
     "stroke_width": 0
   },
   "audio": {
-    "source": "",
-    "bpm": null,
+    "source": "assets/audio/source/Jacoo - Towards the Light.mp3",
+    "bpm": 73.36,
     "loop_mode": "none",
     "loop_at": null,
     "crossfade_beats": 4,
@@ -35,7 +35,13 @@
     "target_true_peak": -1.5,
     "target_lra": 11.0,
     "post_gain_db": -2.0,
-    "fade_seconds": 4.0
+    "fade_seconds": 4.0,
+    "source_start": 97.9407,
+    "beat_seconds": 0.8178844057,
+    "downbeat_source": 97.9407,
+    "beats_per_bar": 4,
+    "phrase_beats": 16,
+    "section_beats": [12, 16, 16, 32, 16, 12, 12]
   },
   "tools": {
     "ffmpeg": "D:/Projects/Word2Sentence/promo-video/tools/ffmpeg-9.0.1-essentials_build/bin/ffmpeg.exe",

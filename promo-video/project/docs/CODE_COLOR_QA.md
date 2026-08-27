@@ -1,6 +1,6 @@
 # 代码语义色 QA
 
-- 内容 SHA-256：`B373C2F5BBF655ADFCA3C833F0D70D6EEE6509121A89A0D93652D8BBC229E350`
+- 内容 SHA-256：`8F7DBD7BD334D8FF445A233466366428F0897F756C60597600641A5AD19E7206`
 - 语言 / lexer：csharp / builtin
 - fixture PNG：`D:\Projects\Word2Sentence\promo-video\renders\code-color-fixture.png`
 - 错误：0

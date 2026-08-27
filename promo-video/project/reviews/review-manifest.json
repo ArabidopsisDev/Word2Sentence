@@ -1,10 +1,34 @@
 {
-  "content_sha256": "[REPLACE after preview build]",
-  "preview_sha256": "[REPLACE after preview build]",
+  "content_sha256": "8F7DBD7BD334D8FF445A233466366428F0897F756C60597600641A5AD19E7206",
+  "preview_sha256": "D6ADAA33BF1CBE5666ABDEEFBDA3D454BEC6E19AE86B457A5C5E070418849E85",
   "reviews": [
-    {"role": "copy", "reviewer": "[REPLACE: independent reviewer id]", "status": "pending", "evidence": "project/reviews/copy.md", "evidence_sha256": "[REPLACE]"},
-    {"role": "first_viewer", "reviewer": "[REPLACE: independent reviewer id]", "status": "pending", "evidence": "project/reviews/first-viewer.md", "evidence_sha256": "[REPLACE]"},
-    {"role": "technical", "reviewer": "[REPLACE: independent reviewer id]", "status": "pending", "evidence": "project/reviews/technical.md", "evidence_sha256": "[REPLACE]"},
-    {"role": "visual_geometry", "reviewer": "[REPLACE: independent reviewer id]", "status": "pending", "evidence": "project/reviews/visual-geometry.md", "evidence_sha256": "[REPLACE]"}
+    {
+      "role": "copy",
+      "reviewer": "Lorentz",
+      "status": "pass",
+      "evidence": "project/reviews/copy.md",
+      "evidence_sha256": "FE13A3DA31DDFC3F050F62BC8A80FBD7BDB1B914E619987C7687977BF3D3FA83"
+    },
+    {
+      "role": "first_viewer",
+      "reviewer": "Singer",
+      "status": "pass",
+      "evidence": "project/reviews/first-viewer.md",
+      "evidence_sha256": "F2E2F3B414555A1B7394AA1A7DDA83C6099C90FE3A43D82B5BEB164A963842A4"
+    },
+    {
+      "role": "technical",
+      "reviewer": "Lagrange",
+      "status": "pass",
+      "evidence": "project/reviews/technical.md",
+      "evidence_sha256": "645AC5C6D7098663ACD466D124718DCD2E887B39D736EFBF086002DE569A736E"
+    },
+    {
+      "role": "visual_geometry",
+      "reviewer": "promo_visual_v5",
+      "status": "pass",
+      "evidence": "project/reviews/visual-geometry.md",
+      "evidence_sha256": "E9E86965D471D0A80D2A2989170A5FEA1E2E594B7FA2EA5CE4C5EE55E2E65DB5"
+    }
   ]
 }

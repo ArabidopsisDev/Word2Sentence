@@ -66,12 +66,13 @@ def main() -> None:
     duration = float(timeline["duration"])
     audio = config["audio"]
     loop_mode = str(audio.get("loop_mode", "none"))
+    source_start = float(audio.get("source_start", 0.0))
 
     if loop_mode == "none":
-        if source_duration + 0.02 < duration:
-            raise ValueError(f"BGM is {source_duration:.3f}s but timeline is {duration:.3f}s; set a verified loop strategy")
+        if source_start < 0 or source_duration + 0.02 < source_start + duration:
+            raise ValueError(f"BGM range {source_start:.3f}..{source_start + duration:.3f}s exceeds source duration {source_duration:.3f}s")
         input_args = ["-i", str(bgm)]
-        base = f"[0:a:0]aresample=48000,atrim=start=0:end={duration:.6f},asetpts=PTS-STARTPTS[base]"
+        base = f"[0:a:0]aresample=48000,atrim=start={source_start:.6f}:end={source_start + duration:.6f},asetpts=PTS-STARTPTS[base]"
     elif loop_mode == "crossfade_once":
         bpm = audio.get("bpm")
         loop_at = audio.get("loop_at")
@@ -146,4 +147,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

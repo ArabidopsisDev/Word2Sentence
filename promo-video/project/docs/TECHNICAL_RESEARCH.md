@@ -43,5 +43,5 @@ OPENROUTER_ONBOARDING_OK
 ## 未解决风险
 
 - 精确模型名称、价格和免费额度不进入画面，避免外部服务变化导致成片过时。
-- BGM 未提供，所有秒级 cue 仍为暂定。
-- FFmpeg/FFprobe 9.0.1 已配置；正式媒体 QA 仍需等待用户提供 BGM 后的最终 mux。
+- BGM 已由用户提供并在 D 盘工程内完成节拍分析；时间线锁定为 117.76 秒。
+- FFmpeg/FFprobe 9.0.1 已配置；正式媒体 QA 将针对最终 AAC mux 复测。

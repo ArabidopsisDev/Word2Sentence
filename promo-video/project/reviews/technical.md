@@ -1,28 +1,11 @@
-# 技术事实独立审阅
+# 技术审阅（Lagrange）
 
-- 审阅者：`agent-promo-technical-review`
-- 输入：技术研究、验证示例、字幕与当前仓库源码。
-- 实际执行：源码 proof 检查、FSRS 参考向量、自动记忆等级、场景多样性和 OpenRouter onboarding 检查。
-- 状态：阻断事实已修正；最终 preview hash 绑定复核仍待 BGM 版预览。
+结论：**PASS，无阻断项**。审阅当前第 5 版预览、内容合同、真实 WPF 源码和验证示例；运行 `verify_repository.py --build --algorithm` 后，Release 构建为 0 warning / 0 error，并得到 `WORD2SENTENCE_SOURCE_PROOFS_OK`、`FSRS_6_3_1_CONFORMANCE_OK`、`AUTOMATIC_MEMORY_GRADE_OK`、`SCENARIO_DIVERSITY_OK`、`OPENROUTER_ONBOARDING_OK`。
 
-## 实际发现与处理
+- `proof-open-and-problem`（00:21.81）：`Word2Sentence.csproj`、根目录 `LICENSE` 与 README 证明 AGPL-3.0-only；画面能辨认许可证表达式和 `distract`。字幕没有把程序免费延伸成 AI 服务免费。
+- `proof-sentence-flow`（00:34.30）：`OpenRouterService.CreateChallengeAsync` 先生成不泄露完整答案的情境，随后 `EvaluateAsync` 接收用户句子；画面方法名与真实流程一致。
+- `proof-feedback-artifacts`（00:45.15）：`AiModels.cs`、`MainWindow.xaml` 与 `MainWindow.xaml.cs` 证明逐段反馈、`CorrectedSentence`、`BetterSentence`、`UsagePatternItem` 和确认后加入错词的流程。
+- `proof-automatic-fsrs`（01:09.91）：`AutomaticMemoryGradeService.cs` 根据目标词使用、表达与作答过程产生内部等级，`ReviewScheduler.cs` 使用 FSRS-6；界面没有用户好、中、差或 Again/Hard/Good/Easy 自评按钮。不确定时仅安排 10 分钟后复测，不修改长期状态。
+- `proof-data-boundary`（01:22.07）：`DataStore.cs` 与 `AppData.cs` 证明词库、历史、卡片和设置写入本机 `wordbook.json`；OpenRouter 仅在启用 AI 时用于当前练习。实际所需文本还包括为避免重复而选取的同词最近最多 5 条情境，因此当前“发送当前练习所需文本”准确，但不应继续简化成“历史绝不发送”。三种语言设置在 `AppData.cs` 中相互独立。
 
-1. 当前没有正式安装包，删除“可以自由下载”的承诺；保留“程序本身免费使用”和源码公开。
-2. 隐私范围补全为目标词、个人备注、当前练习和同一词最近几条历史情境，并明确 OpenRouter 与所选模型提供方两层。
-3. 自动调度补全冲突路径：证据可信且一致时才映射内部等级并进入 FSRS-6；冲突时 10 分钟后复测，长期状态不变。
-4. AI 完整情境和批改前增加“启用 AI 后”条件，避免把离线基础检查说成完整 AI 能力。
-5. 用法卡表述改为“同步到首页”，不暗示提交后自动切换页面。
-6. 语言范围明确为三个独立设置项，不承诺所有语言达到相同质量。
-
-## 执行证据
-
-```text
-WORD2SENTENCE_SOURCE_PROOFS_OK
-FSRS_6_3_1_CONFORMANCE_OK
-AUTOMATIC_MEMORY_GRADE_OK
-SCENARIO_DIVERSITY_OK
-OPENROUTER_ONBOARDING_OK
-```
-
-结论：当前字幕没有未解决技术阻断；外部模型价格、免费额度和具体可用性未进入画面。
-
+末尾“前往 GitHub 下载”可理解为获取源码并按 README 构建；当前仓库仍是 prototype，不应宣传成已有一键安装包。

@@ -1,12 +1,12 @@
 {
-  "duration": 109.0,
-  "timing_status": "provisional_until_bgm",
+  "duration": 94.88,
+  "timing_status": "locked_to_bgm",
   "scenes": [
     {
       "id": 1,
       "title": "开源项目开场",
       "start": 0.0,
-      "end": 8.5,
+      "end": 9.814613,
       "chapter": false,
       "role": "opening",
       "master_id": "opening-open-source",
@@ -15,8 +15,11 @@
       "visual": {
         "app_image": "assets/images/app/about-zh.png",
         "headline": "Word2Sentence",
-        "detail": "AGPL-3.0-only · GitHub 公开源码",
-        "code": ["<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>"],
+        "detail": "程序本身免费使用 · 完整源码公开",
+        "problem_hint": "背过的词，真正造句时仍会卡住",
+        "code": [
+          "<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>"
+        ],
         "directory": [
           "认识，还不等于会用",
           "把生词写进句子",
@@ -24,14 +27,16 @@
           "复习由表现决定",
           "边界写在明处"
         ]
-      }
+      },
+      "design_duration": 8.5,
+      "music_energy": "quiet"
     },
     {
       "id": 2,
       "title": "从释义到搭配缺口",
       "chapter_title": "认识，还不等于会用",
-      "start": 8.5,
-      "end": 20.5,
+      "start": 9.814613,
+      "end": 22.900763,
       "chapter": true,
       "chapter_index": 1,
       "chapter_total": 5,
@@ -40,12 +45,48 @@
       "kind": "word_gap",
       "edit_note": "Provisional timing; keep the definition and collocation reveal within one phrase.",
       "teaching_events": [
-        {"at": 0.5, "job": "establish real library row", "trace_id": "library-window", "mode": "persistent"},
-        {"at": 1.45, "job": "extract target word and definition", "trace_id": "word-distract", "mode": "persistent"},
-        {"at": 2.7, "job": "reveal empty collocation slot", "trace_id": "collocation-gap", "mode": "persistent"},
-        {"at": 4.0, "job": "resolve with practical pattern", "trace_id": "collocation-answer", "mode": "persistent"},
-        {"at": 7.0, "job": "summarize known definition", "trace_id": "word-summary", "mode": "persistent"},
-        {"at": 9.5, "job": "summarize exposed collocation gap", "trace_id": "gap-summary", "mode": "persistent"}
+        {
+          "at": 0.545256,
+          "job": "establish real library row",
+          "trace_id": "library-window",
+          "mode": "persistent",
+          "design_at": 0.5
+        },
+        {
+          "at": 1.581243,
+          "job": "extract target word and definition",
+          "trace_id": "word-distract",
+          "mode": "persistent",
+          "design_at": 1.45
+        },
+        {
+          "at": 2.944384,
+          "job": "reveal empty collocation slot",
+          "trace_id": "collocation-gap",
+          "mode": "persistent",
+          "design_at": 2.7
+        },
+        {
+          "at": 4.36205,
+          "job": "resolve with practical pattern",
+          "trace_id": "collocation-answer",
+          "mode": "persistent",
+          "design_at": 4.0
+        },
+        {
+          "at": 7.306434,
+          "job": "summarize known definition",
+          "trace_id": "word-summary",
+          "mode": "persistent",
+          "design_at": 6.7
+        },
+        {
+          "at": 10.359869,
+          "job": "summarize exposed collocation gap",
+          "trace_id": "gap-summary",
+          "mode": "persistent",
+          "design_at": 9.5
+        }
       ],
       "visual": {
         "app_image": "assets/images/app/library-zh.png",
@@ -53,16 +94,23 @@
         "meaning": "vt. 转移，使分心；打扰",
         "gap_label": "常见搭配",
         "gap_value": "be distracted by sth",
-        "code": ["<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>"],
-        "screen_text": ["释义已经记住", "造句暴露搭配缺口"]
-      }
+        "code": [
+          "<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>"
+        ],
+        "screen_text": [
+          "释义已经记住",
+          "造句暴露搭配缺口"
+        ]
+      },
+      "design_duration": 12.0,
+      "music_energy": "building"
     },
     {
       "id": 3,
       "title": "词库到造句的连续流程",
       "chapter_title": "把生词写进句子",
-      "start": 20.5,
-      "end": 36.0,
+      "start": 22.900763,
+      "end": 35.986914,
       "chapter": true,
       "chapter_index": 2,
       "chapter_total": 5,
@@ -71,32 +119,109 @@
       "kind": "sentence_flow",
       "edit_note": "Provisional timing; align word transfer, scenario reveal, and submit action to local beats.",
       "teaching_events": [
-        {"at": 0.5, "job": "show add-to-library fragment", "trace_id": "add-word-fragment", "mode": "persistent"},
-        {"at": 2.1, "job": "move target word into exercise", "trace_id": "word-transfer", "mode": "persistent"},
-        {"at": 2.8, "job": "show real practice fragment", "trace_id": "scenario-fragment", "mode": "persistent"},
-        {"at": 5.7, "job": "expand scenario fragment", "trace_id": "scenario-fragment", "mode": "persistent"},
-        {"at": 8.2, "job": "show learner input area", "trace_id": "sentence-input", "mode": "persistent"},
-        {"at": 9.0, "job": "type learner sentence", "trace_id": "sentence-input", "mode": "persistent"},
-        {"at": 10.3, "job": "show submit action", "trace_id": "submit-button", "mode": "persistent"},
-        {"at": 13.5, "job": "confirm submit focus", "trace_id": "submit-button", "mode": "transient"}
+        {
+          "at": 0.422134,
+          "job": "show add-to-library fragment",
+          "trace_id": "add-word-fragment",
+          "mode": "persistent",
+          "design_at": 0.5
+        },
+        {
+          "at": 1.772962,
+          "job": "move target word into exercise",
+          "trace_id": "word-transfer",
+          "mode": "persistent",
+          "design_at": 2.1
+        },
+        {
+          "at": 2.36395,
+          "job": "show real practice fragment",
+          "trace_id": "scenario-fragment",
+          "mode": "persistent",
+          "design_at": 2.8
+        },
+        {
+          "at": 4.812326,
+          "job": "expand scenario fragment",
+          "trace_id": "scenario-fragment",
+          "mode": "persistent",
+          "design_at": 5.7
+        },
+        {
+          "at": 6.922996,
+          "job": "show learner input area",
+          "trace_id": "sentence-input",
+          "mode": "persistent",
+          "design_at": 8.2
+        },
+        {
+          "at": 7.59841,
+          "job": "type learner sentence",
+          "trace_id": "typed-sentence",
+          "mode": "persistent",
+          "design_at": 9.0
+        },
+        {
+          "at": 8.695958,
+          "job": "show submit action",
+          "trace_id": "submit-button",
+          "mode": "persistent",
+          "design_at": 10.3
+        },
+        {
+          "at": 9.118092,
+          "job": "show optional learner hint",
+          "trace_id": "hint-option",
+          "mode": "persistent",
+          "design_at": 10.8
+        },
+        {
+          "at": 11.397615,
+          "job": "confirm submit focus",
+          "trace_id": "submit-button",
+          "mode": "transient",
+          "design_at": 13.5
+        },
+        {
+          "at": 11.819749,
+          "job": "carry learner error into feedback",
+          "trace_id": "error-token",
+          "mode": "persistent",
+          "design_at": 14.0
+        }
       ],
       "visual": {
         "source_image": "assets/images/app/library-zh.png",
         "app_image": "assets/images/app/practice-session-zh.png",
         "headline": "一个词，进入一个具体情境",
-        "flow": ["主动加入", "生成情境", "独立造句"],
+        "flow": [
+          "主动加入",
+          "生成情境",
+          "独立造句"
+        ],
         "scenario": "你正在图书馆准备一场重要考试，但手机通知不断亮起。",
         "sentence": "The notifications distracted me from focus on my notes.",
-        "code": ["CreateChallengeAsync", "EvaluateAsync"],
-        "screen_text": ["情境", "你的句子", "提交批改"]
-      }
+        "error_token": "focus",
+        "hint_label": "卡住时可以查看提示",
+        "code": [
+          "CreateChallengeAsync",
+          "EvaluateAsync"
+        ],
+        "screen_text": [
+          "情境",
+          "你的句子",
+          "提交批改"
+        ]
+      },
+      "design_duration": 15.5,
+      "music_energy": "building"
     },
     {
       "id": 4,
       "title": "反馈结果拆分与留存",
       "chapter_title": "让错误留下线索",
-      "start": 36.0,
-      "end": 56.0,
+      "start": 35.986914,
+      "end": 62.159215,
       "chapter": true,
       "chapter_index": 3,
       "chapter_total": 5,
@@ -105,16 +230,97 @@
       "kind": "feedback_artifacts",
       "edit_note": "Provisional timing; stagger feedback colors, rewrites, usage card, and confirmation dialog.",
       "teaching_events": [
-        {"at": 0.5, "job": "establish feedback crop", "trace_id": "feedback-window", "mode": "persistent"},
-        {"at": 1.5, "job": "reveal colored segments in order", "trace_id": "feedback-segments", "mode": "persistent"},
-        {"at": 3.7, "job": "complete colored segment sequence", "trace_id": "feedback-segments", "mode": "persistent"},
-        {"at": 5.2, "job": "split corrected and stronger versions", "trace_id": "sentence-versions", "mode": "persistent"},
-        {"at": 6.0, "job": "show feedback source declarations", "trace_id": "corrected-code", "mode": "persistent"},
-        {"at": 9.0, "job": "extract usage rows", "trace_id": "usage-card", "mode": "persistent"},
-        {"at": 10.5, "job": "focus primary usage pattern", "trace_id": "usage-pattern", "mode": "persistent"},
-        {"at": 12.8, "job": "underline usage card fragment", "trace_id": "usage-card", "mode": "transient"},
-        {"at": 15.5, "job": "show user-approved detected word", "trace_id": "detected-dialog", "mode": "persistent"},
-        {"at": 18.0, "job": "confirm selected detected word", "trace_id": "detected-dialog", "mode": "transient"}
+        {
+          "at": 0.654308,
+          "job": "establish feedback crop",
+          "trace_id": "feedback-window",
+          "mode": "persistent",
+          "design_at": 0.5
+        },
+        {
+          "at": 1.962923,
+          "job": "reveal colored segments in order",
+          "trace_id": "feedback-segments",
+          "mode": "persistent",
+          "design_at": 1.5
+        },
+        {
+          "at": 4.841876,
+          "job": "complete colored segment sequence",
+          "trace_id": "feedback-segments",
+          "mode": "persistent",
+          "design_at": 3.7
+        },
+        {
+          "at": 6.804798,
+          "job": "split corrected and stronger versions",
+          "trace_id": "sentence-versions",
+          "mode": "persistent",
+          "design_at": 5.2
+        },
+        {
+          "at": 7.85169,
+          "job": "show feedback source declarations",
+          "trace_id": "corrected-code",
+          "mode": "persistent",
+          "design_at": 6.0
+        },
+        {
+          "at": 10.46892,
+          "job": "underline sentence versions",
+          "trace_id": "sentence-versions",
+          "mode": "transient",
+          "design_at": 8.0
+        },
+        {
+          "at": 11.777535,
+          "job": "extract usage rows",
+          "trace_id": "usage-card",
+          "mode": "persistent",
+          "design_at": 9.0
+        },
+        {
+          "at": 13.740458,
+          "job": "focus primary usage pattern",
+          "trace_id": "usage-pattern",
+          "mode": "persistent",
+          "design_at": 10.5
+        },
+        {
+          "at": 16.750273,
+          "job": "underline usage card fragment",
+          "trace_id": "usage-card",
+          "mode": "transient",
+          "design_at": 12.8
+        },
+        {
+          "at": 18.974918,
+          "job": "focus usage card before confirmation",
+          "trace_id": "usage-card",
+          "mode": "transient",
+          "design_at": 14.5
+        },
+        {
+          "at": 20.283533,
+          "job": "show user-approved detected word",
+          "trace_id": "detected-dialog",
+          "mode": "persistent",
+          "design_at": 15.5
+        },
+        {
+          "at": 21.984733,
+          "job": "focus selected detected word",
+          "trace_id": "detected-dialog",
+          "mode": "transient",
+          "design_at": 16.8
+        },
+        {
+          "at": 23.555071,
+          "job": "confirm selected detected word",
+          "trace_id": "detected-dialog",
+          "mode": "transient",
+          "design_at": 18.0
+        }
       ],
       "visual": {
         "app_image": "assets/images/app/practice-feedback-zh.png",
@@ -122,28 +328,50 @@
         "dialog_image": "assets/images/app/detected-words-dialog-zh.png",
         "headline": "反馈会留下可以继续使用的东西",
         "segments": [
-          {"text": "The notifications ", "rating": "acceptable"},
-          {"text": "distracted me from ", "rating": "excellent"},
-          {"text": "focus", "rating": "error"},
-          {"text": " on my notes.", "rating": "acceptable"}
+          {
+            "text": "The notifications ",
+            "rating": "acceptable"
+          },
+          {
+            "text": "distracted me from ",
+            "rating": "excellent"
+          },
+          {
+            "text": "focus",
+            "rating": "error"
+          },
+          {
+            "text": " on my notes.",
+            "rating": "acceptable"
+          }
         ],
         "corrected": "The notifications distracted me from focusing on my notes.",
         "better": "Constant notifications distracted me from concentrating on my study notes.",
-        "usage_patterns": ["be distracted by sth", "distract sb from sth", "distract attention from sth"],
-        "code": [
-          "public string CorrectedSentence { get; set; } = string.Empty;",
-          "public string BetterSentence { get; set; } = string.Empty;",
-          "public List<UsagePatternItem> UsageItems { get; set; } = [];"
+        "usage_patterns": [
+          "be distracted by sth",
+          "distract sb from sth",
+          "distract attention from sth"
         ],
-        "screen_text": ["修改后的句子", "表达更好的句子", "be distracted by sth"]
-      }
+        "code": [
+          "CorrectedSentence",
+          "BetterSentence",
+          "UsagePatternItem"
+        ],
+        "screen_text": [
+          "修改后的句子",
+          "表达更好的句子",
+          "be distracted by sth"
+        ]
+      },
+      "design_duration": 20.0,
+      "music_energy": "rise-to-high"
     },
     {
       "id": 5,
       "title": "证据进入自动调度",
       "chapter_title": "复习由表现决定",
-      "start": 56.0,
-      "end": 83.5,
+      "start": 62.159215,
+      "end": 75.245365,
       "chapter": true,
       "chapter_index": 4,
       "chapter_total": 5,
@@ -152,39 +380,97 @@
       "kind": "automatic_scheduler",
       "edit_note": "Provisional timing; place the FSRS result and conflict branch on separate phrase accents.",
       "teaching_events": [
-        {"at": 2.0, "job": "establish evidence points", "trace_id": "evidence-points", "mode": "persistent"},
-        {"at": 3.0, "job": "complete language evidence", "trace_id": "evidence-points", "mode": "persistent"},
-        {"at": 3.4, "job": "add behavior evidence", "trace_id": "behavior-points", "mode": "persistent"},
-        {"at": 6.0, "job": "merge evidence into local decision", "trace_id": "evidence-merge", "mode": "persistent"},
-        {"at": 8.0, "job": "complete evidence merge", "trace_id": "evidence-merge", "mode": "persistent"},
-        {"at": 10.6, "job": "show review timeline", "trace_id": "fsrs-timeline", "mode": "persistent"},
-        {"at": 11.7, "job": "show scheduler source proof", "trace_id": "scheduler-code", "mode": "persistent"},
-        {"at": 12.5, "job": "advance FSRS due marker", "trace_id": "fsrs-timeline", "mode": "persistent"},
-        {"at": 15.0, "job": "reveal real scheduler settings", "trace_id": "settings-evidence", "mode": "persistent"},
-        {"at": 16.5, "job": "emphasize scheduled result", "trace_id": "fsrs-result", "mode": "persistent"},
-        {"at": 19.0, "job": "branch conflicting evidence", "trace_id": "conflict-branch", "mode": "persistent"},
-        {"at": 20.4, "job": "schedule short evidence retest", "trace_id": "retest-note", "mode": "persistent"},
-        {"at": 22.0, "job": "preserve long-term scheduler state", "trace_id": "retest-note", "mode": "persistent"},
-        {"at": 24.0, "job": "show no self-rating interface", "trace_id": "no-rating-note", "mode": "persistent"},
-        {"at": 26.0, "job": "underline scheduling boundary", "trace_id": "no-rating-note", "mode": "transient"}
+        {
+          "at": 0.969344,
+          "job": "establish evidence points",
+          "trace_id": "evidence-points",
+          "mode": "persistent",
+          "design_at": 1.0
+        },
+        {
+          "at": 1.938689,
+          "job": "add behavior evidence",
+          "trace_id": "behavior-points",
+          "mode": "persistent",
+          "design_at": 2.0
+        },
+        {
+          "at": 3.877378,
+          "job": "merge evidence into local decision",
+          "trace_id": "evidence-merge",
+          "mode": "persistent",
+          "design_at": 4.0
+        },
+        {
+          "at": 5.525264,
+          "job": "show review timeline",
+          "trace_id": "fsrs-timeline",
+          "mode": "persistent",
+          "design_at": 5.7
+        },
+        {
+          "at": 7.173149,
+          "job": "translate scheduler result to learner benefit",
+          "trace_id": "success-benefit",
+          "mode": "persistent",
+          "design_at": 7.4
+        },
+        {
+          "at": 8.917969,
+          "job": "schedule short evidence retest",
+          "trace_id": "retest-note",
+          "mode": "persistent",
+          "design_at": 9.2
+        },
+        {
+          "at": 10.565855,
+          "job": "show no self-rating interface",
+          "trace_id": "no-rating-note",
+          "mode": "persistent",
+          "design_at": 10.9
+        }
       ],
       "visual": {
         "app_image": "assets/images/app/settings-zh.png",
-        "headline": "本次表现 → 本地证据 → FSRS-6",
+        "headline": "本次表现 → 下次复习时间",
+        "exercise_label": "这次练习",
         "word": "distract",
-        "evidence": ["拼写 / 词义 / 词形", "搭配 / 局部语法", "提示 / 粘贴", "作答时间 / 修改次数"],
-        "timeline": ["今天", "明天"],
-        "conflict": ["证据冲突", "10 分钟后复测", "长期状态不变"],
-        "code": ["ReviewScheduler.Apply(_currentWord, decision.Grade, reviewedAt);"],
-        "screen_text": ["FSRS-6", "不需要选择好 / 中 / 差"]
-      }
+        "algorithm_label": "FSRS-6 · 复习间隔算法",
+        "evidence": [
+          "目标词有没有用对",
+          "表达是否自然",
+          "有没有查看提示",
+          "作答过程"
+        ],
+        "timeline": [
+          "今天",
+          "明天"
+        ],
+        "conflict": [
+          "证据冲突",
+          "10 分钟后复测",
+          "长期状态不变"
+        ],
+        "success_label": "答得稳 → 复习间隔拉长",
+        "retest_title": "判断不够确定",
+        "retest_action": "10 分钟后再练一次",
+        "code": [
+          "ReviewScheduler.Apply"
+        ],
+        "screen_text": [
+          "自动安排复习",
+          "不需要选择好 / 中 / 差"
+        ]
+      },
+      "design_duration": 13.5,
+      "music_energy": "high"
     },
     {
       "id": 6,
       "title": "本地数据与外部服务边界",
       "chapter_title": "边界写在明处",
-      "start": 83.5,
-      "end": 102.0,
+      "start": 75.245365,
+      "end": 85.059978,
       "chapter": true,
       "chapter_index": 5,
       "chapter_total": 5,
@@ -193,34 +479,86 @@
       "kind": "data_boundary",
       "edit_note": "Provisional timing; separate local storage, provider routing, and language controls.",
       "teaching_events": [
-        {"at": 0.4, "job": "show local data route", "trace_id": "local-route", "mode": "persistent"},
-        {"at": 3.5, "job": "show current exercise API route", "trace_id": "api-route", "mode": "persistent"},
-        {"at": 5.8, "job": "identify selected model provider", "trace_id": "provider-route", "mode": "persistent"},
-        {"at": 8.5, "job": "add recent same-word context", "trace_id": "recent-context", "mode": "persistent"},
-        {"at": 11.2, "job": "show exact local data source", "trace_id": "data-path-code", "mode": "persistent"},
-        {"at": 13.9, "job": "expand independent language settings", "trace_id": "language-settings", "mode": "persistent"},
-        {"at": 16.0, "job": "underline independent language settings", "trace_id": "language-settings", "mode": "transient"}
+        {
+          "at": 0.74778,
+          "job": "show local data route",
+          "trace_id": "local-route",
+          "mode": "persistent",
+          "design_at": 0.8
+        },
+        {
+          "at": 2.804175,
+          "job": "mark AI path as optional",
+          "trace_id": "ai-optional",
+          "mode": "persistent",
+          "design_at": 3.0
+        },
+        {
+          "at": 3.7389,
+          "job": "show current exercise API route",
+          "trace_id": "api-route",
+          "mode": "persistent",
+          "design_at": 4.0
+        },
+        {
+          "at": 4.206263,
+          "job": "identify selected model provider",
+          "trace_id": "provider-route",
+          "mode": "persistent",
+          "design_at": 4.5
+        },
+        {
+          "at": 5.795295,
+          "job": "expand independent language settings",
+          "trace_id": "language-settings",
+          "mode": "persistent",
+          "design_at": 6.2
+        },
+        {
+          "at": 7.664745,
+          "job": "settle independent language settings",
+          "trace_id": "language-settings",
+          "mode": "persistent",
+          "design_at": 8.2
+        }
       ],
       "visual": {
         "app_image": "assets/images/app/settings-zh.png",
         "about_image": "assets/images/app/about-zh.png",
-        "headline": "长期数据留在本机，当前练习交给模型",
-        "routes": ["完整词库 / 历史 → wordbook.json", "目标词 / 备注 / 当前练习 → OpenRouter"],
-        "provider": "所选模型提供方",
-        "recent_context": "最近几条同词情境",
-        "languages": ["界面语言", "学习目标语言", "AI 解释语言"],
-        "code": [
-          "DataPath => Path.Combine(DataDirectory, \"wordbook.json\");",
-          "public string TargetLanguage { get; set; } = \"English\";"
+        "headline": "学习记录在本机，AI 功能可以不启用",
+        "routes": [
+          "完整词库与历史 · 本机保存",
+          "启用 AI 后 · 只发送当前练习相关内容"
         ],
-        "screen_text": ["wordbook.json", "OpenRouter", "界面语言 / 学习目标语言 / AI 解释语言"]
-      }
+        "local_detail": "词库、复习历史与用法卡",
+        "ai_optional": "AI 功能可选 · 未配置时仍有基础离线模式",
+        "provider_note": "经 OpenRouter 连接所选模型",
+        "language_heading": "语言可以分别设置",
+        "provider": "OpenRouter → 所选 AI 模型",
+        "recent_context": "避免重复 · 附带最近同词情境",
+        "languages": [
+          "界面语言",
+          "学习目标语言",
+          "AI 解释语言"
+        ],
+        "code": [
+          "wordbook.json",
+          "TargetLanguage"
+        ],
+        "screen_text": [
+          "wordbook.json",
+          "OpenRouter",
+          "界面语言 / 学习目标语言 / AI 解释语言"
+        ]
+      },
+      "design_duration": 10.5,
+      "music_energy": "high-to-outro"
     },
     {
       "id": 7,
       "title": "从一句话开始",
-      "start": 102.0,
-      "end": 109.0,
+      "start": 85.059978,
+      "end": 94.88,
       "chapter": false,
       "role": "summary",
       "master_id": "summary",
@@ -230,35 +568,176 @@
         "app_image": "assets/images/app/today-zh.png",
         "headline": "把生词写进句子里",
         "detail": "github.com/ArabidopsisDev/Word2Sentence",
-        "items": ["开源", "主动造句", "自动复习"]
-      }
+        "items": [
+          "开源",
+          "主动造句",
+          "自动复习"
+        ]
+      },
+      "design_duration": 7.0,
+      "music_energy": "outro"
     }
   ],
   "cues": [
-    {"id": 1, "scene_id": 1, "start": 0.3, "end": 3.9, "role": "opening", "text": "大家好，Word2Sentence 是一款开源的单词学习软件。"},
-    {"id": 2, "scene_id": 1, "start": 4.2, "end": 8.1, "role": "opening", "text": "程序本身免费使用，源码公开在 GitHub，也欢迎大家改进。"},
-    {"id": 3, "scene_id": 2, "start": 8.9, "end": 12.4, "role": "transition", "text": "它要解决的是，明明背过单词，真正造句时却仍会卡住。"},
-    {"id": 4, "scene_id": 2, "start": 12.7, "end": 16.6, "role": "problem", "text": "知道 distract 的意思，轮到自己写句子时，却还是想不起常见搭配。"},
-    {"id": 5, "scene_id": 2, "start": 16.9, "end": 20.3, "role": "inference", "text": "释义只告诉你大概含义，造句会暴露词形和搭配的问题。"},
-    {"id": 6, "scene_id": 3, "start": 20.9, "end": 24.3, "role": "transition", "text": "因此，练习从你加入词库的生词开始。"},
-    {"id": 7, "scene_id": 3, "start": 24.6, "end": 29.2, "role": "setup", "text": "启用 AI 后，它会给出具体情境，但不会提前写出完整答案。"},
-    {"id": 8, "scene_id": 3, "start": 29.5, "end": 35.6, "role": "proof", "text": "你会在这个情境里，自己写下一句想表达的话。"},
-    {"id": 9, "scene_id": 4, "start": 36.5, "end": 39.7, "role": "transition", "text": "句子提交以后，系统会先标出各部分的表达质量。"},
-    {"id": 10, "scene_id": 4, "start": 40.0, "end": 43.3, "role": "explanation", "text": "绿色表示表达自然，蓝色表示可以优化，红色表示有错误。"},
-    {"id": 11, "scene_id": 4, "start": 43.6, "end": 47.2, "role": "proof", "text": "系统会同时保留两个版本，一个只改错误，一个表达更自然。"},
-    {"id": 12, "scene_id": 4, "start": 47.5, "end": 51.3, "role": "proof", "text": "常用搭配会整理成一条条用法卡，同步到首页。"},
-    {"id": 13, "scene_id": 4, "start": 51.6, "end": 55.6, "role": "boundary", "text": "其他掌握不好的词会先列出来，只有你确认后才加入词库。"},
-    {"id": 14, "scene_id": 5, "start": 56.5, "end": 59.8, "role": "transition", "text": "这些表现还会影响下一次复习的时间。"},
-    {"id": 15, "scene_id": 5, "start": 60.1, "end": 63.8, "role": "explanation", "text": "系统会检查拼写、词义、词形、搭配和句中的语法。"},
-    {"id": 16, "scene_id": 5, "start": 64.1, "end": 67.6, "role": "explanation", "text": "提示、粘贴、作答时间和修改次数，也会影响判断。"},
-    {"id": 17, "scene_id": 5, "start": 67.9, "end": 71.5, "role": "explanation", "text": "证据可信且一致时，本地规则会先映射为内部等级。"},
-    {"id": 18, "scene_id": 5, "start": 71.8, "end": 75.0, "role": "proof", "text": "再由 FSRS-6 计算下一次复习时间。"},
-    {"id": 19, "scene_id": 5, "start": 75.3, "end": 79.6, "role": "boundary", "text": "证据冲突时，系统会在十分钟后复测，不改动长期状态。"},
-    {"id": 20, "scene_id": 5, "start": 79.9, "end": 83.3, "role": "boundary", "text": "界面没有自评按钮，复习时间来自做题时的实际表现。"},
-    {"id": 21, "scene_id": 6, "start": 84.0, "end": 87.2, "role": "transition", "text": "完整词库和历史默认保存在本机。"},
-    {"id": 22, "scene_id": 6, "start": 87.5, "end": 91.7, "role": "boundary", "text": "启用 AI 时，目标词、备注和当前练习会通过 OpenRouter 发送。"},
-    {"id": 23, "scene_id": 6, "start": 92.0, "end": 96.1, "role": "boundary", "text": "这些内容和最近几条同词情境，还会交给所选模型提供方。"},
-    {"id": 24, "scene_id": 6, "start": 96.4, "end": 101.5, "role": "boundary", "text": "界面、学习目标和 AI 解释语言可以分别设置，英语只是演示。"},
-    {"id": 25, "scene_id": 7, "start": 102.7, "end": 108.5, "role": "summary", "text": "如果你也常常认识一个词却不会用，就从写下一句想表达的话开始。"}
+    {
+      "id": 1,
+      "scene_id": 1,
+      "start": 0.245365,
+      "end": 3.925845,
+      "role": "opening",
+      "text": "大家好，Word2Sentence 是一款开源的单词学习软件。"
+    },
+    {
+      "id": 2,
+      "scene_id": 1,
+      "start": 4.17121,
+      "end": 9.569248,
+      "role": "opening",
+      "text": "程序本身免费使用，源码公开在 GitHub，也欢迎大家改进。"
+    },
+    {
+      "id": 3,
+      "scene_id": 2,
+      "start": 10.141767,
+      "end": 13.495093,
+      "role": "transition",
+      "text": "它要解决的是，明明背过单词，真正造句时却仍会卡住。"
+    },
+    {
+      "id": 4,
+      "scene_id": 2,
+      "start": 13.740458,
+      "end": 17.993457,
+      "role": "problem",
+      "text": "知道 distract 的意思，轮到自己写句子时，却还是想不起常见搭配。"
+    },
+    {
+      "id": 5,
+      "scene_id": 2,
+      "start": 18.238822,
+      "end": 22.655398,
+      "role": "inference",
+      "text": "只看释义，往往还发现不了词形和搭配的问题。"
+    },
+    {
+      "id": 6,
+      "scene_id": 3,
+      "start": 23.227917,
+      "end": 26.663031,
+      "role": "transition",
+      "text": "因此，练习从你加入词库的生词开始。"
+    },
+    {
+      "id": 7,
+      "scene_id": 3,
+      "start": 26.908397,
+      "end": 31.161395,
+      "role": "setup",
+      "text": "启用 AI 后，它会给出具体情境，但不会提前写出完整答案。"
+    },
+    {
+      "id": 8,
+      "scene_id": 3,
+      "start": 31.406761,
+      "end": 35.741548,
+      "role": "proof",
+      "text": "你会在这个情境里，自己写下一句想表达的话。"
+    },
+    {
+      "id": 9,
+      "scene_id": 4,
+      "start": 36.395856,
+      "end": 40.239913,
+      "role": "transition",
+      "text": "句子提交以后，系统会先标出各部分的表达质量。"
+    },
+    {
+      "id": 10,
+      "scene_id": 4,
+      "start": 40.485278,
+      "end": 44.492912,
+      "role": "explanation",
+      "text": "绿色表示表达自然，蓝色表示可以优化，红色表示有错误。"
+    },
+    {
+      "id": 11,
+      "scene_id": 4,
+      "start": 44.738277,
+      "end": 49.073064,
+      "role": "proof",
+      "text": "系统保留两个版本，一个纠正错误，另一个表达更自然。"
+    },
+    {
+      "id": 12,
+      "scene_id": 4,
+      "start": 49.31843,
+      "end": 53.980371,
+      "role": "proof",
+      "text": "常用搭配会整理成一条条用法卡，同步到首页。"
+    },
+    {
+      "id": 13,
+      "scene_id": 4,
+      "start": 54.225736,
+      "end": 60.932388,
+      "role": "boundary",
+      "text": "句子里其他可能没掌握的词，会先列出，确认后才加入词库。"
+    },
+    {
+      "id": 14,
+      "scene_id": 5,
+      "start": 62.486369,
+      "end": 66.08506,
+      "role": "transition",
+      "text": "系统会根据这次造句的表现，自动安排下一次复习。"
+    },
+    {
+      "id": 17,
+      "scene_id": 5,
+      "start": 66.330425,
+      "end": 70.583424,
+      "role": "explanation",
+      "text": "答得越稳，这个词通常会晚一些再出现。"
+    },
+    {
+      "id": 20,
+      "scene_id": 5,
+      "start": 70.82879,
+      "end": 75.0,
+      "role": "boundary",
+      "text": "系统自动判断，不需要你自己选择好、中、差。"
+    },
+    {
+      "id": 21,
+      "scene_id": 6,
+      "start": 75.572519,
+      "end": 78.516903,
+      "role": "transition",
+      "text": "完整词库和历史默认保存在本机。"
+    },
+    {
+      "id": 22,
+      "scene_id": 6,
+      "start": 78.762268,
+      "end": 81.78844,
+      "role": "boundary",
+      "text": "AI 可以不启用；启用时只发送当前练习所需文本。"
+    },
+    {
+      "id": 24,
+      "scene_id": 6,
+      "start": 82.033806,
+      "end": 84.814613,
+      "role": "boundary",
+      "text": "界面和学习语言可以分别设置，英语只是演示。"
+    },
+    {
+      "id": 25,
+      "scene_id": 7,
+      "start": 85.387132,
+      "end": 90.785169,
+      "role": "summary",
+      "text": "前往 GitHub 下载 Word2Sentence，从一个生词、一句话开始。"
+    }
   ]
 }

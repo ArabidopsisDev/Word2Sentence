@@ -8,15 +8,19 @@ from PIL import Image, ImageDraw, ImageFilter
 import scenes
 from project_digest import content_digest
 from render_animation import load, render_frame
-from render_common import BLACK, fit_one_line, make_context
+from render_common import fit_one_line, make_context, rgba
 
 
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def bright_pixels(image: Image.Image, top: int, bottom: int) -> int:
+def content_pixels(image: Image.Image, top: int, bottom: int, background: tuple[int, int, int]) -> int:
     crop = image.convert("RGB").crop((0, top, image.width, bottom))
-    return sum(1 for red, green, blue in crop.getdata() if max(red, green, blue) >= 42)
+    return sum(
+        1
+        for red, green, blue in crop.getdata()
+        if max(abs(red - background[0]), abs(green - background[1]), abs(blue - background[2])) >= 8
+    )
 
 
 def render_base(config: dict, timeline: dict, timestamp: float) -> Image.Image:
@@ -30,7 +34,8 @@ def render_base_trace(config: dict, timeline: dict, timestamp: float) -> tuple[I
     scene["all_scenes"] = timeline["scenes"]
     ctx = make_context(config, timestamp, scene)
     scenes.render_scene(ctx)
-    image = Image.alpha_composite(Image.new("RGBA", ctx.image.size, BLACK), ctx.image).convert("RGB")
+    background = rgba(config["video"].get("background", "#000000"))
+    image = Image.alpha_composite(Image.new("RGBA", ctx.image.size, background), ctx.image).convert("RGB")
     return image, list(ctx.trace)
 
 
@@ -216,9 +221,10 @@ def main() -> int:
     for timestamp, reason in sorted(timestamps.items()):
         try:
             base, trace = render_base_trace(config, timeline, timestamp)
-            count = bright_pixels(base, 825, 885)
+            background = rgba(config["video"].get("background", "#000000"))[:3]
+            count = content_pixels(base, 825, 885, background)
             if count > 240:
-                safe.append(f"{reason} @ {timestamp:.2f}s: {count} bright pixels in y825..884")
+                safe.append(f"{reason} @ {timestamp:.2f}s: {count} content pixels in y825..884")
             for left, right, ratio in text_trace_overlaps(trace):
                 finding = f"{reason} @ {timestamp:.2f}s: text/code overlap {left.get('value')!r} vs {right.get('value')!r} (ratio={ratio:.3f})"
                 if finding not in overlap_findings:

@@ -25,7 +25,9 @@
         "只记住释义没有练习主动提取和搭配",
         "以 distract 为例，认识‘使分心’仍可能写不出 be distracted by"
       ],
-      "proof_ids": ["proof-open-and-problem"],
+      "proof_ids": [
+        "proof-open-and-problem"
+      ],
       "exit_answer": "造句会把词义、词形和搭配同时暴露出来，因此比单独看词卡更容易发现真实缺口。"
     },
     {
@@ -42,7 +44,9 @@
         "AI 生成不泄露完整答案的具体情境",
         "用户在情境中独立写出一句话"
       ],
-      "proof_ids": ["proof-sentence-flow"],
+      "proof_ids": [
+        "proof-sentence-flow"
+      ],
       "exit_answer": "一个生词会依次经过加入词库、生成情境和独立造句，而不是直接进入答案记忆。"
     },
     {
@@ -60,7 +64,9 @@
         "常用搭配整理成用法卡",
         "其他错词先由用户确认，再加入词库"
       ],
-      "proof_ids": ["proof-feedback-artifacts"],
+      "proof_ids": [
+        "proof-feedback-artifacts"
+      ],
       "exit_answer": "反馈不止给分数，还会留下可比较的改写、搭配卡和经过确认的错词。"
     },
     {
@@ -73,12 +79,14 @@
       ],
       "bridge_from_previous": "这些反馈已经描述了本次回忆质量，复习时间可以继续由证据计算。",
       "new_information": [
-        "本地确定性规则把多维证据映射为内部记忆等级",
-        "经过参考向量验证的 FSRS-6 计算下次复习时间",
-        "低置信或冲突证据只安排 10 分钟后复测，不修改长期 FSRS 状态",
-        "没有让用户主观选择好、中、差的按钮"
+        "系统根据目标词使用、表达自然度、提示与作答过程自动安排复习",
+        "答得越稳，复习间隔通常越长",
+        "判断不确定时很快再练，不要求用户选择好、中、差",
+        "FSRS-6 只作为辅助说明，不占据主要视觉层"
       ],
-      "proof_ids": ["proof-automatic-fsrs"],
+      "proof_ids": [
+        "proof-automatic-fsrs"
+      ],
       "exit_answer": "系统依据本次真实表现自动调度，不把复习质量交给用户主观选择。"
     },
     {
@@ -91,12 +99,14 @@
       ],
       "bridge_from_previous": "复习时间已经确定，最后把本地数据和外部 AI 的边界说明清楚。",
       "new_information": [
-        "完整单词库与历史默认保存在本机 wordbook.json",
-        "启用 AI 时，目标词、个人备注、当前练习和最近几条同词情境经 OpenRouter 发送给实际模型提供方",
+        "完整单词库、复习历史和用法卡默认保存在本机",
+        "AI 功能可以不启用；启用时只发送当前练习所需文本",
         "界面语言、学习目标语言和解释语言可分别设置",
-        "英语只是演示，不代表学习范围被写死"
+        "OpenRouter 仅作为辅助说明，不展开服务架构"
       ],
-      "proof_ids": ["proof-data-boundary"],
+      "proof_ids": [
+        "proof-data-boundary"
+      ],
       "exit_answer": "长期学习数据保存在本机，AI 只处理当前练习所需文本；语言设置彼此独立。"
     }
   ],
@@ -109,13 +119,25 @@
         "<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>",
         "public string Word { get; set; } = string.Empty;"
       ],
-      "output_contains": ["已成功生成"],
+      "output_contains": [
+        "已成功生成"
+      ],
       "scene_id": 2,
-      "time": 14.0,
-      "expected_visible": ["distract"],
-      "expected_code": ["<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>"],
-      "color_checks": [{"token": "AGPL-3.0-only", "kind": "string"}],
-      "min_stable_seconds": 1.2
+      "time": 21.810251,
+      "expected_visible": [
+        "distract"
+      ],
+      "expected_code": [
+        "<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>"
+      ],
+      "color_checks": [
+        {
+          "token": "AGPL-3.0-only",
+          "kind": "string"
+        }
+      ],
+      "min_stable_seconds": 1.2,
+      "design_scene_t": 11.0
     },
     {
       "id": "proof-sentence-flow",
@@ -125,13 +147,26 @@
         "public async Task<SentenceChallenge> CreateChallengeAsync(",
         "public async Task<SentenceEvaluation> EvaluateAsync("
       ],
-      "output_contains": ["已成功生成"],
+      "output_contains": [
+        "已成功生成"
+      ],
       "scene_id": 3,
-      "time": 34.0,
-      "expected_visible": ["独立造句"],
-      "expected_code": ["CreateChallengeAsync", "EvaluateAsync"],
-      "color_checks": [{"token": "EvaluateAsync", "kind": "method"}],
-      "min_stable_seconds": 1.2
+      "time": 34.298378,
+      "expected_visible": [
+        "独立造句"
+      ],
+      "expected_code": [
+        "CreateChallengeAsync",
+        "EvaluateAsync"
+      ],
+      "color_checks": [
+        {
+          "token": "EvaluateAsync",
+          "kind": "method"
+        }
+      ],
+      "min_stable_seconds": 1.2,
+      "design_scene_t": 13.5
     },
     {
       "id": "proof-feedback-artifacts",
@@ -142,17 +177,28 @@
         "public string BetterSentence { get; set; } = string.Empty;",
         "public List<UsagePatternItem> UsageItems { get; set; } = [];"
       ],
-      "output_contains": ["已成功生成"],
-      "scene_id": 4,
-      "time": 48.0,
-      "expected_visible": ["修改后的句子", "表达更好的句子", "be distracted by sth"],
-      "expected_code": [
-        "public string CorrectedSentence { get; set; } = string.Empty;",
-        "public string BetterSentence { get; set; } = string.Empty;",
-        "public List<UsagePatternItem> UsageItems { get; set; } = [];"
+      "output_contains": [
+        "已成功生成"
       ],
-      "color_checks": [{"token": "string", "kind": "keyword"}],
-      "min_stable_seconds": 1.2
+      "scene_id": 4,
+      "time": 45.147219,
+      "expected_visible": [
+        "修改后的句子",
+        "表达更好的句子"
+      ],
+      "expected_code": [
+        "CorrectedSentence",
+        "BetterSentence",
+        "UsagePatternItem"
+      ],
+      "color_checks": [
+        {
+          "token": "UsagePatternItem",
+          "kind": "type"
+        }
+      ],
+      "min_stable_seconds": 1.2,
+      "design_scene_t": 7.0
     },
     {
       "id": "proof-automatic-fsrs",
@@ -162,13 +208,28 @@
         "public const string Version = \"py-fsrs-6.3.1-default-dr0.90\";",
         "public static MemoryGradeDecision Decide("
       ],
-      "output_contains": ["FSRS_6_3_1_CONFORMANCE_OK", "AUTOMATIC_MEMORY_GRADE_OK"],
+      "output_contains": [
+        "FSRS_6_3_1_CONFORMANCE_OK",
+        "AUTOMATIC_MEMORY_GRADE_OK"
+      ],
       "scene_id": 5,
-      "time": 69.0,
-      "expected_visible": ["FSRS-6", "今天", "明天"],
-      "expected_code": ["ReviewScheduler.Apply(_currentWord, decision.Grade, reviewedAt);"],
-      "color_checks": [{"token": "ReviewScheduler", "kind": "type"}],
-      "min_stable_seconds": 1.2
+      "time": 69.913971,
+      "expected_visible": [
+        "自动安排复习",
+        "今天",
+        "明天"
+      ],
+      "expected_code": [
+        "ReviewScheduler.Apply"
+      ],
+      "color_checks": [
+        {
+          "token": "ReviewScheduler",
+          "kind": "type"
+        }
+      ],
+      "min_stable_seconds": 1.2,
+      "design_scene_t": 8.0
     },
     {
       "id": "proof-data-boundary",
@@ -179,16 +240,27 @@
         "private const string Endpoint = \"https://openrouter.ai/api/v1/chat/completions\";",
         "public string TargetLanguage { get; set; } = \"English\";"
       ],
-      "output_contains": ["已成功生成"],
-      "scene_id": 6,
-      "time": 98.0,
-      "expected_visible": ["wordbook.json", "OpenRouter"],
-      "expected_code": [
-        "DataPath => Path.Combine(DataDirectory, \"wordbook.json\");",
-        "public string TargetLanguage { get; set; } = \"English\";"
+      "output_contains": [
+        "已成功生成"
       ],
-      "color_checks": [{"token": "\"English\"", "kind": "string"}],
-      "min_stable_seconds": 1.2
+      "scene_id": 6,
+      "time": 82.068858,
+      "expected_visible": [
+        "本机保存",
+        "AI 功能可选"
+      ],
+      "expected_code": [
+        "wordbook.json",
+        "TargetLanguage"
+      ],
+      "color_checks": [
+        {
+          "token": "TargetLanguage",
+          "kind": "type"
+        }
+      ],
+      "min_stable_seconds": 1.2,
+      "design_scene_t": 7.3
     }
   ]
 }

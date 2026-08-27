@@ -1,9 +1,9 @@
 {
-  "cover_sha256": "[REPLACE]",
-  "thumbnail_sha256": "[REPLACE]",
-  "reviewer": "[REPLACE: blind reviewer id]",
-  "first_impression": "[REPLACE: what was understood before seeing filename]",
-  "topic_understood": "[REPLACE]",
-  "looks_like_course_page": null,
-  "status": "pending"
+  "cover_sha256": "E1B85A3C458D352FAE7DEE576D0322EBCE0CAC0E7E0F74A942782E8C9A47919A",
+  "thumbnail_sha256": "06DB9015A26FE0B71337907219971B86789C9FF991400B5BEA43AB49A5DADE7C",
+  "reviewer": "Lagrange-cover-final",
+  "first_impression": "认识英语单词却不会使用，并通过造句真正学会搭配的开源学习软件",
+  "topic_understood": "Word2Sentence 用真实软件界面、distract 和 be distracted by sth 展示造句学习单词",
+  "looks_like_course_page": false,
+  "status": "pass"
 }
