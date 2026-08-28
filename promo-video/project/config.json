@@ -42,7 +42,7 @@
     "downbeat_source": 97.9407,
     "beats_per_bar": 4,
     "phrase_beats": 16,
-    "section_beats": [8, 16, 16, 32, 16, 12, 4]
+    "section_beats": [8, 16, 16, 32, 16, 16, 12, 4]
   },
   "tools": {
     "ffmpeg": "D:/Projects/Word2Sentence/promo-video/tools/ffmpeg-9.0.1-essentials_build/bin/ffmpeg.exe",
@@ -55,8 +55,12 @@
     "assets/screenshot-data/practice-demo.json",
     "assets/images/app/today-zh.png",
     "assets/images/app/library-zh.png",
+    "assets/images/app/statistics-zh.png",
+    "assets/images/app/statistics-lower-zh.png",
     "assets/images/app/practice-session-zh.png",
+    "assets/images/app/practice-session-empty-zh.png",
     "assets/images/app/practice-feedback-zh.png",
+    "assets/images/app/practice-feedback-top-zh.png",
     "assets/images/app/detected-words-dialog-zh.png",
     "assets/images/app/settings-zh.png",
     "assets/images/app/about-zh.png",

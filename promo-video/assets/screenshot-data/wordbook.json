@@ -83,7 +83,18 @@
       "previousDueAt": "2026-08-27T08:00:00+08:00",
       "scheduledDueAt": "2026-08-28T09:00:00+08:00",
       "reviewedAt": "2026-08-27T08:30:00+08:00"
-    }
+    },
+    { "id": "70000000-0000-0000-0000-000000000001", "wordId": "22222222-2222-2222-2222-222222222222", "word": "deliberate", "score": 68, "targetUsageCorrect": true, "reviewedAt": "2026-08-15T19:20:00+08:00" },
+    { "id": "70000000-0000-0000-0000-000000000002", "wordId": "11111111-1111-1111-1111-111111111111", "word": "distract", "score": 72, "targetUsageCorrect": true, "reviewedAt": "2026-08-17T20:10:00+08:00" },
+    { "id": "70000000-0000-0000-0000-000000000003", "wordId": "22222222-2222-2222-2222-222222222222", "word": "deliberate", "score": 78, "targetUsageCorrect": true, "reviewedAt": "2026-08-19T08:40:00+08:00" },
+    { "id": "70000000-0000-0000-0000-000000000004", "wordId": "11111111-1111-1111-1111-111111111111", "word": "distract", "score": 80, "targetUsageCorrect": true, "reviewedAt": "2026-08-20T21:05:00+08:00" },
+    { "id": "70000000-0000-0000-0000-000000000005", "wordId": "22222222-2222-2222-2222-222222222222", "word": "deliberate", "score": 88, "targetUsageCorrect": true, "reviewedAt": "2026-08-22T09:15:00+08:00" },
+    { "id": "70000000-0000-0000-0000-000000000006", "wordId": "11111111-1111-1111-1111-111111111111", "word": "distract", "score": 76, "targetUsageCorrect": true, "reviewedAt": "2026-08-23T17:50:00+08:00" },
+    { "id": "70000000-0000-0000-0000-000000000007", "wordId": "33333333-3333-3333-3333-333333333333", "word": "resilient", "score": 65, "targetUsageCorrect": false, "reviewedAt": "2026-08-25T07:55:00+08:00" },
+    { "id": "70000000-0000-0000-0000-000000000008", "wordId": "11111111-1111-1111-1111-111111111111", "word": "distract", "score": 82, "targetUsageCorrect": true, "reviewedAt": "2026-08-25T20:30:00+08:00" },
+    { "id": "70000000-0000-0000-0000-000000000009", "wordId": "11111111-1111-1111-1111-111111111111", "word": "distract", "score": 90, "targetUsageCorrect": true, "reviewedAt": "2026-08-26T18:45:00+08:00" },
+    { "id": "70000000-0000-0000-0000-000000000010", "wordId": "22222222-2222-2222-2222-222222222222", "word": "deliberate", "score": 92, "targetUsageCorrect": true, "reviewedAt": "2026-08-28T07:20:00+08:00" },
+    { "id": "70000000-0000-0000-0000-000000000011", "wordId": "33333333-3333-3333-3333-333333333333", "word": "resilient", "score": 62, "targetUsageCorrect": false, "reviewedAt": "2026-08-28T08:10:00+08:00" }
   ],
   "cards": [
     {

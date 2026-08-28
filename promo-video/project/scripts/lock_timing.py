@@ -18,6 +18,7 @@ CUE_BEATS = {
     6: (0.4, 4.6), 7: (4.9, 10.1), 8: (10.4, 15.7),
     9: (0.5, 5.2), 10: (5.5, 10.4), 11: (10.7, 16.0), 12: (16.3, 22.0), 13: (22.3, 30.5),
     14: (0.4, 4.8), 17: (5.1, 10.3), 20: (10.6, 15.7),
+    26: (0.4, 4.9), 27: (5.2, 10.1), 28: (10.4, 15.7),
     21: (0.4, 4.0), 22: (4.3, 8.0), 24: (8.3, 11.7),
     25: (0.2, 3.8),
 }
@@ -40,7 +41,7 @@ def main() -> None:
 
     old_starts = {int(scene["id"]): float(scene["start"]) for scene in timeline["scenes"]}
     cursor = 0.0
-    energies = ["quiet", "building", "building", "rise-to-high", "high", "high-to-outro", "outro"]
+    energies = ["quiet", "building", "building", "rise-to-high", "high", "high", "high-to-outro", "outro"]
     for scene, beats, energy in zip(timeline["scenes"], section_beats, energies):
         old_duration = float(scene["end"]) - float(scene["start"])
         scene.setdefault("design_duration", old_duration)

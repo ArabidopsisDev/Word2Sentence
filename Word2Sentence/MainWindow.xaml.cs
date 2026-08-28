@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
@@ -108,6 +109,11 @@ public partial class MainWindow : Window
     private void TodayNav_Click(object sender, RoutedEventArgs e) => ShowPage(TodayPage, TodayNav);
     private void PracticeNav_Click(object sender, RoutedEventArgs e) => ShowPracticeChooser();
     private void LibraryNav_Click(object sender, RoutedEventArgs e) => ShowPage(LibraryPage, LibraryNav);
+    private void StatisticsNav_Click(object sender, RoutedEventArgs e)
+    {
+        RefreshStatistics();
+        ShowPage(StatisticsPage, StatisticsNav);
+    }
     private void SettingsNav_Click(object sender, RoutedEventArgs e) => ShowPage(SettingsPage, SettingsNav);
     private void AboutNav_Click(object sender, RoutedEventArgs e) => ShowPage(AboutPage, AboutNav);
 
@@ -116,11 +122,12 @@ public partial class MainWindow : Window
         TodayPage.Visibility = Visibility.Collapsed;
         PracticePage.Visibility = Visibility.Collapsed;
         LibraryPage.Visibility = Visibility.Collapsed;
+        StatisticsPage.Visibility = Visibility.Collapsed;
         SettingsPage.Visibility = Visibility.Collapsed;
         AboutPage.Visibility = Visibility.Collapsed;
         page.Visibility = Visibility.Visible;
 
-        foreach (var button in new[] { TodayNav, PracticeNav, LibraryNav, SettingsNav, AboutNav })
+        foreach (var button in new[] { TodayNav, PracticeNav, LibraryNav, StatisticsNav, SettingsNav, AboutNav })
         {
             button.Background = Brushes.Transparent;
             button.Foreground = FindBrush("TextMutedBrush");
@@ -721,7 +728,33 @@ public partial class MainWindow : Window
         RefreshDashboard();
         RefreshCardCarousel();
         RefreshLibrary();
+        RefreshStatistics();
         RefreshApiStatus();
+    }
+
+    private void RefreshStatistics()
+    {
+        var snapshot = StatisticsService.Create(_data);
+        StatisticsTotalReviewsText.Text = snapshot.TotalReviews.ToString("N0", CultureInfo.CurrentCulture);
+        StatisticsLearnedWordsText.Text = snapshot.LearnedWords.ToString("N0", CultureInfo.CurrentCulture);
+        StatisticsNewWordsText.Text = snapshot.NewWords30.ToString("N0", CultureInfo.CurrentCulture);
+        StatisticsAverageScoreText.Text = snapshot.TotalReviews == 0
+            ? "—"
+            : snapshot.AverageScore.ToString("0.0", CultureInfo.CurrentCulture);
+        StatisticsStreakText.Text = LocalizationService.T("StatisticsDays", snapshot.CurrentStreak);
+        StatisticsBestStreakText.Text = LocalizationService.T("StatisticsDays", snapshot.BestStreak);
+        StatisticsActiveDaysText.Text = LocalizationService.T("StatisticsDays", snapshot.ActiveDays30);
+        StatisticsCalendarMonthText.Text = DateTime.Today.ToString("yyyy MMMM", CultureInfo.CurrentUICulture);
+        StatisticsCalendarItems.ItemsSource = snapshot.CalendarDays;
+        StatisticsTrendChart.ItemsSource = snapshot.Trend;
+        StatisticsScoreChart.ItemsSource = snapshot.ScoreDistribution;
+        StatisticsMasteryItems.ItemsSource = snapshot.MasteryBreakdown;
+        StatisticsRecallCoverageText.Text = $"{snapshot.RecallCoverage:0}%";
+        StatisticsStableMasteryText.Text = $"{snapshot.StableMasteryRate:0}%";
+        StatisticsReinforcementText.Text = snapshot.ReinforcementNeeded.ToString("N0", CultureInfo.CurrentCulture);
+        StatisticsEmptyText.Visibility = snapshot.TotalReviews == 0 && _data.Words.Count == 0
+            ? Visibility.Visible
+            : Visibility.Collapsed;
     }
 
     private void RefreshDashboard()

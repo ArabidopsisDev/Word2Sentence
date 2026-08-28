@@ -91,13 +91,33 @@
     },
     {
       "index": 5,
+      "title": "让进步看得见",
+      "viewer_question": "除了累计次数，哪些统计能真正告诉用户学得怎样、下一步练什么？",
+      "known_before": [
+        "每次造句都会产生时间、分数、目标词证据与新的复习时间",
+        "单词条目记录添加时间、复习次数、遗忘次数和 FSRS 稳定度"
+      ],
+      "bridge_from_previous": "复习已经自动安排，同一批历史也可以还原学习节奏和掌握变化。",
+      "new_information": [
+        "打卡日历把造句复习和新增单词合并为每日学习活动",
+        "当前连胜与最长连胜从真实活跃日期连续计算",
+        "14 天图表同时展示练习次数、平均分和新增词",
+        "主动回忆覆盖率、稳定掌握率与待巩固词直接指向下一步"
+      ],
+      "proof_ids": [
+        "proof-learning-statistics"
+      ],
+      "exit_answer": "统计页既呈现投入与分数，也把词库覆盖、稳定掌握和待巩固词转成可行动的指标。"
+    },
+    {
+      "index": 6,
       "title": "边界写在明处",
       "viewer_question": "学习数据保存在哪里，哪些内容会发送给 AI，软件是否只支持英语？",
       "known_before": [
         "复习调度在本地根据本次证据计算",
         "生成情境和批改句子需要外部 AI 模型"
       ],
-      "bridge_from_previous": "复习时间已经确定，最后把本地数据和外部 AI 的边界说明清楚。",
+      "bridge_from_previous": "学习轨迹已经可见，最后把这些历史保存在何处、何时使用外部 AI 说明清楚。",
       "new_information": [
         "完整单词库、复习历史和用法卡默认保存在本机",
         "AI 功能可以不启用；启用时只发送当前练习所需文本",
@@ -125,7 +145,7 @@
       "scene_id": 2,
       "time": 18.538713,
       "expected_visible": [
-        "distract"
+        "造句暴露搭配缺口"
       ],
       "expected_code": [
         "<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>"
@@ -183,8 +203,7 @@
       "scene_id": 4,
       "time": 41.875681,
       "expected_visible": [
-        "修改后的句子",
-        "表达更好的句子"
+        "修改后的句子"
       ],
       "expected_code": [
         "CorrectedSentence",
@@ -232,6 +251,33 @@
       "design_scene_t": 8.0
     },
     {
+      "id": "proof-learning-statistics",
+      "claim": "统计页从本地词库与造句历史实时计算打卡、连胜、趋势、掌握率和待巩固词。",
+      "example_id": "algorithm-conformance",
+      "source_contains": [
+        "public static StatisticsSnapshot Create("
+      ],
+      "output_contains": [
+        "STATISTICS_ANALYTICS_OK"
+      ],
+      "scene_id": 6,
+      "time": 82.255803,
+      "expected_visible": [
+        "让进步看得见"
+      ],
+      "expected_code": [
+        "StatisticsService.Create(_data)"
+      ],
+      "color_checks": [
+        {
+          "token": "StatisticsService",
+          "kind": "type"
+        }
+      ],
+      "min_stable_seconds": 1.2,
+      "design_scene_t": 11.0
+    },
+    {
       "id": "proof-data-boundary",
       "claim": "长期词库和历史写入本机 JSON，当前练习文本通过 OpenRouter 调用模型；三种语言设置相互独立。",
       "example_id": "app-build-and-license",
@@ -243,8 +289,8 @@
       "output_contains": [
         "已成功生成"
       ],
-      "scene_id": 6,
-      "time": 76.460508,
+      "scene_id": 7,
+      "time": 89.546658,
       "expected_visible": [
         "AI 功能可选"
       ],

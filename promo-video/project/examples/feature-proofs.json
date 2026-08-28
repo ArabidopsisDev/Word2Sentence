@@ -21,8 +21,12 @@
   "Word2Sentence/Services/AutomaticMemoryGradeService.cs": [
     "public static MemoryGradeDecision Decide("
   ],
+  "Word2Sentence/Services/StatisticsService.cs": [
+    "public static StatisticsSnapshot Create("
+  ],
   "Word2Sentence/MainWindow.xaml.cs": [
-    "ReviewScheduler.Apply(_currentWord, decision.Grade, reviewedAt);"
+    "ReviewScheduler.Apply(_currentWord, decision.Grade, reviewedAt);",
+    "StatisticsService.Create(_data);"
   ],
   "Word2Sentence/Services/DataStore.cs": [
     "public string DataPath => Path.Combine(DataDirectory, \"wordbook.json\");"

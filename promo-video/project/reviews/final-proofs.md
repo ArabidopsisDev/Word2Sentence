@@ -1,11 +1,16 @@
-# 最终成片证明帧盲转录（V7）
+# 正式成片证明帧盲审
 
-审阅者只查看从正式 1080p MP4 抽出的五张 PNG 与当前 manifest。五项均可完整盲转录：
+审阅者：promo_visual_v5-final-v11
 
-- 00:18.539：`distract` 与 AGPL-3.0-only 包许可证表达式。
-- 00:31.027：`独立造句`、`CreateChallengeAsync`、`EvaluateAsync`。
-- 00:41.876：两个改写标题及 `CorrectedSentence`、`BetterSentence`、`UsagePatternItem`。
-- 01:06.642：`自动安排复习`、`今天`、`明天`、`ReviewScheduler.Apply`。
-- 01:16.461：`AI 功能可选`、`wordbook.json`、`TargetLanguage`。
+正式 MP4：`D967481974D20DAA838BD31CC259ADCCD015987D7C388A00E896F5BB348A339B`
 
-全部状态为 PASS，图片与正式成片哈希记录在 `final-proofs.json`。
+结论：**PASS**。
+
+六张证明帧均直接从正式 1920×1080 MP4 抽取；实际图片哈希与 extract manifest 一致，逐字盲转录与 `expected_visible` 完全相同。
+
+- `proof-open-and-problem`：PASS
+- `proof-sentence-flow`：PASS
+- `proof-feedback-artifacts`：PASS
+- `proof-automatic-fsrs`：PASS
+- `proof-learning-statistics`：PASS
+- `proof-data-boundary`：PASS

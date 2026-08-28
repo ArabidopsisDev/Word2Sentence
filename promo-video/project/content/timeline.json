@@ -1,5 +1,5 @@
 {
-  "duration": 85.04,
+  "duration": 98.16,
   "timing_status": "locked_to_bgm",
   "scenes": [
     {
@@ -25,6 +25,7 @@
           "把生词写进句子",
           "让错误留下线索",
           "复习由表现决定",
+          "让进步看得见",
           "边界写在明处"
         ]
       },
@@ -39,7 +40,7 @@
       "end": 19.629226,
       "chapter": true,
       "chapter_index": 1,
-      "chapter_total": 5,
+      "chapter_total": 6,
       "role": "chapter",
       "master_id": "word-gap-main",
       "kind": "word_gap",
@@ -113,53 +114,53 @@
       "end": 32.715376,
       "chapter": true,
       "chapter_index": 2,
-      "chapter_total": 5,
+      "chapter_total": 6,
       "role": "chapter",
       "master_id": "sentence-flow-main",
       "kind": "sentence_flow",
       "edit_note": "Provisional timing; align word transfer, scenario reveal, and submit action to local beats.",
       "teaching_events": [
         {
-          "at": 0.422134,
+          "at": 0.168854,
           "job": "show add-to-library fragment",
           "trace_id": "add-word-fragment",
           "mode": "persistent",
-          "design_at": 0.5
+          "design_at": 0.2
         },
         {
-          "at": 1.772962,
+          "at": 1.350828,
           "job": "move target word into exercise",
           "trace_id": "word-transfer",
           "mode": "persistent",
-          "design_at": 2.1
+          "design_at": 1.6
         },
         {
-          "at": 2.36395,
+          "at": 1.941816,
           "job": "show real practice fragment",
           "trace_id": "scenario-fragment",
           "mode": "persistent",
-          "design_at": 2.8
+          "design_at": 2.3
         },
         {
-          "at": 4.812326,
-          "job": "expand scenario fragment",
-          "trace_id": "scenario-fragment",
+          "at": 4.052485,
+          "job": "move cursor into the answer field",
+          "trace_id": "sentence-input",
           "mode": "persistent",
-          "design_at": 5.7
+          "design_at": 4.8
         },
         {
-          "at": 6.922996,
+          "at": 5.741021,
           "job": "show learner input area",
           "trace_id": "sentence-input",
           "mode": "persistent",
-          "design_at": 8.2
+          "design_at": 6.8
         },
         {
-          "at": 7.59841,
+          "at": 6.078728,
           "job": "type learner sentence",
           "trace_id": "typed-sentence",
           "mode": "persistent",
-          "design_at": 9.0
+          "design_at": 7.2
         },
         {
           "at": 8.695958,
@@ -176,23 +177,24 @@
           "design_at": 10.8
         },
         {
-          "at": 11.397615,
-          "job": "confirm submit focus",
+          "at": 9.455799,
+          "job": "click submit",
           "trace_id": "submit-button",
           "mode": "transient",
-          "design_at": 13.5
+          "design_at": 11.2
         },
         {
-          "at": 11.819749,
+          "at": 9.96236,
           "job": "carry learner error into feedback",
           "trace_id": "error-token",
           "mode": "persistent",
-          "design_at": 14.0
+          "design_at": 11.8
         }
       ],
       "visual": {
         "source_image": "assets/images/app/library-zh.png",
         "app_image": "assets/images/app/practice-session-zh.png",
+        "empty_image": "assets/images/app/practice-session-empty-zh.png",
         "headline": "一个词，进入一个具体情境",
         "flow": [
           "主动加入",
@@ -224,39 +226,39 @@
       "end": 58.887677,
       "chapter": true,
       "chapter_index": 3,
-      "chapter_total": 5,
+      "chapter_total": 6,
       "role": "chapter",
       "master_id": "feedback-main",
       "kind": "feedback_artifacts",
       "edit_note": "Provisional timing; stagger feedback colors, rewrites, usage card, and confirmation dialog.",
       "teaching_events": [
         {
-          "at": 0.654308,
-          "job": "establish feedback crop",
+          "at": 0.261723,
+          "job": "establish full feedback window",
           "trace_id": "feedback-window",
           "mode": "persistent",
-          "design_at": 0.5
+          "design_at": 0.2
         },
         {
-          "at": 1.962923,
+          "at": 1.570338,
           "job": "reveal colored segments in order",
           "trace_id": "feedback-segments",
           "mode": "persistent",
-          "design_at": 1.5
+          "design_at": 1.2
         },
         {
-          "at": 4.841876,
-          "job": "complete colored segment sequence",
-          "trace_id": "feedback-segments",
+          "at": 4.187568,
+          "job": "focus the sentence-level feedback",
+          "trace_id": "feedback-detail",
           "mode": "persistent",
-          "design_at": 3.7
+          "design_at": 3.2
         },
         {
-          "at": 6.804798,
-          "job": "split corrected and stronger versions",
+          "at": 5.496183,
+          "job": "begin scrolling to detailed feedback",
           "trace_id": "sentence-versions",
           "mode": "persistent",
-          "design_at": 5.2
+          "design_at": 4.2
         },
         {
           "at": 7.85169,
@@ -266,6 +268,13 @@
           "design_at": 6.0
         },
         {
+          "at": 8.113413,
+          "job": "split corrected and stronger versions",
+          "trace_id": "sentence-versions",
+          "mode": "persistent",
+          "design_at": 6.2
+        },
+        {
           "at": 10.46892,
           "job": "underline sentence versions",
           "trace_id": "sentence-versions",
@@ -273,32 +282,32 @@
           "design_at": 8.0
         },
         {
-          "at": 11.777535,
+          "at": 13.08615,
           "job": "extract usage rows",
           "trace_id": "usage-card",
           "mode": "persistent",
-          "design_at": 9.0
+          "design_at": 10.0
         },
         {
-          "at": 13.740458,
+          "at": 14.394766,
           "job": "focus primary usage pattern",
           "trace_id": "usage-pattern",
           "mode": "persistent",
-          "design_at": 10.5
+          "design_at": 11.0
         },
         {
-          "at": 16.750273,
-          "job": "underline usage card fragment",
-          "trace_id": "usage-card",
-          "mode": "transient",
-          "design_at": 12.8
+          "at": 17.011996,
+          "job": "move focus to another usage pattern",
+          "trace_id": "usage-next",
+          "mode": "persistent",
+          "design_at": 13.0
         },
         {
-          "at": 18.974918,
-          "job": "focus usage card before confirmation",
-          "trace_id": "usage-card",
-          "mode": "transient",
-          "design_at": 14.5
+          "at": 18.582334,
+          "job": "complete usage pattern scan",
+          "trace_id": "usage-third",
+          "mode": "persistent",
+          "design_at": 14.2
         },
         {
           "at": 20.283533,
@@ -315,15 +324,16 @@
           "design_at": 16.8
         },
         {
-          "at": 23.555071,
+          "at": 24.078517,
           "job": "confirm selected detected word",
-          "trace_id": "detected-dialog",
+          "trace_id": "dialog-confirm",
           "mode": "transient",
-          "design_at": 18.0
+          "design_at": 18.4
         }
       ],
       "visual": {
         "app_image": "assets/images/app/practice-feedback-zh.png",
+        "top_image": "assets/images/app/practice-feedback-top-zh.png",
         "usage_image": "assets/images/app/today-zh.png",
         "dialog_image": "assets/images/app/detected-words-dialog-zh.png",
         "headline": "反馈会留下可以继续使用的东西",
@@ -374,7 +384,7 @@
       "end": 71.973828,
       "chapter": true,
       "chapter_index": 4,
-      "chapter_total": 5,
+      "chapter_total": 6,
       "role": "chapter",
       "master_id": "scheduler-main",
       "kind": "automatic_scheduler",
@@ -431,7 +441,8 @@
         }
       ],
       "visual": {
-        "app_image": "assets/images/app/settings-zh.png",
+        "app_image": "assets/images/app/practice-feedback-top-zh.png",
+        "today_image": "assets/images/app/today-zh.png",
         "headline": "本次表现 → 下次复习时间",
         "exercise_label": "这次练习",
         "word": "distract",
@@ -467,13 +478,98 @@
     },
     {
       "id": 6,
-      "title": "本地数据与外部服务边界",
-      "chapter_title": "边界写在明处",
+      "title": "学习轨迹与掌握情况",
+      "chapter_title": "让进步看得见",
       "start": 71.973828,
-      "end": 81.788441,
+      "end": 85.059978,
       "chapter": true,
       "chapter_index": 5,
-      "chapter_total": 5,
+      "chapter_total": 6,
+      "role": "chapter",
+      "master_id": "statistics-main",
+      "kind": "learning_statistics",
+      "edit_note": "Keep one full statistics window and scroll from calendar/streak to trends and reinforcement metrics.",
+      "teaching_events": [
+        {
+          "at": 0.37389,
+          "job": "show the complete statistics page",
+          "trace_id": "statistics-window",
+          "mode": "persistent",
+          "design_at": 0.4
+        },
+        {
+          "at": 1.402088,
+          "job": "highlight summary metrics",
+          "trace_id": "statistics-kpis",
+          "mode": "persistent",
+          "design_at": 1.5
+        },
+        {
+          "at": 2.804175,
+          "job": "highlight the activity calendar",
+          "trace_id": "statistics-calendar",
+          "mode": "persistent",
+          "design_at": 3.0
+        },
+        {
+          "at": 4.206263,
+          "job": "show the learning streak",
+          "trace_id": "statistics-streak",
+          "mode": "persistent",
+          "design_at": 4.5
+        },
+        {
+          "at": 6.075713,
+          "job": "scroll to the trend chart",
+          "trace_id": "statistics-scroll",
+          "mode": "persistent",
+          "design_at": 6.5
+        },
+        {
+          "at": 8.412525,
+          "job": "show score and mastery distribution",
+          "trace_id": "statistics-distribution",
+          "mode": "persistent",
+          "design_at": 9.0
+        },
+        {
+          "at": 9.066833,
+          "job": "show derived learning metrics",
+          "trace_id": "statistics-insights",
+          "mode": "persistent",
+          "design_at": 9.7
+        },
+        {
+          "at": 10.84281,
+          "job": "settle the learning progress summary",
+          "trace_id": "statistics-settle",
+          "mode": "persistent",
+          "design_at": 11.6
+        }
+      ],
+      "visual": {
+        "app_image": "assets/images/app/statistics-zh.png",
+        "lower_image": "assets/images/app/statistics-lower-zh.png",
+        "headline": "让进步看得见",
+        "calendar_label": "打卡日历与连续学习",
+        "trend_label": "练习、分数与新增词趋势",
+        "insight_label": "主动回忆覆盖率 · 稳定掌握率 · 需要巩固",
+        "code": [
+          "StatisticsService.Create(_data)"
+        ]
+      },
+      "design_duration": 14.0,
+      "music_energy": "high"
+    },
+    {
+      "id": 7,
+      "title": "本地数据与外部服务边界",
+      "chapter_title": "边界写在明处",
+      "start": 85.059978,
+      "end": 94.874591,
+      "chapter": true,
+      "chapter_index": 6,
+      "chapter_total": 6,
       "role": "chapter",
       "master_id": "boundary-main",
       "kind": "data_boundary",
@@ -555,10 +651,10 @@
       "music_energy": "high-to-outro"
     },
     {
-      "id": 7,
+      "id": 8,
       "title": "从一句话开始",
-      "start": 81.788441,
-      "end": 85.04,
+      "start": 94.874591,
+      "end": 98.16,
       "chapter": false,
       "role": "summary",
       "master_id": "summary",
@@ -708,34 +804,58 @@
       "text": "系统自动判断，不需要你自己选择好、中、差。"
     },
     {
-      "id": 21,
+      "id": 26,
       "scene_id": 6,
       "start": 72.300982,
-      "end": 75.245366,
+      "end": 75.981462,
+      "role": "transition",
+      "text": "每一次造句，也会留下可以回看的学习轨迹。"
+    },
+    {
+      "id": 27,
+      "scene_id": 6,
+      "start": 76.226827,
+      "end": 80.23446,
+      "role": "proof",
+      "text": "打卡、连胜、练习量和平均分，会随历史自动更新。"
+    },
+    {
+      "id": 28,
+      "scene_id": 6,
+      "start": 80.479826,
+      "end": 84.814613,
+      "role": "inference",
+      "text": "覆盖率、稳定掌握率和待巩固词，会直接指出下一步。"
+    },
+    {
+      "id": 21,
+      "scene_id": 7,
+      "start": 85.387132,
+      "end": 88.331516,
       "role": "transition",
       "text": "完整词库和历史默认保存在本机。"
     },
     {
       "id": 22,
-      "scene_id": 6,
-      "start": 75.490731,
-      "end": 78.516903,
+      "scene_id": 7,
+      "start": 88.576881,
+      "end": 91.603053,
       "role": "boundary",
       "text": "AI 可以不启用；启用时只发送当前练习所需文本。"
     },
     {
       "id": 24,
-      "scene_id": 6,
-      "start": 78.762269,
-      "end": 81.543076,
+      "scene_id": 7,
+      "start": 91.848419,
+      "end": 94.629226,
       "role": "boundary",
       "text": "界面和学习语言可以分别设置，英语只是演示。"
     },
     {
       "id": 25,
-      "scene_id": 7,
-      "start": 81.952018,
-      "end": 84.896402,
+      "scene_id": 8,
+      "start": 95.038168,
+      "end": 97.982552,
       "role": "summary",
       "text": "项目地址就在画面中，欢迎从一个生词开始。"
     }

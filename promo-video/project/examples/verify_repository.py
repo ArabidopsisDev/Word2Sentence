@@ -48,21 +48,19 @@ def main() -> None:
     parser.add_argument("--algorithm", action="store_true")
     args = parser.parse_args()
     verify_sources()
+    output_directory = REPOSITORY / "promo-video" / "work" / "example-build"
+    output_directory.mkdir(parents=True, exist_ok=True)
+    build_command = [
+        "dotnet", "build", "Word2Sentence.AlgorithmChecks/Word2Sentence.AlgorithmChecks.csproj",
+        "-c", "Release", "-o", str(output_directory)
+    ]
     if args.build:
-        output = run(["dotnet", "build", "Word2Sentence.slnx", "-c", "Release"])
+        output = run(build_command)
         print(output)
         print("已成功生成")
     if args.algorithm:
-        run(["dotnet", "build", "Word2Sentence.slnx", "-c", "Release"])
-        output = run([
-            "dotnet",
-            "run",
-            "--project",
-            "Word2Sentence.AlgorithmChecks/Word2Sentence.AlgorithmChecks.csproj",
-            "-c",
-            "Release",
-            "--no-build",
-        ])
+        run(build_command)
+        output = run(["dotnet", str(output_directory / "Word2Sentence.AlgorithmChecks.dll")])
         print(output)
 
 

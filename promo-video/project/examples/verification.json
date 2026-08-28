@@ -21,7 +21,7 @@
     },
     {
       "id": "algorithm-conformance",
-      "proof_ids": ["proof-automatic-fsrs"],
+      "proof_ids": ["proof-automatic-fsrs", "proof-learning-statistics"],
       "source_files": [
         "project/examples/feature-proofs.json",
         "project/examples/feature-proofs.txt",
@@ -34,7 +34,7 @@
         "--algorithm"
       ],
       "expected_exit": 0,
-      "stdout_contains": ["FSRS_6_3_1_CONFORMANCE_OK", "AUTOMATIC_MEMORY_GRADE_OK"],
+      "stdout_contains": ["FSRS_6_3_1_CONFORMANCE_OK", "AUTOMATIC_MEMORY_GRADE_OK", "STATISTICS_ANALYTICS_OK"],
       "stderr_contains": [],
       "timeout_seconds": 180
     }

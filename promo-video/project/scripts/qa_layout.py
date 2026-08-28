@@ -116,6 +116,8 @@ def text_trace_overlaps(trace: list[dict]) -> list[tuple[dict, dict, float]]:
 
 def main() -> int:
     config, timeline = load()
+    burn_subtitles = bool(config.get("subtitles", {}).get("burn_in", True))
+    proof_content_bottom = 825 if burn_subtitles else int(config["video"]["height"]) - 24
     contract_path = ROOT / "project" / "content" / "content-contract.json"
     contract = json.loads(contract_path.read_text(encoding="utf-8")) if contract_path.is_file() else {}
     errors: list[str] = []
@@ -171,7 +173,7 @@ def main() -> int:
                     float(item["bbox"][0]) >= 0
                     and float(item["bbox"][1]) >= 0
                     and float(item["bbox"][2]) <= int(config["video"]["width"])
-                    and float(item["bbox"][3]) <= 825
+                    and float(item["bbox"][3]) <= proof_content_bottom
                     for item in matches
                 ):
                     errors.append(f"proof {proof.get('id')} @ {proof_time:.3f}s draws token outside the content-safe canvas: {token}")
@@ -218,7 +220,6 @@ def main() -> int:
     previews: list[Image.Image] = []
     labels: list[str] = []
     overlap_findings: list[str] = []
-    burn_subtitles = bool(config.get("subtitles", {}).get("burn_in", True))
     for timestamp, reason in sorted(timestamps.items()):
         try:
             base, trace = render_base_trace(config, timeline, timestamp)

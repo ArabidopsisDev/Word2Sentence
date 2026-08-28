@@ -1,6 +1,6 @@
 {
   "spec": "D:\\Projects\\Word2Sentence\\promo-video\\project\\examples\\verification.json",
-  "spec_sha256": "2323E726ACDB03DBB21477158BD38A0DDCA13875996BC8161E301F0F71542208",
+  "spec_sha256": "72727C050647F2E30EDB301ADA24E8C00A826839560C758D6A924335BE691276",
   "runs": [
     {
       "id": "app-build-and-license",
@@ -14,7 +14,7 @@
       "actual_exit": 0,
       "missing_stdout": [],
       "missing_stderr": [],
-      "stdout": "WORD2SENTENCE_SOURCE_PROOFS_OK\n  Determining projects to restore...\n  All projects are up-to-date for restore.\n  Word2Sentence -> D:\\Projects\\Word2Sentence\\Word2Sentence\\bin\\Release\\net10.0-windows\\Word2Sentence.dll\n  Word2Sentence.AlgorithmChecks -> D:\\Projects\\Word2Sentence\\Word2Sentence.AlgorithmChecks\\bin\\Release\\net10.0-windows\\Word2Sentence.AlgorithmChecks.dll\n\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:01.24\n\n已成功生成\n",
+      "stdout": "WORD2SENTENCE_SOURCE_PROOFS_OK\n  Determining projects to restore...\n  All projects are up-to-date for restore.\n  Word2Sentence -> D:\\Projects\\Word2Sentence\\promo-video\\work\\example-build\\Word2Sentence.dll\n  Word2Sentence.AlgorithmChecks -> D:\\Projects\\Word2Sentence\\promo-video\\work\\example-build\\Word2Sentence.AlgorithmChecks.dll\n\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:01.76\n\n已成功生成\n",
       "stderr": "",
       "status": "pass",
       "proof_ids": [
@@ -24,9 +24,9 @@
         "proof-data-boundary"
       ],
       "source_sha256": {
-        "project/examples/feature-proofs.json": "E74C7AE1F5F0481A76884B6FE0105A6102769F0BFDA7EAF5734A47495EF5C6DA",
-        "project/examples/feature-proofs.txt": "6ABD3A5E3C69B4DF8F0A01788329E2500FBB33922780B139B346362105B5DAB3",
-        "project/examples/verify_repository.py": "0977B8EEB95FB95640B4CB357FEC6FDDE06F75AA39FC971442D25F7179C7BD8E"
+        "project/examples/feature-proofs.json": "41D1AE3D17502C11AFB67A2B47EDBA9CA088CC1CB90A0EC6413CB62285DCA31F",
+        "project/examples/feature-proofs.txt": "0789BF30873DDA51F0894595AC6733EC77E983BA72C27F66470828340D499E71",
+        "project/examples/verify_repository.py": "5AC05ECF802EACC53352636CDFE54F6C1376FF1739D4301A8FDB6E4E6FBA514D"
       }
     },
     {
@@ -41,16 +41,17 @@
       "actual_exit": 0,
       "missing_stdout": [],
       "missing_stderr": [],
-      "stdout": "WORD2SENTENCE_SOURCE_PROOFS_OK\nFSRS_6_3_1_CONFORMANCE_OK\nAUTOMATIC_MEMORY_GRADE_OK\nSCENARIO_DIVERSITY_OK\nOPENROUTER_ONBOARDING_OK\n\n",
+      "stdout": "WORD2SENTENCE_SOURCE_PROOFS_OK\nFSRS_6_3_1_CONFORMANCE_OK\nAUTOMATIC_MEMORY_GRADE_OK\nSCENARIO_DIVERSITY_OK\nOPENROUTER_ONBOARDING_OK\nSTATISTICS_ANALYTICS_OK\n\n",
       "stderr": "",
       "status": "pass",
       "proof_ids": [
-        "proof-automatic-fsrs"
+        "proof-automatic-fsrs",
+        "proof-learning-statistics"
       ],
       "source_sha256": {
-        "project/examples/feature-proofs.json": "E74C7AE1F5F0481A76884B6FE0105A6102769F0BFDA7EAF5734A47495EF5C6DA",
-        "project/examples/feature-proofs.txt": "6ABD3A5E3C69B4DF8F0A01788329E2500FBB33922780B139B346362105B5DAB3",
-        "project/examples/verify_repository.py": "0977B8EEB95FB95640B4CB357FEC6FDDE06F75AA39FC971442D25F7179C7BD8E"
+        "project/examples/feature-proofs.json": "41D1AE3D17502C11AFB67A2B47EDBA9CA088CC1CB90A0EC6413CB62285DCA31F",
+        "project/examples/feature-proofs.txt": "0789BF30873DDA51F0894595AC6733EC77E983BA72C27F66470828340D499E71",
+        "project/examples/verify_repository.py": "5AC05ECF802EACC53352636CDFE54F6C1376FF1739D4301A8FDB6E4E6FBA514D"
       }
     }
   ],

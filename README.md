@@ -25,6 +25,12 @@ Review scheduling is automatic. The app does **not** ask learners to rate themse
 
 ![English dashboard showing due words and recent usage cards](docs/images/dashboard.png)
 
+### Learning statistics
+
+![English learning statistics with activity calendar, streak, trend chart, and score summary](docs/images/statistics.png)
+
+The statistics page derives every metric from local word and sentence-review history: a six-week activity calendar, current and best streaks, 14-day review/score/new-word trends, score distribution, mastery stages, active-recall coverage, stable mastery, and words that need reinforcement.
+
 ### Practice modes
 
 ![English practice mode selector with automatic recommendation and recent candidates](docs/images/practice.png)
@@ -54,6 +60,7 @@ Start immediately with the scheduler's most urgent recommendation, or choose fre
 - **Human approval for new error words** — suggested words are normalized, deduplicated, and shown in a selection dialog before being saved.
 - **Structured word notes** — AI error candidates return a separate part of speech and a definition with repeated `word:` prefixes removed.
 - **No self-rating buttons** — memory grades are generated from evidence, not learner confidence.
+- **Progress you can inspect** — calendar heatmaps, streaks, score trends, mastery stages, active-recall coverage, and reinforcement candidates are calculated locally from real learning history.
 - **Local-first storage** — the word library, review history, usage cards, and scheduler state stay in one local JSON file.
 - **Multilingual by design** — the interface supports English and Simplified Chinese; target and explanation languages are configurable, and word validation accepts Unicode scripts.
 - **Open-source About page** — shows the developer, version, AGPL-3.0-only license, verified awesome-fsrs listing, source link, and GitHub star prompt.
@@ -198,6 +205,7 @@ Word2Sentence/
 - [x] Usage-card carousel
 - [x] Automatic evidence-to-FSRS scheduling
 - [x] JSON extraction, healing, and repair retry
+- [x] Learning statistics, streaks, activity calendar, and progress charts
 - [ ] Import/export packages
 - [ ] Per-usage-card memory states for polysemous words
 - [ ] Parameter optimization after sufficient review history

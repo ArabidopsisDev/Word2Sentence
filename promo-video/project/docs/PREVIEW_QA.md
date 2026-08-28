@@ -1,9 +1,9 @@
 # 最终成片 QA
 
-- 文件：`D:\Projects\Word2Sentence\promo-video\word2sentence-promo-final.mp4`
-- SHA-256：`D967481974D20DAA838BD31CC259ADCCD015987D7C388A00E896F5BB348A339B`
+- 文件：`D:\Projects\Word2Sentence\promo-video\work\review-preview.mp4`
+- SHA-256：`11B44835E7FCC7ECFBE7E8B55C390282AA125064EB7EAF8642FE917AC0D4F6FC`
 - 时长：98.160 秒
-- 视频：h264 / High / 1920×1080 / 25/1 / 2454 帧
+- 视频：h264 / High / 960×540 / 25/1 / 2454 帧
 - 音频：aac / 48000Hz / 2 声道
 - 章节：6
 - 软字幕流：0

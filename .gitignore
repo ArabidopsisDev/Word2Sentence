@@ -1,5 +1,6 @@
 **/bin/
 **/obj/
+artifacts/
 .vs/
 *.user
 *.suo
@@ -13,6 +14,7 @@ promo-video/tools/
 promo-video/renders/
 promo-video/work/
 promo-video/assets/audio/
+promo-video/assets/images/app-en/
 promo-video/*-final.mp4
 promo-video/*.previous.mp4
 **/__pycache__/

@@ -124,7 +124,7 @@ def main() -> None:
         "-ac",
         "2",
         "-metadata",
-        "comment=BGM only, no narration; subtitles are burned into picture.",
+        "comment=BGM only, no narration; no burned-in subtitles; optional external SRT is included with the project.",
         "-t",
         f"{float(timeline['duration']):.6f}",
         "-movflags",

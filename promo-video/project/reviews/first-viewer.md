@@ -1,13 +1,15 @@
-# 首次观看者审阅（Singer / V7）
+# 首次观看者审阅（Singer / 当前 98.16 秒基线）
 
-结论：**PASS**。输入仅为 `review-preview-v7.mp4` 与普通外语学习者前提。第一次需要倒回：**无需倒回**。
+结论：**PASS**。仅看 `work/review-preview.mp4`。第一次需要倒回：**无需倒回**。
 
-首看能依次理解：**认识，还不等于会用**、**把生词写进句子**、**让错误留下线索**、**复习由表现决定**、**边界写在明处**。
+普通观众可以复述：这是一款免费使用、源码公开的词汇学习工具；主动加入生词后，AI 给出情境但由用户自主造句，系统批改并整理搭配与待确认错词，再按实际表现自动安排复习，用统计看见进步，同时长期词库和历史默认保存在本机，AI 可不启用。
 
-00:00–00:08 已理解 Word2Sentence 免费使用、源码公开，并解决“认识词却不会造句”的问题。00:07–00:20 从 `distract` 词库详情进入搭配；00:20–00:33 展示情境、独立输入和提交；00:33–00:59 展示颜色反馈、纠错版、自然表达版、用法卡与确认词；00:59–01:12 根据作答表现自动安排今天到明天的复习；01:12–01:22 依次说明本机保存、AI 可选、OpenRouter 与三种语言设置；01:22–01:25 显示 GitHub 地址。
+主线完整覆盖：**认识，还不等于会用**、**把生词写进句子**、**让错误留下线索**、**复习由表现决定**、**让进步看得见**、**边界写在明处**。
 
-全片底部字幕条为 0，左上章节编号为 0，没有持续章节标题或水印。不像长录屏，没有等待和冗余操作；不整体像 PPT，真实软件截图、局部放大、逐字输入、批改和时间线始终构成连续操作链；也不是纯文字动画或典型商业广告。最后三秒在真实首页上显示“把生词写进句子里”和完整仓库地址，清楚且不拖沓。
+完整软件窗口可信，没有随机裁切、倒放、支离破碎或明显遮挡。01:12–01:25 的统计段依次聚焦总览、日历、连续学习、趋势和掌握分布；结论短绿线不穿文字、不压图表，也不碰代码标签。
+
+对应证明：`proof-open-and-problem`、`proof-sentence-flow`、`proof-feedback-artifacts`、`proof-automatic-fsrs`、`proof-learning-statistics`、`proof-data-boundary`。
 
 ### 盲转录
 
-可辨认 `<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>`、`CreateChallengeAsync`、`EvaluateAsync`、`CorrectedSentence`、`BetterSentence`、`UsagePatternItem`、`ReviewScheduler.Apply`、`FSRS-6`、`OpenRouter`、`wordbook.json`、`TargetLanguage` 与 `github.com/ArabidopsisDev/Word2Sentence`。
+可辨认 `<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>`、`CreateChallengeAsync`、`EvaluateAsync`、`CorrectedSentence`、`BetterSentence`、`UsagePatternItem`、`ReviewScheduler.Apply`、`StatisticsService.Create(_data)`、`wordbook.json`、`TargetLanguage` 与 `github.com/ArabidopsisDev/Word2Sentence`。

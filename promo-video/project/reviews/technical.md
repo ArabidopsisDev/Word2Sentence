@@ -1,9 +1,14 @@
-# 技术审阅（Lagrange / V7）
+# 技术审阅（Lagrange / 当前 98.16 秒基线）
 
-结论：**PASS，无阻断项**。去除底部字幕和章节栏后，五项技术结论仍由真实界面、短标签与代码 proof 共同承担。仓库 Release 构建为 0 warning / 0 error，算法验证输出 `WORD2SENTENCE_SOURCE_PROOFS_OK`、`FSRS_6_3_1_CONFORMANCE_OK`、`AUTOMATIC_MEMORY_GRADE_OK`、`SCENARIO_DIVERSITY_OK`、`OPENROUTER_ONBOARDING_OK`。
+结论：**PASS，无阻断项**。当前预览与 `content-contract.json`、源码、真实 WPF 截图和算法检查一致；完整解码通过。
 
-- `proof-open-and-problem`（00:18.54）：可见 `distract`、搭配缺口和 AGPL-3.0-only 包许可证表达式；与 `Word2Sentence.csproj` 一致。
-- `proof-sentence-flow`（00:31.03）：可见“独立造句”、情境、学习者句子及 `CreateChallengeAsync / EvaluateAsync`；调用顺序与 `OpenRouterService.cs` 一致。
-- `proof-feedback-artifacts`（00:41.88）：可见两个改写标题和 `CorrectedSentence / BetterSentence / UsagePatternItem`，与模型及 WPF 渲染字段一致。
-- `proof-automatic-fsrs`（01:06.64）：可见 `ReviewScheduler.Apply`、自动安排复习、今天/明天时间线与 FSRS-6；源码确认本地调度且没有用户好、中、差自评按钮。
-- `proof-data-boundary`（01:16.46）：可见 AI 可选、练习相关文本经 OpenRouter、`wordbook.json / TargetLanguage`；01:19–01:21 依次显示三种语言设置。实际发送范围包括当前题目去重所需的最多五条同词情境，没有发送完整词库，因此当前表述准确。
+- `proof-open-and-problem`：AGPL-3.0-only 与造句暴露搭配缺口均和仓库一致。
+- `proof-sentence-flow`：情境生成、独立造句与 `CreateChallengeAsync / EvaluateAsync` 顺序一致。
+- `proof-feedback-artifacts`：逐段反馈、修正版、更自然版本和 `UsagePatternItem` 均来自实际模型字段。
+- `proof-automatic-fsrs`：`ReviewScheduler.Apply` 使用 AI 多维证据进入本地 FSRS-6，不存在好/中/差自评按钮。
+- `proof-learning-statistics`：4 天连胜、10 个近 30 日活跃日、12 次练习、78.9 平均分、100% 主动回忆覆盖率、33% 稳定掌握率和 1 个待强化词均可由本地演示数据复算；`STATISTICS_ANALYTICS_OK` 通过。
+- `proof-data-boundary`：统计只调用 `StatisticsService.Create(_data)`，不发送网络请求；长期数据仍写入本机 `wordbook.json`，仅当前练习所需文本经 OpenRouter。
+
+统计收束线只调用 `draw_line`，不读取或修改 `StatisticsSnapshot`、`AppData` 或网络状态。当前预览 SHA-256 为 `11B44835E7FCC7ECFBE7E8B55C390282AA125064EB7EAF8642FE917AC0D4F6FC`，时长 98.160 秒，H.264 960×540 25fps，AAC 48kHz，完整 FFmpeg 解码 0 错误。
+
+覆盖章节：**认识，还不等于会用**、**把生词写进句子**、**让错误留下线索**、**复习由表现决定**、**让进步看得见**、**边界写在明处**。
