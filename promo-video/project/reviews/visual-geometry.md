@@ -1,9 +1,11 @@
-# 视觉几何与剪辑审阅（promo_visual_v5 / 当前 98.16 秒基线）
+# 视觉几何与节奏审阅（promo_visual_v5 / V15）
 
-结论：**PASS**。完整软件窗口约占全片 90%–92%；底部字幕条 0、左上章节数字 0、随机裁切 0、明显空场 0。操作链从选词、造句、输入、批改、用法卡、确认、自动排程、统计延续到设置，没有倒放或 PPT 感复发。
+结论：**PASS**。总时长 80.16 秒，操作链连续；反馈页持续轻微推近，鼠标环在滚动后淡出；自动复习软件窗口位于左侧，三句说明位于右侧独立留白，两层完全分离。
 
-统计段 01:12–01:25 保留同一完整窗口，指标、日历、趋势、分数与掌握分布依次聚焦。右移后的 `StatisticsService.Create(_data)` 与窗口边缘留有明确间距；短绿线和结论文字、代码标签处于不同高度，无文字、数据或图表遮挡。最后 4 秒音量连续下降，无突然静音或尾部回升。
+时间点复核：`00:35–00:45` 推近无裁切且鼠标于约 `00:36` 淡出；`00:53–00:59` 自动复习窗口与说明保持分区；`00:59–01:10` 统计上下页无重影；`01:10–01:16` 设置页说明不压字段。
 
-对应证明均可读且不遮挡：`proof-open-and-problem`、`proof-sentence-flow`、`proof-feedback-artifacts`、`proof-automatic-fsrs`、`proof-learning-statistics`、`proof-data-boundary`。
+全片重影 0、错误框选 0、两张 UI 重叠 0、说明文字压 UI 0、随机裁切 0、源码和技术证明标签 0。后半没有重复设置页或静态串页。
+
+六项证明均可读：`proof-open-and-problem`、`proof-sentence-flow`、`proof-feedback-artifacts`、`proof-automatic-fsrs`、`proof-learning-statistics`、`proof-data-boundary`。
 
 覆盖章节：**认识，还不等于会用**、**把生词写进句子**、**让错误留下线索**、**复习由表现决定**、**让进步看得见**、**边界写在明处**。

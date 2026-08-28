@@ -1,53 +1,53 @@
 {
-  "video_sha256": "D967481974D20DAA838BD31CC259ADCCD015987D7C388A00E896F5BB348A339B",
-  "reviewer": "promo_visual_v5-final-v11",
+  "video_sha256": "B42FCF75226C3133777D6597563DE5ECF8C0F2CAA917E388DF1C5C4FF7F10F62",
+  "reviewer": "promo_visual_v5-final-v15",
   "proofs": [
     {
       "id": "proof-open-and-problem",
-      "time": 18.538713,
-      "image_sha256": "9E6FFB669CB13766001772144CA82268B908B950FC415DF914E63BA255F18F7F",
-      "expected_visible": ["造句暴露搭配缺口", "<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>"],
-      "transcribed": ["造句暴露搭配缺口", "<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>"],
+      "time": 7.491821,
+      "image_sha256": "5CD40C1F99E49D8395034C9E8DAF6EC5AB618F76ABAFB075C9F9BFADE070FB6D",
+      "expected_visible": ["distract", "be distracted by sth"],
+      "transcribed": ["distract", "be distracted by sth"],
       "status": "pass"
     },
     {
       "id": "proof-sentence-flow",
-      "time": 31.026841,
-      "image_sha256": "487A9BB23CF62D74A96D99E9FAE6A5B944F9E81955258BC064EA2A1DAD0183E9",
-      "expected_visible": ["独立造句", "CreateChallengeAsync", "EvaluateAsync"],
-      "transcribed": ["独立造句", "CreateChallengeAsync", "EvaluateAsync"],
+      "time": 22.756431,
+      "image_sha256": "5983460E9E827BB206133FC5ED550B7E4841D9D3220318C2C997817DB6B82FFE",
+      "expected_visible": ["The notifications distracted me from focus on my notes."],
+      "transcribed": ["The notifications distracted me from focus on my notes."],
       "status": "pass"
     },
     {
       "id": "proof-feedback-artifacts",
-      "time": 41.875681,
-      "image_sha256": "B5D3C5A50CC4E4E71D84C1EB2664381F3A58B1E739DC75E4246FB0F5756EAED8",
-      "expected_visible": ["修改后的句子", "CorrectedSentence", "BetterSentence", "UsagePatternItem"],
-      "transcribed": ["修改后的句子", "CorrectedSentence", "BetterSentence", "UsagePatternItem"],
+      "time": 38.440567,
+      "image_sha256": "6CCAE56C3FB64A3FE587167AFF5C4076E41EE5F753FE65AB86E72B62C8D233DE",
+      "expected_visible": ["修改后的句子", "表达更好的句子", "be distracted by sth"],
+      "transcribed": ["修改后的句子", "表达更好的句子", "be distracted by sth"],
       "status": "pass"
     },
     {
       "id": "proof-automatic-fsrs",
-      "time": 66.642433,
-      "image_sha256": "8C0B36C0E81243FD8D16586C2088F8002E2C4932458826109ED37F15878B7D2C",
-      "expected_visible": ["自动安排复习", "今天", "明天", "ReviewScheduler.Apply"],
-      "transcribed": ["自动安排复习", "今天", "明天", "ReviewScheduler.Apply"],
+      "time": 54.307524,
+      "image_sha256": "9A62A7DC097FABA248440291C5855BC53AC1536F073966B036DEE93FF9909B07",
+      "expected_visible": ["已根据本次表现自动安排", "distract · 明天复习"],
+      "transcribed": ["已根据本次表现自动安排", "distract · 明天复习"],
       "status": "pass"
     },
     {
       "id": "proof-learning-statistics",
-      "time": 82.255803,
-      "image_sha256": "D4F44E412585E2E0D6B0186D7C88FF5F52A6C72F7FFFE0AA3479E46D3D4B68C7",
-      "expected_visible": ["让进步看得见", "StatisticsService.Create(_data)"],
-      "transcribed": ["让进步看得见", "StatisticsService.Create(_data)"],
+      "time": 61.014176,
+      "image_sha256": "846A4FA5C32462B8CCD5D441922C3D515476BC65EBF36DD0A54CCFFECF7A411D",
+      "expected_visible": ["学习统计", "连续学习", "近 14 天"],
+      "transcribed": ["学习统计", "连续学习", "近 14 天"],
       "status": "pass"
     },
     {
       "id": "proof-data-boundary",
-      "time": 89.546658,
-      "image_sha256": "88BB38A28E5A65F948772D6F7B6FF9D6FA64F96E2D7FC7A99102CFFD07CF6F0D",
-      "expected_visible": ["AI 功能可选", "wordbook.json", "TargetLanguage"],
-      "transcribed": ["AI 功能可选", "wordbook.json", "TargetLanguage"],
+      "time": 74.972737,
+      "image_sha256": "7B1FD55D80B1892FE454A00741B3A8AC066D41ABB944F74C8641DBAC08AF1BDB",
+      "expected_visible": ["AI 可以不启用", "词库和历史默认保存在本机", "界面与学习语言分开设置"],
+      "transcribed": ["AI 可以不启用", "词库和历史默认保存在本机", "界面与学习语言分开设置"],
       "status": "pass"
     }
   ]

@@ -14,7 +14,7 @@
       "actual_exit": 0,
       "missing_stdout": [],
       "missing_stderr": [],
-      "stdout": "WORD2SENTENCE_SOURCE_PROOFS_OK\n  Determining projects to restore...\n  All projects are up-to-date for restore.\n  Word2Sentence -> D:\\Projects\\Word2Sentence\\promo-video\\work\\example-build\\Word2Sentence.dll\n  Word2Sentence.AlgorithmChecks -> D:\\Projects\\Word2Sentence\\promo-video\\work\\example-build\\Word2Sentence.AlgorithmChecks.dll\n\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:01.76\n\n已成功生成\n",
+      "stdout": "WORD2SENTENCE_SOURCE_PROOFS_OK\n  Determining projects to restore...\n  All projects are up-to-date for restore.\n  Word2Sentence -> D:\\Projects\\Word2Sentence\\promo-video\\work\\example-build\\Word2Sentence.dll\n  Word2Sentence.AlgorithmChecks -> D:\\Projects\\Word2Sentence\\promo-video\\work\\example-build\\Word2Sentence.AlgorithmChecks.dll\n\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:01.35\n\n已成功生成\n",
       "stderr": "",
       "status": "pass",
       "proof_ids": [

@@ -663,6 +663,8 @@
                     <Border Style="{StaticResource Card}" Margin="0,24,0,14" Width="760">
                         <StackPanel>
                             <TextBlock Text="OpenRouter" FontSize="17" FontWeight="SemiBold" />
+                            <TextBlock Margin="0,5,0,0" Text="{loc:Loc SettingsAiBoundary}" FontSize="12"
+                                       Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" />
                             <TextBlock Margin="0,16,0,6" Style="{StaticResource Eyebrow}" Text="{loc:Loc ModelId}" />
                             <TextBox x:Name="ModelTextBox" />
                             <TextBlock Margin="0,8,0,0" Foreground="{StaticResource TextMutedBrush}" FontSize="12"
@@ -707,6 +709,7 @@
                                 <StackPanel>
                                     <TextBlock Text="{loc:Loc FsrsLabel}" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource AccentBrush}" />
                                     <TextBlock Margin="0,3,0,0" Text="{loc:Loc AutomaticScheduling}" FontSize="11" />
+                                    <TextBlock Margin="0,3,0,0" Text="{loc:Loc SettingsLocalBoundary}" FontSize="11" TextWrapping="Wrap" />
                                 </StackPanel>
                             </Border>
                             <TextBlock Margin="0,16,0,6" Style="{StaticResource Eyebrow}" Text="{loc:Loc DailyGoal}" />

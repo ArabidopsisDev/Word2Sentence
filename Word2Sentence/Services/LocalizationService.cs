@@ -66,6 +66,8 @@ public sealed class LocalizationService : INotifyPropertyChanged
             ["DeleteSelected"] = ("删除选中", "Delete selected"), ["PracticeSelected"] = ("用选中词造句", "Practice selected"),
             ["SettingsEyebrow"] = ("PREFERENCES · 设置", "PREFERENCES · SETTINGS"), ["SettingsTitle"] = ("模型、语言与复习", "Model, languages & review"),
             ["SettingsSubtitle"] = ("API 密钥可从 OR_KEY 读取，或加密保存在 Windows 凭据管理器中。", "The API key can come from OR_KEY or be stored securely in Windows Credential Manager."),
+            ["SettingsAiBoundary"] = ("AI 功能可以不启用；启用后只发送当前练习所需文本。", "AI is optional; when enabled, only text needed for the current exercise is sent."),
+            ["SettingsLocalBoundary"] = ("完整词库、复习历史与用法卡默认保存在本机。", "The full word library, review history, and usage cards stay on this device by default."),
             ["ModelId"] = ("模型 ID", "Model ID"), ["ModelHelp"] = ("支持 stealth/ox-alpha 与 deepseek/deepseek-v4-flash-0731；DeepSeek 会自动使用低推理强度平衡速度与完整性。", "Supports stealth/ox-alpha and deepseek/deepseek-v4-flash-0731; DeepSeek automatically uses low reasoning effort to balance speed and complete output."),
             ["ApiKey"] = ("OpenRouter API 密钥", "OpenRouter API key"), ["Refresh"] = ("重新检测", "Refresh"), ["ConfigureKey"] = ("配置 / 更换", "Configure / replace"),
             ["LanguageInterface"] = ("界面语言", "Interface language"), ["TargetLanguage"] = ("学习目标语言", "Target language"),

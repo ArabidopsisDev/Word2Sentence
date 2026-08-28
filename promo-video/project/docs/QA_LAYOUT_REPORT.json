@@ -1,12 +1,12 @@
 {
-  "content_sha256": "C7B501EA337827E2DA322C54F2876F410D379BF0248A9AE2EFB2CD99599C385A",
+  "content_sha256": "642607A5DCEEBA85209FCCE0DEC944F65A59BF07C13AD30BF5F65D8BF8F87934",
   "scenes": 8,
   "cues": 23,
   "subtitle_size_range": [
     46,
     46
   ],
-  "sample_frames": 115,
+  "sample_frames": 114,
   "safe_zone": [],
   "text_overlaps": [],
   "errors": [],

@@ -1,12 +1,10 @@
-# 正式成片证明帧盲审
+# 正式成片证明帧盲审（V15）
 
-审阅者：promo_visual_v5-final-v11
+审阅者：promo_visual_v5-final-v15
 
-正式 MP4：`D967481974D20DAA838BD31CC259ADCCD015987D7C388A00E896F5BB348A339B`
+正式 MP4：`B42FCF75226C3133777D6597563DE5ECF8C0F2CAA917E388DF1C5C4FF7F10F62`
 
-结论：**PASS**。
-
-六张证明帧均直接从正式 1920×1080 MP4 抽取；实际图片哈希与 extract manifest 一致，逐字盲转录与 `expected_visible` 完全相同。
+结论：**PASS**。六张证明帧均直接从正式 1920×1080 MP4 抽取，图片哈希与 extract manifest 一致；逐字盲转录与观众可见 UI 文本完全相同。
 
 - `proof-open-and-problem`：PASS
 - `proof-sentence-flow`：PASS

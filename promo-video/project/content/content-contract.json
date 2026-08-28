@@ -5,6 +5,7 @@
   "topic": "Word2Sentence：把生词写进句子里",
   "audience_level": "想学习外语词汇的普通用户；不要求了解开源、AI API 或间隔重复算法",
   "code_language": "csharp",
+  "proof_visual_mode": "product-ui",
   "opening": {
     "greeting_or_invitation": "大家好，Word2Sentence 是一款开源的单词学习软件。",
     "topic_promise": "程序本身免费使用，源码公开在 GitHub，也欢迎大家改进。",
@@ -143,21 +144,15 @@
         "已成功生成"
       ],
       "scene_id": 2,
-      "time": 18.538713,
+      "time": 7.491821,
       "expected_visible": [
-        "造句暴露搭配缺口"
+        "distract",
+        "be distracted by sth"
       ],
-      "expected_code": [
-        "<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>"
-      ],
-      "color_checks": [
-        {
-          "token": "AGPL-3.0-only",
-          "kind": "string"
-        }
-      ],
+      "expected_code": [],
+      "color_checks": [],
       "min_stable_seconds": 1.2,
-      "design_scene_t": 11.0
+      "design_scene_t": 1.8
     },
     {
       "id": "proof-sentence-flow",
@@ -171,22 +166,14 @@
         "已成功生成"
       ],
       "scene_id": 3,
-      "time": 31.026841,
+      "time": 22.756431,
       "expected_visible": [
-        "独立造句"
+        "The notifications distracted me from focus on my notes."
       ],
-      "expected_code": [
-        "CreateChallengeAsync",
-        "EvaluateAsync"
-      ],
-      "color_checks": [
-        {
-          "token": "EvaluateAsync",
-          "kind": "method"
-        }
-      ],
+      "expected_code": [],
+      "color_checks": [],
       "min_stable_seconds": 1.2,
-      "design_scene_t": 13.5
+      "design_scene_t": 10.0
     },
     {
       "id": "proof-feedback-artifacts",
@@ -201,23 +188,16 @@
         "已成功生成"
       ],
       "scene_id": 4,
-      "time": 41.875681,
+      "time": 38.440567,
       "expected_visible": [
-        "修改后的句子"
+        "修改后的句子",
+        "表达更好的句子",
+        "be distracted by sth"
       ],
-      "expected_code": [
-        "CorrectedSentence",
-        "BetterSentence",
-        "UsagePatternItem"
-      ],
-      "color_checks": [
-        {
-          "token": "UsagePatternItem",
-          "kind": "type"
-        }
-      ],
+      "expected_code": [],
+      "color_checks": [],
       "min_stable_seconds": 1.2,
-      "design_scene_t": 7.0
+      "design_scene_t": 12.0
     },
     {
       "id": "proof-automatic-fsrs",
@@ -232,21 +212,13 @@
         "AUTOMATIC_MEMORY_GRADE_OK"
       ],
       "scene_id": 5,
-      "time": 66.642433,
+      "time": 54.307524,
       "expected_visible": [
-        "自动安排复习",
-        "今天",
-        "明天"
+        "已根据本次表现自动安排",
+        "distract · 明天复习"
       ],
-      "expected_code": [
-        "ReviewScheduler.Apply"
-      ],
-      "color_checks": [
-        {
-          "token": "ReviewScheduler",
-          "kind": "type"
-        }
-      ],
+      "expected_code": [],
+      "color_checks": [],
       "min_stable_seconds": 1.2,
       "design_scene_t": 8.0
     },
@@ -261,21 +233,16 @@
         "STATISTICS_ANALYTICS_OK"
       ],
       "scene_id": 6,
-      "time": 82.255803,
+      "time": 61.014176,
       "expected_visible": [
-        "让进步看得见"
+        "学习统计",
+        "连续学习",
+        "近 14 天"
       ],
-      "expected_code": [
-        "StatisticsService.Create(_data)"
-      ],
-      "color_checks": [
-        {
-          "token": "StatisticsService",
-          "kind": "type"
-        }
-      ],
+      "expected_code": [],
+      "color_checks": [],
       "min_stable_seconds": 1.2,
-      "design_scene_t": 11.0
+      "design_scene_t": 3.0
     },
     {
       "id": "proof-data-boundary",
@@ -290,22 +257,16 @@
         "已成功生成"
       ],
       "scene_id": 7,
-      "time": 89.546658,
+      "time": 74.972737,
       "expected_visible": [
-        "AI 功能可选"
+        "AI 可以不启用",
+        "词库和历史默认保存在本机",
+        "界面与学习语言分开设置"
       ],
-      "expected_code": [
-        "wordbook.json",
-        "TargetLanguage"
-      ],
-      "color_checks": [
-        {
-          "token": "TargetLanguage",
-          "kind": "type"
-        }
-      ],
+      "expected_code": [],
+      "color_checks": [],
       "min_stable_seconds": 1.2,
-      "design_scene_t": 4.8
+      "design_scene_t": 10.0
     }
   ]
 }

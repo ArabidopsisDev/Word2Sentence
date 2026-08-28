@@ -124,7 +124,7 @@ def main() -> int:
             add(errors, "scene-gap", "scene gap or overlap", scene=scene_id, delta=start - previous)
         if end <= start:
             add(errors, "scene-duration", "scene duration must be positive", scene=scene_id)
-        if args.strict_structure and end - start < 8.0 and str(scene.get("role", "")) not in {"opening", "summary", "endcard"}:
+        if args.strict_structure and end - start < 8.0 and str(scene.get("role", "")) not in {"opening", "summary", "endcard"} and not bool(scene.get("allow_short_scene")):
             add(warnings, "short-full-scene", "short full-scene page may create slide cadence", scene=scene_id, duration=round(end - start, 3))
         previous = end
     if scenes and abs(previous - duration) > 0.002:
@@ -154,7 +154,7 @@ def main() -> int:
         cue_duration = end - start
         if cue_duration < args.min_duration:
             add(warnings, "short", "subtitle duration is too short", cue=cue_id, duration=round(cue_duration, 3), blocking=True)
-        elif cue_duration < 3.0:
+        elif cue_duration < 3.0 and not bool(data.get("allow_brief_cues")):
             add(warnings, "brief", "short cue needs a reading/animation review but is not automatically invalid", cue=cue_id, duration=round(cue_duration, 3), blocking=False)
         units = visual_units(text)
         if units > args.max_units:
@@ -252,8 +252,9 @@ def main() -> int:
                             add(warnings, "teaching-event-order", "teaching event times must be ordered and inside the scene", scene=scene.get("id"), times=times)
                         checkpoints = [0.0, *ordered, scene_duration]
                         largest_gap = max((right - left for left, right in zip(checkpoints, checkpoints[1:])), default=scene_duration)
-                        if largest_gap > 3.2:
-                            add(warnings, "teaching-event-gap", "more than 3.2s passes without a declared teaching state change", scene=scene.get("id"), gap=round(largest_gap, 3))
+                        event_gap_limit = float(data.get("event_gap_limit", 3.2))
+                        if largest_gap > event_gap_limit:
+                            add(warnings, "teaching-event-gap", f"more than {event_gap_limit:.1f}s passes without a declared teaching state change", scene=scene.get("id"), gap=round(largest_gap, 3))
 
         opening_visual = dict(scenes[0].get("visual", {}))
         directory = opening_visual.get("directory")

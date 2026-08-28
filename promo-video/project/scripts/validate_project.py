@@ -287,15 +287,20 @@ def validate_contract(contract: dict, timeline: dict, errors: list[dict], warnin
             continue
         for index, value in enumerate(expected):
             token = require_text(value, f"proofs[{offset}].expected_visible[{index}]", errors)
-        expected_code = proof.get("expected_code")
-        if not isinstance(expected_code, list) or not expected_code:
+        product_ui_proof = str(contract.get("proof_visual_mode", "")).lower() == "product-ui"
+        expected_code = proof.get("expected_code", [])
+        if not product_ui_proof and (not isinstance(expected_code, list) or not expected_code):
             add(errors, "proof-code", "each core proof must name at least one exact code string", proof=proof_id)
+        elif not isinstance(expected_code, list):
+            add(errors, "proof-code-type", "proof expected_code must be a list", proof=proof_id)
         else:
             for index, value in enumerate(expected_code):
                 require_text(value, f"proofs[{offset}].expected_code[{index}]", errors)
-        color_checks = proof.get("color_checks")
-        if not isinstance(color_checks, list) or not color_checks:
+        color_checks = proof.get("color_checks", [])
+        if not product_ui_proof and (not isinstance(color_checks, list) or not color_checks):
             add(errors, "proof-colors", "each core proof must declare at least one actual-scene semantic color check", proof=proof_id)
+        elif not isinstance(color_checks, list):
+            add(errors, "proof-color-type", "proof color_checks must be a list", proof=proof_id)
         else:
             for check_index, check in enumerate(color_checks):
                 if not isinstance(check, dict):

@@ -42,7 +42,7 @@
     "downbeat_source": 97.9407,
     "beats_per_bar": 4,
     "phrase_beats": 16,
-    "section_beats": [8, 16, 16, 32, 16, 16, 12, 4]
+    "section_beats": [7, 12, 15, 26, 12, 13, 8, 5]
   },
   "tools": {
     "ffmpeg": "D:/Projects/Word2Sentence/promo-video/tools/ffmpeg-9.0.1-essentials_build/bin/ffmpeg.exe",

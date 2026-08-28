@@ -152,11 +152,17 @@ def main() -> int:
         timestamps[round(float(proof["time"]), 4)] = f"proof {proof.get('id')}"
         stable = max(0.8, float(proof.get("min_stable_seconds", 0.8)))
         proof_times = [float(proof["time"]) - stable / 2.0, float(proof["time"]), float(proof["time"]) + stable / 2.0]
+        product_ui_proof = str(contract.get("proof_visual_mode", "")).lower() == "product-ui"
         for proof_time in proof_times:
             try:
                 proof_image, trace = render_base_trace(config, timeline, proof_time)
             except Exception as exc:
                 errors.append(f"proof {proof.get('id')} @ {proof_time:.3f}s cannot render: {exc}")
+                continue
+            if product_ui_proof:
+                visible_images = [item for item in trace if item.get("type") == "image" and float(item.get("alpha", 0)) >= 0.72]
+                if not visible_images:
+                    errors.append(f"proof {proof.get('id')} @ {proof_time:.3f}s does not keep a real product screenshot visible")
                 continue
             for token in proof.get("expected_visible", []):
                 matches = [

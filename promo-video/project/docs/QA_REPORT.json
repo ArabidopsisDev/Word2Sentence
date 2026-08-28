@@ -1,8 +1,8 @@
 {
   "media": "D:\\Projects\\Word2Sentence\\promo-video\\word2sentence-promo-final.mp4",
-  "sha256": "D967481974D20DAA838BD31CC259ADCCD015987D7C388A00E896F5BB348A339B",
-  "size_bytes": 8454762,
-  "duration": 98.16,
+  "sha256": "B42FCF75226C3133777D6597563DE5ECF8C0F2CAA917E388DF1C5C4FF7F10F62",
+  "size_bytes": 9043527,
+  "duration": 80.16,
   "streams": [
     {
       "index": 0,
@@ -30,11 +30,11 @@
       "time_base": "1/12800",
       "start_pts": 0,
       "start_time": "0.000000",
-      "duration_ts": 1256448,
-      "duration": "98.160000",
-      "bit_rate": "361496",
+      "duration_ts": 1026048,
+      "duration": "80.160000",
+      "bit_rate": "576934",
       "bits_per_raw_sample": "8",
-      "nb_frames": "2454",
+      "nb_frames": "2004",
       "extradata_size": 46,
       "disposition": {
         "default": 1,
@@ -84,10 +84,10 @@
       "time_base": "1/48000",
       "start_pts": 0,
       "start_time": "0.000000",
-      "duration_ts": 4711680,
-      "duration": "98.160000",
-      "bit_rate": "321668",
-      "nb_frames": "4603",
+      "duration_ts": 3847680,
+      "duration": "80.160000",
+      "bit_rate": "319677",
+      "nb_frames": "3759",
       "extradata_size": 5,
       "disposition": {
         "default": 1,
@@ -128,9 +128,9 @@
       "time_base": "1/192000",
       "start_pts": 0,
       "start_time": "0.000000",
-      "duration_ts": 18846720,
-      "duration": "98.160000",
-      "bit_rate": "17",
+      "duration_ts": 15390720,
+      "duration": "80.160000",
+      "bit_rate": "20",
       "nb_frames": "6",
       "extradata_size": 63,
       "disposition": {
@@ -166,8 +166,8 @@
       "time_base": "1/192000",
       "start": 0,
       "start_time": "0.000000",
-      "end": 3768768,
-      "end_time": "19.629000",
+      "end": 2983680,
+      "end_time": "15.540000",
       "tags": {
         "title": "认识，还不等于会用"
       }
@@ -175,10 +175,10 @@
     {
       "id": 1,
       "time_base": "1/192000",
-      "start": 3768768,
-      "start_time": "19.629000",
-      "end": 6281280,
-      "end_time": "32.715000",
+      "start": 2983680,
+      "start_time": "15.540000",
+      "end": 5339136,
+      "end_time": "27.808000",
       "tags": {
         "title": "把生词写进句子"
       }
@@ -186,10 +186,10 @@
     {
       "id": 2,
       "time_base": "1/192000",
-      "start": 6281280,
-      "start_time": "32.715000",
-      "end": 11306496,
-      "end_time": "58.888000",
+      "start": 5339136,
+      "start_time": "27.808000",
+      "end": 9422016,
+      "end_time": "49.073000",
       "tags": {
         "title": "让错误留下线索"
       }
@@ -197,10 +197,10 @@
     {
       "id": 3,
       "time_base": "1/192000",
-      "start": 11306496,
-      "start_time": "58.888000",
-      "end": 13819008,
-      "end_time": "71.974000",
+      "start": 9422016,
+      "start_time": "49.073000",
+      "end": 11306496,
+      "end_time": "58.888000",
       "tags": {
         "title": "复习由表现决定"
       }
@@ -208,10 +208,10 @@
     {
       "id": 4,
       "time_base": "1/192000",
-      "start": 13819008,
-      "start_time": "71.974000",
-      "end": 16331520,
-      "end_time": "85.060000",
+      "start": 11306496,
+      "start_time": "58.888000",
+      "end": 13347840,
+      "end_time": "69.520000",
       "tags": {
         "title": "让进步看得见"
       }
@@ -219,10 +219,10 @@
     {
       "id": 5,
       "time_base": "1/192000",
-      "start": 16331520,
-      "start_time": "85.060000",
-      "end": 18846720,
-      "end_time": "98.160000",
+      "start": 13347840,
+      "start_time": "69.520000",
+      "end": 15390720,
+      "end_time": "80.160000",
       "tags": {
         "title": "边界写在明处"
       }
@@ -233,44 +233,44 @@
     "message": ""
   },
   "loudness": {
-    "input_i": "-17.93",
-    "input_tp": "-3.39",
-    "input_lra": "6.10",
-    "input_thresh": "-28.17",
-    "output_i": "-15.20",
+    "input_i": "-18.02",
+    "input_tp": "-3.44",
+    "input_lra": "6.60",
+    "input_thresh": "-28.25",
+    "output_i": "-14.99",
     "output_tp": "-1.50",
-    "output_lra": "3.90",
-    "output_thresh": "-25.37",
+    "output_lra": "4.60",
+    "output_thresh": "-25.18",
     "normalization_type": "dynamic",
-    "target_offset": "-0.80"
+    "target_offset": "-1.01"
   },
   "fade_windows": [
     {
-      "start": 93.16,
-      "mean_db": -20.9,
+      "start": 75.16,
+      "mean_db": -20.1,
       "label": "pre-fade"
     },
     {
-      "start": 94.16,
-      "mean_db": -19.5
+      "start": 76.16,
+      "mean_db": -19.4
     },
     {
-      "start": 95.16,
-      "mean_db": -25.1
+      "start": 77.16,
+      "mean_db": -23.7
     },
     {
-      "start": 96.16,
-      "mean_db": -30.2
+      "start": 78.16,
+      "mean_db": -26.3
     },
     {
-      "start": 97.16,
-      "mean_db": -41.7
+      "start": 79.16,
+      "mean_db": -36.4
     }
   ],
   "fade_entrance": {
     "window_seconds": 0.25,
-    "before_db": -18.6,
-    "after_db": -17.1
+    "before_db": -21.4,
+    "after_db": -22.9
   },
   "errors": [],
   "warnings": []
