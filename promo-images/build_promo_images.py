@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parent
 PROJECT = ROOT.parent
 BG = ROOT / "backgrounds"
 OUT = ROOT / "output"
-APP = PROJECT / "promo-video" / "assets" / "images" / "app"
+APP = ROOT / "assets" / "app"
 ICON = PROJECT / "Word2Sentence" / "Assets" / "Word2Sentence.ico"
 
 W, H = 1920, 1080

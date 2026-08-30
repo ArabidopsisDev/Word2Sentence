@@ -22,4 +22,4 @@
 python promo-images/build_promo_images.py
 ```
 
-脚本读取 `promo-video/assets/images/app` 下的真实中文界面截图，并写入 `promo-images/output`。
+脚本读取 `promo-images/assets/app` 下的真实中文界面截图，并写入 `promo-images/output`。宣传图工程不依赖任何视频剪辑目录。

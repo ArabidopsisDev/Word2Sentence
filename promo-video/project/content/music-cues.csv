@@ -1,9 +1,0 @@
-﻿scene_id,section,start,end,start_seconds,end_seconds,bgm_source_start,bgm_source_end,beats,energy,edit_note
-1,开源项目开场,00:00,00:05,0.000,5.725,97.941,103.666,7,quiet,Provisional timing; align opening reveal to the supplied BGM phrase.
-2,从释义到搭配缺口,00:05,00:15,5.725,15.540,103.666,113.481,12,building,Provisional timing; keep the definition and collocation reveal within one phrase.
-3,词库到造句的连续流程,00:15,00:27,15.540,27.808,113.481,125.749,15,building,"Provisional timing; align word transfer, scenario reveal, and submit action to local beats."
-4,反馈结果拆分与留存,00:27,00:49,27.808,49.073,125.749,147.014,26,rise-to-high,"Provisional timing; stagger feedback colors, rewrites, usage card, and confirmation dialog."
-5,证据进入自动调度,00:49,00:58,49.073,58.888,147.014,156.828,12,high,Provisional timing; place the FSRS result and conflict branch on separate phrase accents.
-6,学习轨迹与掌握情况,00:58,01:09,58.888,69.520,156.828,167.461,13,high,Keep one full statistics window and scroll from calendar/streak to trends and reinforcement metrics.
-7,本地数据与外部服务边界,01:09,01:16,69.520,76.063,167.461,174.004,8,high-to-outro,"Provisional timing; separate local storage, provider routing, and language controls."
-8,从一句话开始,01:16,01:20,76.063,80.160,174.004,178.101,5,outro,Provisional timing; reserve the final BGM cadence and fade for the end card.

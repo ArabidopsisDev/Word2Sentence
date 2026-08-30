@@ -1,10 +1,16 @@
 <div align="center">
-  <img src="docs/images/logo.svg" width="128" height="128" alt="Word2Sentence logo" />
+  <img src="promo-images/output/01-overview.png" alt="Word2Sentence 总体功能：词库、造句、AI 批改、自动复习与学习统计" />
+
   <h1>Word2Sentence</h1>
-  <p><strong>Learn vocabulary by using it—not by staring at it.</strong></p>
+  <p><strong>把生词写进句子里，直到真正会用。</strong></p>
+
   <p>
-    <a href="README.zh-CN.md">简体中文</a>
+    <a href="README.en.md">English</a>
+    · <a href="#快速开始">快速开始</a>
+    · <a href="#自动复习怎样工作">自动复习</a>
+    · <a href="#本地数据与隐私">数据与隐私</a>
   </p>
+
   <p>
     <img alt=".NET 10" src="https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet" />
     <img alt="WPF" src="https://img.shields.io/badge/UI-WPF-0078D4?logo=windows" />
@@ -15,115 +21,90 @@
   </p>
 </div>
 
-Word2Sentence is a local-first Windows desktop app for learning words through sentence production. You add a word you do not know, the AI creates a realistic writing situation, and your sentence receives inline feedback, corrected wording, a stronger rewrite, and a usage card.
+Word2Sentence 是一款本地优先的 Windows 桌面词汇学习软件。你主动加入不会的单词，AI 给出具体情境，你在情境中独立造句；提交后，软件提供逐段反馈、修改后的句子、更自然的表达和可复习的用法卡。
 
-Review scheduling is automatic. The app does **not** ask learners to rate themselves as Again, Hard, Good, or Easy. Instead, a dedicated AI evidence pass checks the target term's spelling, meaning, form, collocation, and local grammar. Deterministic local rules then feed an audited FSRS-6 scheduler.
+复习时间根据实际作答表现自动安排。软件不会让用户自行选择“好 / 中 / 差”，也不会显示 Again / Hard / Good / Easy 自评按钮。
 
-## Screenshots
+> [!IMPORTANT]
+> Word2Sentence 不把学习范围限制在英语。界面语言、学习目标语言和 AI 解释语言可以分别设置，词项输入支持 Unicode。
 
-### Dashboard
+## 为什么使用造句学习单词
 
-![English dashboard showing due words and recent usage cards](docs/images/dashboard.png)
-
-### Learning statistics
-
-![English learning statistics with activity calendar, streak, trend chart, and score summary](docs/images/statistics.png)
-
-The statistics page derives every metric from local word and sentence-review history: a six-week activity calendar, current and best streaks, 14-day review/score/new-word trends, score distribution, mastery stages, active-recall coverage, stable mastery, and words that need reinforcement.
-
-### Practice modes
-
-![English practice mode selector with automatic recommendation and recent candidates](docs/images/practice.png)
-
-Start immediately with the scheduler's most urgent recommendation, or choose freely from the same recent-review candidate queue. During the exercise, the usage pattern and example stay hidden until submission so the app still measures independent recall.
-
-### Languages, model, and review settings
-
-![English settings screen showing language and FSRS options](docs/images/settings.png)
-
-### Word library
-
-![English word library with custom selectable rows](docs/images/library.png)
-
-### About and open-source information
-
-![English About page with developer, license, awesome-fsrs listing, and GitHub actions](docs/images/about.png)
-
-## What makes it different
-
-- **Production before recognition** — every review asks the learner to create a sentence.
-- **Two practice modes** — accept the most urgent automatic recommendation or choose from the latest due/soon-due candidates.
-- **Cohesive desktop chrome** — custom, resizable WPF title bars replace visually disconnected system frames.
-- **Inline feedback** — excellent spans are green, acceptable spans are blue, and grammar or usage errors are red.
-- **Two useful rewrites** — one sentence fixes only errors; another demonstrates a more natural expression.
-- **Usage cards built for collocations** — the AI returns 2–3 separate pattern/meaning rows after submission; combined slash-delimited patterns are rejected and split.
-- **Human approval for new error words** — suggested words are normalized, deduplicated, and shown in a selection dialog before being saved.
-- **Structured word notes** — AI error candidates return a separate part of speech and a definition with repeated `word:` prefixes removed.
-- **No self-rating buttons** — memory grades are generated from evidence, not learner confidence.
-- **Progress you can inspect** — calendar heatmaps, streaks, score trends, mastery stages, active-recall coverage, and reinforcement candidates are calculated locally from real learning history.
-- **Local-first storage** — the word library, review history, usage cards, and scheduler state stay in one local JSON file.
-- **Multilingual by design** — the interface supports English and Simplified Chinese; target and explanation languages are configurable, and word validation accepts Unicode scripts.
-- **Open-source About page** — shows the developer, version, AGPL-3.0-only license, verified awesome-fsrs listing, source link, and GitHub star prompt.
-
-## Learning flow
+只记住释义，并不等于知道怎样搭配、变形和放进真实表达。Word2Sentence 把一次学习拆成连续闭环：
 
 ```mermaid
 flowchart LR
-    A["Add a target term"] --> B["AI creates a scenario"]
-    B --> C["Write without seeing the usage card"]
-    C --> D["Writing feedback"]
-    C --> E["Independent target-usage evidence"]
-    E --> F{"Evidence reliable?"}
-    F -- Yes --> G["Automatic internal FSRS grade"]
-    F -- No --> H["10-minute evidence retest\nFSRS state unchanged"]
-    G --> I["FSRS-6 schedules the next review"]
-    D --> J["Corrected sentence + stronger sentence"]
-    D --> K["Reveal and save the usage card"]
+    A["主动加入生词"] --> B["AI 生成具体情境"]
+    B --> C["独立写下句子"]
+    C --> D["逐段批改与两个改写版本"]
+    D --> E["生成用法卡并确认其他错词"]
+    D --> F["多维证据自动进入 FSRS-6"]
+    F --> G["安排下次复习"]
+    G --> H["日历、分数与掌握统计"]
 ```
 
-## Automatic memory scheduling
+## 从生词到独立造句
 
-The 0–100 writing score is presentation feedback; it does not directly control the interval.
+![Word2Sentence 情境造句流程](promo-images/output/02-sentence-practice.png)
 
-The independent evidence pass returns factual fields:
+- **两种练习方式**：直接接受最需要复习的自动推荐，或从近期候选中自由选择。
+- **情境先于答案**：AI 提供真实、具体的写作情境，但提交前隐藏用法卡和完整示例。
+- **记录真实作答过程**：提示、粘贴、作答时间和修改次数会进入证据判断。
 
-- target present;
-- spelling correct;
-- intended meaning correct;
-- word form correct;
-- collocation correct;
-- local grammar correct;
-- natural usage;
-- whether a core correction is required;
-- confidence.
+## 批改之后留下什么
 
-Local rules map those facts to FSRS's internal rating. Revealing a hint or pasting text prevents an Easy result. Easy is not based on a fixed number of seconds: it is available only after at least ten successful personal samples establish a response-time baseline.
+![Word2Sentence 逐段反馈、用法卡与错词确认](promo-images/output/03-feedback-and-usage.png)
 
-Low-confidence or conflicting evidence triggers a second independent check. If the two passes still disagree, the app preserves the long-term FSRS state and queues an automatic 10-minute retest.
+| 结果 | 用途 |
+| --- | --- |
+| 绿色 / 蓝色 / 红色逐段标注 | 区分表达自然、正确但可优化、语法或用法错误 |
+| 修改后的句子 | 只修正原句中的错误 |
+| 表达更好的句子 | 展示更自然的表达方式 |
+| 2–3 条独立用法卡 | 一行一个“搭配模式 + 直接含义”，避免把多个用法糊在一起 |
+| 错词候选窗口 | 去重后显示词性和释义，由用户决定是否加入词库 |
 
-The scheduler is a deterministic C# port aligned with `py-fsrs 6.3.1`:
+最近生成的 10 张用法卡会在首页轮播，方便把“认识这个词”继续推进到“记得怎样使用”。
 
-- published 21-parameter FSRS-6 defaults;
-- 90% desired retention;
-- 1-minute and 10-minute learning steps;
-- 10-minute relearning step;
-- no custom interval multipliers;
-- interval fuzzing disabled for reproducible desktop behavior.
+## 自动复习与学习统计
 
-Reference-vector checks cover initial ratings, learning transitions, successful reviews, lapses, stability, difficulty, and due times. See [The FSRS Algorithm](https://github.com/open-spaced-repetition/awesome-fsrs/wiki/The-Algorithm) and the [Anki FSRS documentation](https://docs.ankiweb.net/deck-options).
+![Word2Sentence 自动复习与学习统计](promo-images/output/04-statistics-and-review.png)
 
-## Requirements
+- AI 独立核验目标词是否出现，以及拼写、词义、词形、搭配、局部语法和自然度；
+- 本地确定性规则将证据映射为内部记忆等级，再交给 FSRS-6；
+- 证据置信度不足或两次判断冲突时，不修改长期 FSRS 状态，而是安排短时复测；
+- 统计页提供六周打卡日历、当前与最长连胜、14 天练习/平均分/新增词趋势、分数分布、掌握阶段、主动回忆覆盖率、稳定掌握率和待强化词。
 
-- Windows 10 or Windows 11
+## 自动复习怎样工作
+
+整句 `0–100` 分用于反馈写作表现，**不直接决定复习间隔**。调度依据来自独立目标词证据：
+
+- 目标词是否出现；
+- 拼写、预期词义和词形是否正确；
+- 搭配、局部语法和自然度；
+- 是否需要核心修正；
+- AI 证据置信度；
+- 是否查看提示、粘贴输入、响应时间与修改次数。
+
+调度器是与 `py-fsrs 6.3.1` 对齐的确定性 C# 实现：
+
+- FSRS-6 发布的 21 参数默认值；
+- 90% 目标留存率；
+- 1 分钟、10 分钟学习步骤和 10 分钟重学步骤；
+- 不添加自定义间隔倍率；
+- 关闭 interval fuzz，便于复现与参考向量核对。
+
+参考：[FSRS 算法公式](https://github.com/open-spaced-repetition/awesome-fsrs/wiki/The-Algorithm)、[Anki FSRS 文档](https://docs.ankiweb.net/deck-options)。
+
+## 快速开始
+
+### 环境要求
+
+- Windows 10 或 Windows 11
 - [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
-- An [OpenRouter](https://openrouter.ai/) API key for full AI feedback
-
-Without a key, the app remains usable in a limited offline-check mode, but it does not update long-term memory state from unreliable evidence.
-
-## Quick start
+- 完整 AI 功能需要 [OpenRouter](https://openrouter.ai/) API Key
 
 ```powershell
-git clone <your-repository-url>
+git clone https://github.com/ArabidopsisDev/Word2Sentence.git
 cd Word2Sentence
 
 [Environment]::SetEnvironmentVariable('OR_KEY', 'sk-or-...', 'User')
@@ -131,17 +112,17 @@ cd Word2Sentence
 dotnet run --project .\Word2Sentence\Word2Sentence.csproj
 ```
 
-The default OpenRouter model is `stealth/ox-alpha`. The model ID can be changed from Settings; `deepseek/deepseek-v4-flash-0731` is supported with low reasoning effort, one combined structured evaluation/evidence pass, conditional evidence recheck, empty-content retry, and a larger final-output budget.
+首次启动时可以选择：
 
-The key is read in this order:
+- **我是小白用户**：软件逐步引导注册 OpenRouter、找到一次性付款、充值并创建 Key；
+- **我是技术用户**：直接输入 API Key；
+- **暂时离线使用**：保留基础离线检查，但不以不可靠证据更新长期记忆状态。
 
-1. current process;
-2. current Windows user;
-3. machine environment.
+默认模型为 `stealth/ox-alpha`。设置页可以替换为其他 OpenRouter 模型；项目已针对 `deepseek/deepseek-v4-flash-0731` 处理低推理强度、结构化输出、空内容重试和条件式证据复核。
 
-It is never written to the project or the local data file.
+API Key 依次从当前进程、当前 Windows 用户和系统环境变量读取，也可以加密保存到 Windows 凭据管理器；不会写入仓库或学习数据文件。
 
-## Build and verify
+## 构建与验证
 
 ```powershell
 dotnet restore .\Word2Sentence.slnx
@@ -149,85 +130,80 @@ dotnet build .\Word2Sentence.slnx -c Release --no-restore
 dotnet run --project .\Word2Sentence.AlgorithmChecks\Word2Sentence.AlgorithmChecks.csproj -c Release --no-build
 ```
 
-Expected algorithm-check output:
+核心检查输出包括：
 
 ```text
 FSRS_6_3_1_CONFORMANCE_OK
 AUTOMATIC_MEMORY_GRADE_OK
+SCENARIO_DIVERSITY_OK
+OPENROUTER_ONBOARDING_OK
+STATISTICS_ANALYTICS_OK
 ```
 
-Regenerate the multi-size Windows icon after changing the brand mark:
+修改品牌图形后，可重新生成多尺寸 Windows 图标：
 
 ```powershell
 pwsh -NoProfile -File .\tools\Generate-AppIcon.ps1
 ```
 
-## Configuration and data
+## 本地数据与隐私
 
-The default data file is:
+默认数据文件：
 
 ```text
 %LocalAppData%\Word2Sentence\wordbook.json
 ```
 
-For isolated development, tests, or screenshots, set `WORD2SENTENCE_DATA_DIR` for the process. This keeps demo data away from the real learner profile.
+完整词库、造句历史、用法卡、AI 证据、提示/粘贴行为、FSRS 状态和到期时间保存在本机。启用 AI 后，当前目标词、备注、题目情境和提交句子会发送给 OpenRouter 及所选模型提供方；不会发送完整词库。
 
-Stored data includes words, sentence history, AI evidence, hint/paste behavior, response time, usage cards, FSRS state, and due dates. Enabling AI sends the current target term, its note, the exercise, and the submitted sentence to OpenRouter and the selected model provider.
+开发、测试或截图时可以为当前进程设置 `WORD2SENTENCE_DATA_DIR`，将演示数据与真实学习档案隔离。
 
-## Project structure
+## 项目结构
 
 ```text
 Word2Sentence/
 ├─ .github/workflows/                 Windows CI
-├─ docs/images/                       Logo and English UI screenshots
-├─ Word2Sentence/                     WPF application
-│  ├─ Localization/                   Dynamic UI localization
-│  ├─ Models/                         Words, reviews, evidence, usage cards
-│  ├─ Services/
-│  │  ├─ AutomaticMemoryGradeService.cs
-│  │  ├─ DataStore.cs
-│  │  ├─ LocalizationService.cs
-│  │  ├─ OpenRouterService.cs
-│  │  ├─ ReviewScheduler.cs
-│  │  └─ WordCandidateService.cs
-│  └─ MainWindow.xaml                 Main desktop experience
-├─ Word2Sentence.AlgorithmChecks/     FSRS conformance checks
-├─ tools/Generate-AppIcon.ps1         Reproducible multi-size ICO generator
+├─ docs/images/                       Logo 与文档截图
+├─ promo-images/                      宣传图、独立 UI 素材与可重复构建脚本
+├─ Word2Sentence/                     WPF 主程序
+│  ├─ Models/                         单词、复习、证据、用法卡与统计模型
+│  ├─ Services/                       OpenRouter、本地数据、FSRS、评分与统计
+│  └─ MainWindow.xaml                 主桌面界面
+├─ Word2Sentence.AlgorithmChecks/     FSRS 与行为一致性检查
+├─ tools/Generate-AppIcon.ps1         多尺寸 Windows 图标生成器
 └─ Word2Sentence.slnx
 ```
 
-## Roadmap
+仓库只包含软件源码、文档和宣传图片；视频成片与剪辑工程不属于源码仓库。
 
-- [x] Sentence-first vocabulary workflow
-- [x] English and Simplified Chinese interface
-- [x] Configurable target and explanation languages
-- [x] Inline AI feedback and two rewrites
-- [x] Usage-card carousel
-- [x] Automatic evidence-to-FSRS scheduling
-- [x] JSON extraction, healing, and repair retry
-- [x] Learning statistics, streaks, activity calendar, and progress charts
-- [ ] Import/export packages
-- [ ] Per-usage-card memory states for polysemous words
-- [ ] Parameter optimization after sufficient review history
-- [ ] Packaged Windows release and installer
+## 路线图
 
-## Contributing
+- [x] 中英双语界面与可配置学习语言
+- [x] AI 逐段反馈与两个改写版本
+- [x] 用法卡、首页轮播和用户确认错词
+- [x] 自动 AI 证据到 FSRS-6 调度
+- [x] JSON 提取、修复和空内容重试
+- [x] 打卡日历、连胜、趋势、分数与掌握统计
+- [ ] 导入 / 导出学习包
+- [ ] 多义词按具体用法分别维护记忆状态
+- [ ] 历史数据充分后优化个性化 FSRS 参数
+- [ ] Windows 安装包与正式 Release
 
-Issues and pull requests are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing a substantial behavior or scheduling change. Algorithm changes must include reference vectors or held-out evaluation evidence; new hand-tuned interval constants are not accepted.
+## 开源与社区
 
-## Acknowledgements
+Word2Sentence 已被 [open-spaced-repetition/awesome-fsrs](https://github.com/open-spaced-repetition/awesome-fsrs) 和 [OpenRecite/awesome-recite-tools](https://github.com/OpenRecite/awesome-recite-tools) 收录。
 
-- [Project-MethodBox/GalReview](https://github.com/Project-MethodBox/GalReview) for the due-set-first review architecture.
-- [Open Spaced Repetition](https://github.com/open-spaced-repetition) for FSRS research and reference implementations.
-- [OpenRouter](https://openrouter.ai/docs/quickstart) for the model-routing API.
-- [Microsoft Fluent 2](https://fluent2.microsoft.design/) for layout, typography, and interaction guidance.
+欢迎提交 Issue 和 Pull Request。对调度算法的修改必须附带参考向量、仿真或留出数据验证，不接受新增未经验证的手调间隔常数。请先阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
-## License
+## 致谢
+
+- [Project-MethodBox/GalReview](https://github.com/Project-MethodBox/GalReview)
+- [Open Spaced Repetition](https://github.com/open-spaced-repetition)
+- [OpenRouter](https://openrouter.ai/docs/quickstart)
+- [Microsoft Fluent 2](https://fluent2.microsoft.design/)
+
+## 许可证
 
 Copyright © 2026 Word2Sentence contributors.
 
-Word2Sentence is licensed under the **GNU Affero General Public License v3.0 only** (`AGPL-3.0-only`). See [LICENSE](LICENSE) for the complete terms. The software is provided without warranty as described by the license.
-
-## Project status
-
-Word2Sentence is an active desktop prototype. Data formats and settings may evolve before the first packaged release.
+Word2Sentence 采用 **GNU Affero General Public License v3.0 only**（`AGPL-3.0-only`）授权。完整条款请参阅 [LICENSE](LICENSE)；软件按许可证所述不提供担保。
